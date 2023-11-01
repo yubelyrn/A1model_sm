@@ -71,8 +71,8 @@ cfg.recordDipole = True
 
 cfg.simLabel = 'samn_ASSR_wE_1_5_wI_1_0'
 cfg.saveFolder = 'data/ASSR_test'                	## Set file output name
-cfg.savePickle = True         							## Save pkl file
-cfg.saveJson = False           							## Save json file
+cfg.savePickle = False         							## Save pkl file
+cfg.saveJson = True           							## Save json file
 cfg.saveDataInclude = ['simData', 'simConfig', 'netParams', 'net'] 
 cfg.backupCfgFile = None
 cfg.gatherOnlySimData = False
@@ -80,16 +80,16 @@ cfg.saveCellSecs = True		   	 # False
 cfg.saveCellConns = False
 
 #------------------------------------------------------------------------------
-# Analysis and plotting 
+# Analysis and plotting
 #----------------------------------------------------------------------------- 
 #
 
-#cfg.analysis['plotTraces'] = {'include': [(pop, 0) for pop in cfg.allpops], 'oneFigPer': 'trace', 'overlay': True, 'saveFig': True, 'showFig': False, 'figSize':(12,8)} #[(pop,0) for pop in alltypes]		## Seen in M1 cfg.py (line 68) 
-#cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'popRates': True, 'orderInverse': True, 'timeRange': [0,cfg.duration], 'figSize': (14,12), 'lw': 0.3, 'markerSize': 3, 'marker': '.', 'dpi': 300}      	## Plot a raster
+#cfg.analysis['plotTraces'] = {'include': [(pop, 0) for pop in cfg.allpops], 'oneFigPer': 'trace', 'overlay': True, 'saveFig': True, 'showFig': False, 'figSize':(12,8)} #[(pop,0) for pop in alltypes]		## Seen in M1 cfg.py (line 68)
+cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'popRates': True, 'orderInverse': True, 'timeRange': [0,cfg.duration], 'figSize': (14,12), 'lw': 0.3, 'markerSize': 3, 'marker': '.', 'dpi': 300}      	## Plot a raster
 #cfg.analysis['plotSpikeStats'] = {'stats': ['rate'], 'figSize': (6,12), 'timeRange': [0, 2500], 'dpi': 300, 'showFig': 0, 'saveFig': 1}
 
 #cfg.analysis['plotLFP'] = {'plots': ['timeSeries'], 'electrodes': [10], 'maxFreq': 80, 'figSize': (8,4), 'saveData': False, 'saveFig': True, 'showFig': False} # 'PSD', 'spectrogram'
-#cfg.analysis['plotDipole'] = {'saveFig': True}
+cfg.analysis['plotDipole'] = {'saveFig': True}
 #cfg.analysis['plotEEG'] = {'saveFig': True}
 
 
@@ -131,7 +131,7 @@ cfg.useHScale = False
 # Network 
 #------------------------------------------------------------------------------
 ## These values taken from M1 cfg.py (https://github.com/Neurosim-lab/netpyne/blob/development/examples/M1detailed/cfg.py)
-cfg.singleCellPops = False #True #False
+cfg.singleCellPops = False
 cfg.singlePop = ''
 cfg.removeWeightNorm = False
 cfg.scale = 1.0     # Is this what should be used? 
@@ -232,7 +232,8 @@ cfg.tune = {}
 
 
 # ------------------------ ADD PARAM VALUES FROM .JSON FILES: 
-# COMMENT THIS OUT IF USING GCP !!! ONLY USE IF USING NEUROSIM!!! 
+# COMMENT THIS OUT IF USING GCP !!! ONLY USE IF USING NEUROSIM!!!
+'''
 import json
 
 with open('data/v34_batch25/trial_2142/trial_2142_cfg.json', 'rb') as f:       # 'data/salva_runs/v29_batch3_trial_13425_cfg.json'
@@ -302,7 +303,7 @@ cfg.IbkgThalamicGain = cfgLoad['IbkgThalamicGain']
 
 # UPDATE WMAT VALUES
 cfg.wmat = cfgLoad['wmat']
-
+'''
 cfg.ICThalInput = {'file': 'data/ICoutput/40Hz_10kHz_4s_AM_click_train_1kBMF_100CF.mat',#'data/ICoutput/ICoutput_CF_5256_6056_wav_BBN_100ms_burst.mat', # BBN_trials/ICoutput_CF_9600_10400_wav_BBN_100ms_burst_AN.mat', 
                    'startTime': 1500,#list(np.arange(5000, 9000, 300)),
                    'weightE': 1.5, # default=0.375

@@ -69,8 +69,8 @@ cfg.recordDipole = False
 # Saving
 #------------------------------------------------------------------------------
 
-cfg.simLabel = 'samn_ASSR_wE_1_5_wI_1_0'
-cfg.saveFolder = 'data/ASSR_test'                	## Set file output name
+cfg.simLabel = 'smc_ASSR_thalL4_Eu_Id'
+cfg.saveFolder = 'data/ASSR_tune'                	## Set file output name
 cfg.savePickle = True         							## Save pkl file
 cfg.saveJson = False           							## Save json file
 cfg.saveDataInclude = ['simData', 'simConfig', 'netParams', 'net'] 
@@ -242,7 +242,8 @@ cfg.thalL4E   = 1.0
 
 
 # ------------------------ ADD PARAM VALUES FROM .JSON FILES: 
-# COMMENT THIS OUT IF USING GCP !!! ONLY USE IF USING NEUROSIM!!! 
+# COMMENT THIS OUT IF USING GCP !!! ONLY USE IF USING NEUROSIM!!!
+'''
 import json
 
 with open('data/v34_batch25/trial_2142/trial_2142_cfg.json', 'rb') as f:       # 'data/salva_runs/v29_batch3_trial_13425_cfg.json'
@@ -312,6 +313,8 @@ cfg.IbkgThalamicGain = cfgLoad['IbkgThalamicGain']
 
 # UPDATE WMAT VALUES
 cfg.wmat = cfgLoad['wmat']
+
+'''
 
 cfg.ICThalInput = {'file': 'data/ICoutput/40Hz_10kHz_4s_AM_click_train_1kBMF_100CF.mat',#'data/ICoutput/ICoutput_CF_5256_6056_wav_BBN_100ms_burst.mat', # BBN_trials/ICoutput_CF_9600_10400_wav_BBN_100ms_burst_AN.mat', 
                    'startTime': 1500,#list(np.arange(5000, 9000, 300)),
