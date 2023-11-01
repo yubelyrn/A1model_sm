@@ -149,10 +149,10 @@ def assr_batch_grid(filename):
         cfgLoad = json.load(f)['simConfig']
     cfgLoad2 = cfgLoad
 
-    # #### SET weights#### 
-    params[('thalL4PV')] = [0.5, 0.75]
-    params[('thalL4SOM')] = [0.5, 0.75]
-    params[('thalL4E')] = [1.25, 1.5]
+    # #### SET weights####
+    params[('thalL4PV')] = [0.75, 1]
+    params[('thalL4SOM')] = [0.75, 1]
+    params[('thalL4E')] = [0.5, 0.75]
 
     #### GROUPED PARAMS #### 
     groupedParams = [] 
@@ -216,15 +216,23 @@ def assr_batch_grid(filename):
 # ----------------------------------------------------------------------------------------------
 # Run configurations
 # ----------------------------------------------------------------------------------------------
-def setRunCfg(b, type='mpi_direct'):
-    if type=='mpi_direct':
-        b.runCfg = {'type': 'mpi_direct',
-            'nodes': 2,
-            'coresPerNode': 12,
-            'script': 'init.py',
-            'mpiCommand': 'mpiexec',
-            'skip': True}
-
+# def setRunCfg(b, type='mpi_direct'):
+#     if type=='mpi_direct':
+#         b.runCfg = {'type': 'mpi_direct',
+#             'nodes': 2,
+#             'coresPerNode': 12,
+#             'script': 'init.py',
+#             'mpiCommand': 'mpiexec',
+#             'skip': True}
+def setRunCfg(b, type='hpc_sge'):
+    if type == 'hpc_sge':
+        b.runCfg = {'type': 'hpc_sge', # for downstate HPC
+                    'jobName': 'smc_ASSR_batch1', # label for job
+                    'cores': 60, # give 60 cores here
+                    'script': 'init.py', # what you normally run
+                    'vmem': '256G', # or however much memory you need
+                    'walltime': 03:00:00, # make 2 hours or something
+                    'skip': True}
 # ----------------------------------------------------------------------------------------------
 # Main code
 # ----------------------------------------------------------------------------------------------
@@ -239,7 +247,7 @@ if __name__ == '__main__':
     b.batchLabel = 'ASSR_grid'   
     b.saveFolder = 'data/'+b.batchLabel
 
-    setRunCfg(b, 'mpi_direct')
+    setRunCfg(b, 'hpc_sge')
     b.run() # run batch
 
 
