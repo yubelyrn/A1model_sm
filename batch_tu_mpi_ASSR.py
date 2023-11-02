@@ -150,23 +150,24 @@ def assr_batch_grid(filename):
     cfgLoad2 = cfgLoad
 
     # #### SET weights####
-    params[('thalL4PV')] = [0.75, 1]
-    params[('thalL4SOM')] = [0.75, 1]
+    # params[('thalL4PV')] = [0.75, 1]
+    # params[('thalL4SOM')] = [0.75, 1]
     params[('thalL4E')] = [0.5, 0.75]
 
-    #### GROUPED PARAMS #### 
-    groupedParams = [] 
+    #### GROUPED PARAMS ####
+    groupedParams = []
 
     # --------------------------------------------------------
     # initial config
+
     initCfg = {} # set default options from prev sim
-    
-    initCfg['duration'] = 6000 #11500 
+
+    initCfg['duration'] = 6000 #11500
     initCfg['printPopAvgRates'] = [1500, 3500]
-    initCfg['scaleDensity'] = 1.0 
+    initCfg['scaleDensity'] = 1.0
     initCfg['recordStep'] = 0.05
 
-    # SET SEEDS FOR CONN AND STIM 
+    # SET SEEDS FOR CONN AND STIM
     initCfg[('seeds', 'conn')] = 0
 
 
@@ -175,19 +176,19 @@ def assr_batch_grid(filename):
     ### OPTION TO RECORD EEG / DIPOLE ###
     initCfg['recordDipole'] = True
     initCfg['saveCellSecs'] = False
-    initCfg['saveCellConns'] = False
-    
+    initCfg['saveCellConns'] = True
+
     # from prev - best of 50% cell density
     updateParams = ['EEGain', 'EIGain', 'IEGain', 'IIGain',
                     ('EICellTypeGain', 'PV'), ('EICellTypeGain', 'SOM'), ('EICellTypeGain', 'VIP'), ('EICellTypeGain', 'NGF'),
                     ('IECellTypeGain', 'PV'), ('IECellTypeGain', 'SOM'), ('IECellTypeGain', 'VIP'), ('IECellTypeGain', 'NGF'),
                     ('EILayerGain', '1'), ('IILayerGain', '1'),
-                    ('EELayerGain', '2'), ('EILayerGain', '2'),  ('IELayerGain', '2'), ('IILayerGain', '2'), 
-                    ('EELayerGain', '3'), ('EILayerGain', '3'), ('IELayerGain', '3'), ('IILayerGain', '3'), 
-                    ('EELayerGain', '4'), ('EILayerGain', '4'), ('IELayerGain', '4'), ('IILayerGain', '4'), 
-                    ('EELayerGain', '5A'), ('EILayerGain', '5A'), ('IELayerGain', '5A'), ('IILayerGain', '5A'), 
-                    ('EELayerGain', '5B'), ('EILayerGain', '5B'), ('IELayerGain', '5B'), ('IILayerGain', '5B'), 
-                    ('EELayerGain', '6'), ('EILayerGain', '6'), ('IELayerGain', '6'), ('IILayerGain', '6')] 
+                    ('EELayerGain', '2'), ('EILayerGain', '2'),  ('IELayerGain', '2'), ('IILayerGain', '2'),
+                    ('EELayerGain', '3'), ('EILayerGain', '3'), ('IELayerGain', '3'), ('IILayerGain', '3'),
+                    ('EELayerGain', '4'), ('EILayerGain', '4'), ('IELayerGain', '4'), ('IILayerGain', '4'),
+                    ('EELayerGain', '5A'), ('EILayerGain', '5A'), ('IELayerGain', '5A'), ('IILayerGain', '5A'),
+                    ('EELayerGain', '5B'), ('EILayerGain', '5B'), ('IELayerGain', '5B'), ('IILayerGain', '5B'),
+                    ('EELayerGain', '6'), ('EILayerGain', '6'), ('IELayerGain', '6'), ('IILayerGain', '6')]
 
     for p in updateParams:
         if isinstance(p, tuple):
@@ -195,7 +196,7 @@ def assr_batch_grid(filename):
         else:
             initCfg.update({p: cfgLoad[p]})
 
-    # good thal params for 100% cell density 
+    # good thal params for 100% cell density
     updateParams2 = ['thalamoCorticalGain', 'intraThalamicGain', 'EbkgThalamicGain', 'IbkgThalamicGain', 'wmat']
 
     for p in updateParams2:
@@ -227,11 +228,11 @@ def assr_batch_grid(filename):
 def setRunCfg(b, type='hpc_sge'):
     if type == 'hpc_sge':
         b.runCfg = {'type': 'hpc_sge', # for downstate HPC
-                    'jobName': 'smc_ASSR_batch1', # label for job
+                    'jobName': 'smc_ASSR_batch2', # label for job
                     'cores': 60, # give 60 cores here
                     'script': 'init.py', # what you normally run
                     'vmem': '256G', # or however much memory you need
-                    'walltime': 03:00:00, # make 2 hours or something
+                    'walltime': '4:00:00', # make 2 hours or something
                     'skip': True}
 # ----------------------------------------------------------------------------------------------
 # Main code
@@ -244,12 +245,11 @@ if __name__ == '__main__':
     #b = assr_batch('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'ASSR_grid'   
+    b.batchLabel = 'ASSR_grid2_smc'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_sge')
     b.run() # run batch
-
 
 
     

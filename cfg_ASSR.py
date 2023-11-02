@@ -61,7 +61,7 @@ cfg.recordLFP = [[100, y, 100] for y in range(0, 2000, 100)] #+[[100, 2500, 200]
 # cfg.recordLFP = [[x, 1000, 100] for x in range(100, 2200, 200)] #+[[100, 2500, 200], [100,2700,200]]
 # cfg.saveLFPPops =  cfg.allCorticalPops #, "IT3", "SOM3", "PV3", "VIP3", "NGF3", "ITP4", "ITS4", "IT5A", "CT5A", "IT5B", "PT5B", "CT5B", "IT6", "CT6"]
 
-cfg.recordDipole = False
+cfg.recordDipole = True
 # cfg.saveDipoleCells = ['all']
 # cfg.saveDipolePops = cfg.allpops
 
@@ -73,19 +73,19 @@ cfg.simLabel = 'smc_ASSR_thalL4_Eu_Id'
 cfg.saveFolder = 'data/ASSR_tune'                	## Set file output name
 cfg.savePickle = True         							## Save pkl file
 cfg.saveJson = False           							## Save json file
-cfg.saveDataInclude = ['simData', 'simConfig', 'netParams', 'net'] 
+cfg.saveDataInclude = ['simData', 'simConfig', 'netParams', 'net']
 cfg.backupCfgFile = None
 cfg.gatherOnlySimData = False
 cfg.saveCellSecs = True		   	 # False
-cfg.saveCellConns = False
+cfg.saveCellConns = True
 
 #------------------------------------------------------------------------------
-# Analysis and plotting 
-#----------------------------------------------------------------------------- 
+# Analysis and plotting
+#-----------------------------------------------------------------------------
 #
 
-#cfg.analysis['plotTraces'] = {'include': [(pop, 0) for pop in cfg.allpops], 'oneFigPer': 'trace', 'overlay': True, 'saveFig': True, 'showFig': False, 'figSize':(12,8)} #[(pop,0) for pop in alltypes]		## Seen in M1 cfg.py (line 68) 
-#cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'popRates': True, 'orderInverse': True, 'timeRange': [0,cfg.duration], 'figSize': (14,12), 'lw': 0.3, 'markerSize': 3, 'marker': '.', 'dpi': 300}      	## Plot a raster
+#cfg.analysis['plotTraces'] = {'include': [(pop, 0) for pop in cfg.allpops], 'oneFigPer': 'trace', 'overlay': True, 'saveFig': True, 'showFig': False, 'figSize':(12,8)} #[(pop,0) for pop in alltypes]		## Seen in M1 cfg.py (line 68)
+cfg.analysis['plotRaster'] = {'includecd': cfg.allpops, 'saveFig': True, 'showFig': False, 'popRates': True, 'orderInverse': True, 'timeRange': [0,cfg.duration], 'figSize': (14,12), 'lw': 0.3, 'markerSize': 3, 'marker': '.', 'dpi': 300}      	## Plot a raster
 #cfg.analysis['plotSpikeStats'] = {'stats': ['rate'], 'figSize': (6,12), 'timeRange': [0, 2500], 'dpi': 300, 'showFig': 0, 'saveFig': 1}
 
 #cfg.analysis['plotLFP'] = {'plots': ['timeSeries'], 'electrodes': [10], 'maxFreq': 80, 'figSize': (8,4), 'saveData': False, 'saveFig': True, 'showFig': False} # 'PSD', 'spectrogram'
@@ -95,7 +95,7 @@ cfg.saveCellConns = False
 
 #layer_bounds= {'L1': 100, 'L2': 160, 'L3': 950, 'L4': 1250, 'L5A': 1334, 'L5B': 1550, 'L6': 2000}
 #cfg.analysis['plotCSD'] = {'spacing_um': 100, 'LFP_overlay': 1, 'layer_lines': 1, 'layer_bounds': layer_bounds, 'saveFig': 1, 'showFig': 0}
-#cfg.analysis['plot2Dnet'] = True      	## Plot 2D visualization of cell positions & connections 
+#cfg.analysis['plot2Dnet'] = True      	## Plot 2D visualization of cell positions & connections
 
 
 #------------------------------------------------------------------------------
@@ -103,11 +103,11 @@ cfg.saveCellConns = False
 #------------------------------------------------------------------------------
 cfg.weightNormThreshold = 5.0  # maximum weight normalization factor with respect to the soma
 cfg.weightNormScaling = {'NGF_reduced': 1.0, 'ITS4_reduced': 1.0}
-cfg.ihGbar = 1.0 
+cfg.ihGbar = 1.0
 cfg.KgbarFactor = 1.0
 # For testing reduction in T-type calcium channel conductances
-# cfg.tTypeCorticalFactor = 1.0 
-# cfg.tTypeThalamicFactor = 1.0 
+# cfg.tTypeCorticalFactor = 1.0
+# cfg.tTypeThalamicFactor = 1.0
 # For testing NMDAR manipulations:
 # cfg.NMDARfactor = 1.0
 
@@ -128,15 +128,15 @@ cfg.useHScale = False
 
 
 #------------------------------------------------------------------------------
-# Network 
+# Network
 #------------------------------------------------------------------------------
 ## These values taken from M1 cfg.py (https://github.com/Neurosim-lab/netpyne/blob/development/examples/M1detailed/cfg.py)
 cfg.singleCellPops = False #True #False
 cfg.singlePop = ''
 cfg.removeWeightNorm = False
-cfg.scale = 1.0     # Is this what should be used? 
-cfg.sizeY = 2000.0 #1350.0 in M1_detailed # should this be set to 2000 since that is the full height of the column? 
-cfg.sizeX = 200.0 # 400 - This may change depending on electrode radius 
+cfg.scale = 1.0     # Is this what should be used?
+cfg.sizeY = 2000.0 #1350.0 in M1_detailed # should this be set to 2000 since that is the full height of the column?
+cfg.sizeX = 200.0 # 400 - This may change depending on electrode radius
 cfg.sizeZ = 200.0
 cfg.scaleDensity = 1.0 #0.25 #1.0 #0.075 # Should be 1.0 unless need lower cell density for test simulation or visualization
 
@@ -153,7 +153,7 @@ cfg.synWeightFractionII = [0.9, 0.1]  # SOM -> E GABAASlow to GABAB ratio (updat
 cfg.addConn = 1
 
 cfg.EEGain = 1.0
-cfg.EIGain = 1.0 # 1.8600534795309025 	
+cfg.EIGain = 1.0 # 1.8600534795309025
 cfg.IEGain = 1.0 #0.75
 cfg.IIGain = 1.0 #0.5
 
@@ -200,7 +200,7 @@ cfg.startBkg = 0  # start at 0 ms
 cfg.rateBkg = {'exc': 40, 'inh': 40}
 
 ## options to provide external sensory input
-#cfg.randomThalInput = True  # provide random bkg inputs spikes (NetStim) to thalamic populations 
+#cfg.randomThalInput = True  # provide random bkg inputs spikes (NetStim) to thalamic populations
 
 cfg.EbkgThalamicGain = 4.0
 cfg.IbkgThalamicGain = 4.0
@@ -208,12 +208,12 @@ cfg.IbkgThalamicGain = 4.0
 cfg.cochlearThalInput = False #{'numCells': 200, 'freqRange': [9*1e3, 11*1e3], 'toneFreq': 10*1e3, 'loudnessDBs': 50}  # parameters to generate realistic  auditory thalamic inputs using Brian Hears
 
 #------------------------------------------------------------------------------
-# Current inputs 
+# Current inputs
 #------------------------------------------------------------------------------
 cfg.addIClamp = 0
 
 #------------------------------------------------------------------------------
-# NetStim inputs 
+# NetStim inputs
 #------------------------------------------------------------------------------
 
 cfg.addNetStim = 0 #1
@@ -241,7 +241,7 @@ cfg.thalL4E   = 1.0
 
 
 
-# ------------------------ ADD PARAM VALUES FROM .JSON FILES: 
+# ------------------------ ADD PARAM VALUES FROM .JSON FILES:
 # COMMENT THIS OUT IF USING GCP !!! ONLY USE IF USING NEUROSIM!!!
 '''
 import json
@@ -316,10 +316,11 @@ cfg.wmat = cfgLoad['wmat']
 
 '''
 
-cfg.ICThalInput = {'file': 'data/ICoutput/40Hz_10kHz_4s_AM_click_train_1kBMF_100CF.mat',#'data/ICoutput/ICoutput_CF_5256_6056_wav_BBN_100ms_burst.mat', # BBN_trials/ICoutput_CF_9600_10400_wav_BBN_100ms_burst_AN.mat', 
+cfg.ICThalInput = {'file': 'data/ICoutput/40Hz_10kHz_4s_AM_click_train_1kBMF_100CF.mat',#'data/ICoutput/ICoutput_CF_5256_6056_wav_BBN_100ms_burst.mat', # BBN_trials/ICoutput_CF_9600_10400_wav_BBN_100ms_burst_AN.mat',
                    'startTime': 1500,#list(np.arange(5000, 9000, 300)),
-                   'weightE': 1.5, # default=0.375
-                   'weightI': 1.0, # default=0.375
-                   'probE': 0.19, 
+                   'weightE': 1.5,
+                   'weightI': 1.0,
+                   'probE': 0.19,
                    'probI': 0.19,
-                   'seed': 1}  # SHOULD THIS BE ZERO?                   
+                   'seed': 1}  # SHOULD THIS BE ZERO?
+
