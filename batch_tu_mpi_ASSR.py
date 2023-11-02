@@ -13,8 +13,6 @@ import numpy as np
 # ----------------------------------------------------------------------------------------------
 # 40 Hz ASSR optimization
 # ----------------------------------------------------------------------------------------------
-<<<<<<< HEAD:batch_ASSRsmc.py
-=======
 def assr_batch(filename):
     params = specs.ODict()
 
@@ -138,7 +136,6 @@ def assr_batch(filename):
     return b
 
 
->>>>>>> main:batch_tu_mpi_ASSR.py
 
 def assr_batch_grid(filename):
     params = specs.ODict()
@@ -179,7 +176,7 @@ def assr_batch_grid(filename):
     ### OPTION TO RECORD EEG / DIPOLE ###
     initCfg['recordDipole'] = True
     initCfg['saveCellSecs'] = False
-    initCfg['saveCellConns'] = False
+    initCfg['saveCellConns'] = True
 
     # from prev - best of 50% cell density
     updateParams = ['EEGain', 'EIGain', 'IEGain', 'IIGain',
@@ -220,6 +217,14 @@ def assr_batch_grid(filename):
 # ----------------------------------------------------------------------------------------------
 # Run configurations
 # ----------------------------------------------------------------------------------------------
+# def setRunCfg(b, type='mpi_direct'):
+#     if type=='mpi_direct':
+#         b.runCfg = {'type': 'mpi_direct',
+#             'nodes': 2,
+#             'coresPerNode': 12,
+#             'script': 'init.py',
+#             'mpiCommand': 'mpiexec',
+#             'skip': True}
 def setRunCfg(b, type='hpc_sge'):
     if type == 'hpc_sge':
         b.runCfg = {'type': 'hpc_sge', # for downstate HPC
@@ -240,7 +245,7 @@ if __name__ == '__main__':
     #b = assr_batch('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'ASSR_grid3_smc'
+    b.batchLabel = 'ASSR_grid2_smc'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_sge')
