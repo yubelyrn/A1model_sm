@@ -27,9 +27,9 @@ def assr_batch_grid(filename):
     cfgLoad2 = cfgLoad
 
     # #### SET weights####
-    # params[('thalL4PV')] = [0.75, 1]
-    # params[('thalL4SOM')] = [0.75, 1]
-    params[('thalL4E')] = [0.5, 0.75]
+    params[('thalL4E')] = [1.0, 1.5]
+    params[('ICThalweightEcore')] = [0.375, 1.5]
+    params[('ICThalweightIcore')] = [0.375, 1.5]
 
     #### GROUPED PARAMS ####
     groupedParams = []
@@ -84,7 +84,7 @@ def assr_batch_grid(filename):
 
 
 
-    b = Batch(params=params, netParamsFile='netParams_ASSR.py', cfgFile='cfg_ASSR.py', initCfg=initCfg, groupedParams=groupedParams)
+    b = Batch(params=params, netParamsFile='netParams.py', cfgFile='cfg.py', initCfg=initCfg, groupedParams=groupedParams)
     b.method = 'grid'
 
     return b
@@ -114,7 +114,7 @@ if __name__ == '__main__':
     #b = assr_batch('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'ASSR_grid3_smc'
+    b.batchLabel = 'ASSR_grid4_smc'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_sge')

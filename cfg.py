@@ -69,10 +69,10 @@ cfg.recordDipole = True
 # Saving
 #------------------------------------------------------------------------------
 
-cfg.simLabel = 'samn_ASSR_wE_1_5_wI_1_0'
-cfg.saveFolder = 'data/ASSR_test'                	## Set file output name
-cfg.savePickle = False         							## Save pkl file
-cfg.saveJson = True           							## Save json file
+cfg.simLabel = 'smc_11_3_test'
+cfg.saveFolder = 'data/' + cfg.simLabel  ## Set file output name
+cfg.savePickle = True         							## Save pkl file
+cfg.saveJson = False           							## Save json file
 cfg.saveDataInclude = ['simData', 'simConfig', 'netParams', 'net'] 
 cfg.backupCfgFile = None
 cfg.gatherOnlySimData = False
@@ -131,7 +131,7 @@ cfg.useHScale = False
 # Network 
 #------------------------------------------------------------------------------
 ## These values taken from M1 cfg.py (https://github.com/Neurosim-lab/netpyne/blob/development/examples/M1detailed/cfg.py)
-cfg.singleCellPops = False
+cfg.singleCellPops = True
 cfg.singlePop = ''
 cfg.removeWeightNorm = False
 cfg.scale = 1.0     # Is this what should be used? 
@@ -171,13 +171,30 @@ cfg.IECellTypeGain= {'PV': 1.0, 'SOM': 1.0, 'VIP': 1.0, 'NGF': 1.0}
 
 # Thalamic
 cfg.addIntraThalamicConn = 1.0
-# cfg.addIntraThalamicConn = 1.0
+cfg.addCorticoThalamicConn = 1.0
 cfg.addCorticoThalamicConn = 1.0
 cfg.addThalamoCorticalConn = 1.0
 
 cfg.thalamoCorticalGain = 1.0
 cfg.intraThalamicGain = 1.0
 cfg.corticoThalamicGain = 1.0
+
+# these params control IC -> Thalamic Core
+cfg.ICThalweightECore = 0.375
+cfg.ICThalweightICore = 0.25
+cfg.ICThalprobECore = 0.19
+cfg.ICThalprobICore = 0.12
+
+# these params control IC -> Thalamic Matrix
+cfg.ICThalMatrixCoreFactor = 0.1
+cfg.ICThalweightEMatrix = cfg.ICThalweightECore * cfg.ICThalMatrixCoreFactor
+cfg.ICThalweightIMatrix = cfg.ICThalweightICore * cfg.ICThalMatrixCoreFactor
+cfg.ICThalprobEMatrix = cfg.ICThalprobECore # * cfg.ICThalMatrixCoreFactor
+cfg.ICThalprobIMatrix = cfg.ICThalprobICore # * cfg.ICThalMatrixCoreFactor
+
+# these params added from Christoph Metzner branch
+
+cfg.thalL4E = 1.0 # [minF,maxF]
 
 cfg.addSubConn = 1
 
@@ -306,8 +323,12 @@ cfg.wmat = cfgLoad['wmat']
 '''
 cfg.ICThalInput = {'file': 'data/ICoutput/40Hz_10kHz_4s_AM_click_train_1kBMF_100CF.mat',#'data/ICoutput/ICoutput_CF_5256_6056_wav_BBN_100ms_burst.mat', # BBN_trials/ICoutput_CF_9600_10400_wav_BBN_100ms_burst_AN.mat', 
                    'startTime': 1500,#list(np.arange(5000, 9000, 300)),
-                   'weightE': 1.5, # default=0.375
-                   'weightI': 1.0, # default=0.375
-                   'probE': 0.19, 
-                   'probI': 0.19,
+                   'weightECore': cfg.ICThalweightECore, # default=0.375
+                   'weightICore': cfg.ICthalweightIcore, # default=0.375
+                   'probECore': 0.19,
+                   'probICore': 0.19,
+                   'weightEMatrix': cfg.ICThalweightEMatrix,
+                   'weightIMatrix': cfg.ICThalweightIMatrix,
+                   'probEMatrix': cfg.ICThalprobEMatrix,
+                   'probIMatrix': cfg.ICThalprobIMatrix,
                    'seed': 1}  # SHOULD THIS BE ZERO?                   
