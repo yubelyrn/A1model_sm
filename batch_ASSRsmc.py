@@ -29,7 +29,7 @@ def assr_batch_grid(filename):
     # #### SET weights####
     params[('thalL4E')] = [1.0, 1.5]
     params[('ICThalweightEcore')] = [0.375, 1.5]
-    params[('ICThalweightIcore')] = [0.375, 1.5]
+    params[('ICThalweightIcore')] = [0.25, 1.0]
 
     #### GROUPED PARAMS ####
     groupedParams = []
