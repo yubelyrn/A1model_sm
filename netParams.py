@@ -684,29 +684,51 @@ if cfg.addBkgConn:
 
     # cochlea/IC -> thal
     if cfg.ICThalInput:
-        netParams.connParams['IC->ThalE'] = { 
-            'preConds': {'pop': 'IC'}, 
-            'postConds': {'cellType': ['TC', 'HTC']},
-            'sec': 'soma', 
+        netParams.connParams['IC->ThalECore'] = {
+            'preConds': {'pop': 'IC'},
+            'postConds': {'pop': ['TC', 'HTC']},
+            'sec': 'soma',
             'loc': 0.5,
             'synMech': ESynMech,
-            'probability': cfg.ICThalInput['probE'],
-            'weight': cfg.ICThalInput['weightE'],
+            'probability': cfg.ICThalInput['probECore'],
+            'weight': cfg.ICThalInput['weightECore'],
             'synMechWeightFactor': cfg.synWeightFractionEE,
             'delay': cfg.delayBkg}
-        
-        netParams.connParams['IC->ThalI'] = { 
-            'preConds': {'pop': 'IC'}, 
-            'postConds': {'cellType': ['RE', 'TI']},
-            'sec': 'soma', 
+
+        netParams.connParams['IC->ThalICore'] = {
+            'preConds': {'pop': 'IC'},
+            'postConds': {'pop': ['RE', 'TI']},
+            'sec': 'soma',
             'loc': 0.5,
             'synMech': 'GABAA',
-            'probability': cfg.ICThalInput['probI'],
-            'weight': cfg.ICThalInput['weightI'],
-            'delay': cfg.delayBkg}  
+            'probability': cfg.ICThalInput['probICore'],
+            'weight': cfg.ICThalInput['weightICore'],
+            'delay': cfg.delayBkg}
+
+        # IC -> thalamic matrix
+        netParams.connParams['IC->ThalEMatrix'] = {
+            'preConds': {'pop': 'IC'},
+            'postConds': {'pop': ['TCM']},
+            'sec': 'soma',
+            'loc': 0.5,
+            'synMech': ESynMech,
+            'probability': cfg.ICThalInput['probEMatrix'],
+            'weight': cfg.ICThalInput['weightEMatrix'],
+            'synMechWeightFactor': cfg.synWeightFractionEE,
+            'delay': cfg.delayBkg}
+
+        netParams.connParams['IC->ThalIMatrix'] = {
+            'preConds': {'pop': 'IC'},
+            'postConds': {'pop': ['IREM', 'TIM']},
+            'sec': 'soma',
+            'loc': 0.5,
+            'synMech': 'GABAA',
+            'probability': cfg.ICThalInput['probIMatrix'],
+            'weight': cfg.ICThalInput['weightIMatrix'],
+            'delay': cfg.delayBkg}
 
 
-#------------------------------------------------------------------------------
+    #------------------------------------------------------------------------------
 # Current inputs (IClamp)
 #------------------------------------------------------------------------------
 # if cfg.addIClamp:

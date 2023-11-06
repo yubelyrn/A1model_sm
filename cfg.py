@@ -131,7 +131,7 @@ cfg.useHScale = False
 # Network 
 #------------------------------------------------------------------------------
 ## These values taken from M1 cfg.py (https://github.com/Neurosim-lab/netpyne/blob/development/examples/M1detailed/cfg.py)
-cfg.singleCellPops = True
+cfg.singleCellPops = False
 cfg.singlePop = ''
 cfg.removeWeightNorm = False
 cfg.scale = 1.0     # Is this what should be used? 
@@ -324,7 +324,7 @@ cfg.wmat = cfgLoad['wmat']
 cfg.ICThalInput = {'file': 'data/ICoutput/40Hz_10kHz_4s_AM_click_train_1kBMF_100CF.mat',#'data/ICoutput/ICoutput_CF_5256_6056_wav_BBN_100ms_burst.mat', # BBN_trials/ICoutput_CF_9600_10400_wav_BBN_100ms_burst_AN.mat', 
                    'startTime': 1500,#list(np.arange(5000, 9000, 300)),
                    'weightECore': cfg.ICThalweightECore, # default=0.375
-                   'weightICore': cfg.ICthalweightIcore, # default=0.375
+                   'weightICore': cfg.ICThalweightICore, # default=0.375
                    'probECore': 0.19,
                    'probICore': 0.19,
                    'weightEMatrix': cfg.ICThalweightEMatrix,
