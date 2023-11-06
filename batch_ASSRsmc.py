@@ -28,8 +28,8 @@ def assr_batch_grid(filename):
 
     # #### SET weights####
     params[('thalL4E')] = [1.0, 1.5]
-    params[('ICThalweightEcore')] = [0.375, 1.5]
-    params[('ICThalweightIcore')] = [0.25, 1.0]
+    params[('ICThalweightEcore')] = [1.0, 1.5]
+    params[('ICThalweightIcore')] = [0.5, 1.0]
 
     #### GROUPED PARAMS ####
     groupedParams = []
@@ -46,9 +46,6 @@ def assr_batch_grid(filename):
 
     # SET SEEDS FOR CONN AND STIM
     initCfg[('seeds', 'conn')] = 0
-
-
-
 
     ### OPTION TO RECORD EEG / DIPOLE ###
     initCfg['recordDipole'] = True
