@@ -69,7 +69,7 @@ cfg.recordDipole = True
 # Saving
 #------------------------------------------------------------------------------
 
-cfg.simLabel = 'smc_11_3_test'
+cfg.simLabel = 'smc_11_7'
 cfg.saveFolder = 'data/' + cfg.simLabel  ## Set file output name
 cfg.savePickle = True         							## Save pkl file
 cfg.saveJson = False           							## Save json file
@@ -89,7 +89,7 @@ cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig'
 #cfg.analysis['plotSpikeStats'] = {'stats': ['rate'], 'figSize': (6,12), 'timeRange': [0, 2500], 'dpi': 300, 'showFig': 0, 'saveFig': 1}
 
 #cfg.analysis['plotLFP'] = {'plots': ['timeSeries'], 'electrodes': [10], 'maxFreq': 80, 'figSize': (8,4), 'saveData': False, 'saveFig': True, 'showFig': False} # 'PSD', 'spectrogram'
-cfg.analysis['plotDipole'] = {'saveFig': True}
+#cfg.analysis['plotDipole'] = {'saveFig': True}
 #cfg.analysis['plotEEG'] = {'saveFig': True}
 
 
@@ -180,7 +180,7 @@ cfg.intraThalamicGain = 1.0
 cfg.corticoThalamicGain = 1.0
 
 # these params control IC -> Thalamic Core
-cfg.ICThalweightECore = 0.375
+cfg.ICThalweightECore = 1.0
 cfg.ICThalweightICore = 0.25
 cfg.ICThalprobECore = 0.19
 cfg.ICThalprobICore = 0.12
@@ -189,12 +189,14 @@ cfg.ICThalprobICore = 0.12
 cfg.ICThalMatrixCoreFactor = 0.1
 cfg.ICThalweightEMatrix = cfg.ICThalweightECore * cfg.ICThalMatrixCoreFactor
 cfg.ICThalweightIMatrix = cfg.ICThalweightICore * cfg.ICThalMatrixCoreFactor
-cfg.ICThalprobEMatrix = cfg.ICThalprobECore # * cfg.ICThalMatrixCoreFactor
-cfg.ICThalprobIMatrix = cfg.ICThalprobICore # * cfg.ICThalMatrixCoreFactor
+cfg.ICThalprobEMatrix = cfg.ICThalprobECore
+cfg.ICThalprobIMatrix = cfg.ICThalprobICore
 
 # these params added from Christoph Metzner branch
 
-cfg.thalL4E = 1.0 # [minF,maxF]
+cfg.thalL4E = 2.0
+cfg.thalL4PV = 0.25
+cfg.thalL4SOM = 0.25
 
 cfg.addSubConn = 1
 
@@ -250,7 +252,7 @@ cfg.tune = {}
 
 # ------------------------ ADD PARAM VALUES FROM .JSON FILES: 
 # COMMENT THIS OUT IF USING GCP !!! ONLY USE IF USING NEUROSIM!!!
-'''
+
 import json
 
 with open('data/v34_batch25/trial_2142/trial_2142_cfg.json', 'rb') as f:       # 'data/salva_runs/v29_batch3_trial_13425_cfg.json'
@@ -320,13 +322,13 @@ cfg.IbkgThalamicGain = cfgLoad['IbkgThalamicGain']
 
 # UPDATE WMAT VALUES
 cfg.wmat = cfgLoad['wmat']
-'''
+
 cfg.ICThalInput = {'file': 'data/ICoutput/40Hz_10kHz_4s_AM_click_train_1kBMF_100CF.mat',#'data/ICoutput/ICoutput_CF_5256_6056_wav_BBN_100ms_burst.mat', # BBN_trials/ICoutput_CF_9600_10400_wav_BBN_100ms_burst_AN.mat', 
                    'startTime': 1500,#list(np.arange(5000, 9000, 300)),
                    'weightECore': cfg.ICThalweightECore, # default=0.375
                    'weightICore': cfg.ICThalweightICore, # default=0.375
-                   'probECore': 0.19,
-                   'probICore': 0.19,
+                   'probECore': cfg.ICThalprobECore,
+                   'probICore': cfg.ICThalweightICore,
                    'weightEMatrix': cfg.ICThalweightEMatrix,
                    'weightIMatrix': cfg.ICThalweightIMatrix,
                    'probEMatrix': cfg.ICThalprobEMatrix,
