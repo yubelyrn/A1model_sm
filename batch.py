@@ -27,8 +27,8 @@ def assr_batch_grid(filename):
     cfgLoad2 = cfgLoad
 
     # #### SET weights####
-    params[('thalL4E')] = [2.0, 2.5]
-    params[('ICThalweightECore')] = [1.25, 1.5]
+    params[('thalL4E')] = [2.5]
+    params[('ICThalweightECore')] = [2.0, 2.25, 2.5]
 
     #### GROUPED PARAMS ####
     groupedParams = []
@@ -110,7 +110,7 @@ if __name__ == '__main__':
     #b = assr_batch('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'ASSR_grid6_smc'
+    b.batchLabel = 'ASSR_grid7_smc'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_sge')
