@@ -27,7 +27,8 @@ def assr_batch_grid(filename):
     cfgLoad2 = cfgLoad
 
     # #### SET weights####
-    params[('thalL4E')] = [2.0]
+    params[('thalL4E')] = [2.0, 2.5]
+    params[('ICThalweightECore')] = [1.25, 1.5]
 
     #### GROUPED PARAMS ####
     groupedParams = []
@@ -96,7 +97,7 @@ def setRunCfg(b, type='hpc_sge'):
                     'cores': 60, # give 60 cores here
                     'script': 'init.py', # what you normally run
                     'vmem': '256G', # or however much memory you need
-                    'walltime': '4:00:00', # make 2 hours or something
+                    'walltime': '3:00:00', # make 2 hours or something
                     'skip': True}
 # ----------------------------------------------------------------------------------------------
 # Main code
