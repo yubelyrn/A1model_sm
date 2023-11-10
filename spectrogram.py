@@ -25,13 +25,13 @@ print("Matplotlib backend (dynamic): %s" %plt.get_backend())
 
 nyhead = NYHeadModel(nyhead_file=os.getenv('NP_LFPYKIT_HEAD_FILE', None))
 
-sim.load('/Users/scottmcelroy/A1_scz/A1_sim_data/ASSR_grid7_smc/ASSR_grid7_smc_0_2_data.pkl', 'rb',
+sim.load('/Users/scottmcelroy/A1_scz/A1_sim_data/ASSR_grid5_smc/ASSR_grid5_smc_0_data.pkl', 'rb',
          instantiateConns=False,
          instantiateStims=False)
 
 p = sim.allSimData['dipoleSum']
-timeRange = [0, sim.cfg.duration]
-timeSteps = [int(timeRange[0] / sim.cfg.recordStep), int(timeRange[1] / sim.cfg.recordStep)]
+timeRange = [2500, 5500]
+timeSteps = [int(timeRange[0] / 0.05), int(timeRange[1] / 0.05)]
 
 nyhead.set_dipole_pos('parietal_lobe')
 M = nyhead.get_transformation_matrix()
@@ -40,38 +40,47 @@ p = np.array(p).T
 p = nyhead.rotate_dipole_to_surface_normal(p)
 
 eeg = M @ p * 1e9
+stepFreq = 1
+minFreq = 1
+maxFreq = 60
 
 goodchan = eeg[38]
 
-onset = int(1500/0.05)
+
+onset = int(2500/0.05)
 offset = int(5500/0.05)
 
 stim_data = goodchan[onset:offset]
 
-Fs = 80
-
-morletSpec  = MorletSpec(stim_data, Fs, freqmin=1, freqmax=80, freqstep=1)
-freqs = morletSpec.f
-spec = morletSpec.TFR
-signal = np.mean(spec, 1)
-
-plt.plot(freqs, signal,linewidth=3)
-
-plt.plot()
-
-plt.xlabel('Frequency (Hz)')
-
-plt.yscale('log',base=10)
+transformMethod = 'morlet'
 
 
+fs = int(1000.0 / 0.05)
 
 
+freqList = None
+spec = (MorletSpec(stim_data, fs, freqmin=minFreq, freqmax=maxFreq, freqstep=stepFreq, lfreq=freqList))
 
-# rasterData = sim.analysis.prepareRaster()
-# spkTimes = rasterData['spkTimes']
-# spkGids  = rasterData['spkGids']
-#
-# ITP4gids = sim.net.pops['ITP4'].cellGids
-#
-# spk_gids, spk_times = simTools.getPopSpks(spkTimes, spkGids, ITP4gids, window = [1500, 5500])
+vmin = spec.TFR.min()
+vmax = spec.TFR.max()
 
+T = timeRange
+F = spec.f
+
+S = spec.TFR
+
+signal = np.mean(S, 1)
+
+plt.figure()
+
+plt.plot(F, signal)
+
+plt.figure()
+plt.imshow(S,extent=(np.amin(T), np.amax(T), np.amin(F), np.amax(F)),
+            origin='lower',
+            interpolation='None',
+            aspect='auto',
+            vmin=vmin,
+            vmax=vmax,
+            cmap=plt.get_cmap('viridis'),
+        )

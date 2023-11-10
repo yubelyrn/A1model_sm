@@ -395,7 +395,7 @@ if cfg.addConn and cfg.addIntraThalamicConn:
                     synWeightFactor = [1.0]
                     
                 netParams.connParams['ITh_'+pre+'_'+post] = { 
-                    'preConds': {'pop': pre}, 
+                    'preConds': {'pop': pre},
                     'postConds': {'pop': post},
                     'synMech': syn,
                     'probability': pmat[pre][post],
@@ -597,20 +597,20 @@ if cfg.addBkgConn:
                                               
         netParams.popParams['cochlea'] = {'cellModel': 'VecStim', 'numCells': numCochlearCells, 'spkTimes': cochlearSpkTimes, 'ynormRange': layer['cochlear']}
 
-    if cfg.ICThalInput:
-        # load file with IC output rates
-        from scipy.io import loadmat
-        import numpy as np
-
-        data = loadmat(cfg.ICThalInput['file'])
-        fs = data['RsFs'][0][0]
-        ICrates = data['BE_sout_population'].tolist()
-        ICrates = [x + [0] for x in ICrates] # add trailing zero to avoid long output from inh_poisson_generator() 
-        ICtimes = list(np.arange(0, cfg.duration, 1000./fs))  # list with times to set each time-dep rate
-        
-        ICrates = ICrates * 4 # 200 cells
-        
-        numCells = len(ICrates)
+    # if cfg.ICThalInput:
+    #     # load file with IC output rates
+    #     from scipy.io import loadmat
+    #     import numpy as np
+    #
+    #     data = loadmat(cfg.ICThalInput['file'])
+    #     fs = data['RsFs'][0][0]
+    #     ICrates = data['BE_sout_population'].tolist()
+    #     ICrates = [x + [0] for x in ICrates] # add trailing zero to avoid long output from inh_poisson_generator()
+    #     ICtimes = list(np.arange(0, cfg.duration, 1000./fs))  # list with times to set each time-dep rate
+    #
+    #     ICrates = ICrates * 4 # 200 cells
+    #
+    #     numCells = len(ICrates)
 
         # Option 1: create population of DynamicNetStims with time-varying rates
         #netParams.popParams['IC'] = {'cellModel': 'DynamicNetStim', 'numCells': numCells, 'ynormRange': layer['cochlear'],
@@ -619,10 +619,10 @@ if cfg.addBkgConn:
         # Option 2:
         from input import inh_poisson_generator
         
-        maxLen = min(len(ICrates[0]), len(ICtimes))
-        spkTimes = [[x+cfg.ICThalInput['startTime'] for x in inh_poisson_generator(ICrates[i][:maxLen], ICtimes[:maxLen], cfg.duration, cfg.ICThalInput['seed']+i)] for i in range(len(ICrates))]
-        netParams.popParams['IC'] = {'cellModel': 'VecStim', 'numCells': numCells, 'ynormRange': layer['cochlear'],
-            'spkTimes': spkTimes}
+        # maxLen = min(len(ICrates[0]), len(ICtimes))
+        # spkTimes = [[x+cfg.ICThalInput['startTime'] for x in inh_poisson_generator(ICrates[i][:maxLen], ICtimes[:maxLen], cfg.duration, cfg.ICThalInput['seed']+i)] for i in range(len(ICrates))]
+        # netParams.popParams['IC'] = {'cellModel': 'VecStim', 'numCells': numCells, 'ynormRange': layer['cochlear'],
+        #     'spkTimes': spkTimes}
 
 
     # excBkg/I -> thalamus + cortex
@@ -683,49 +683,49 @@ if cfg.addBkgConn:
             'delay': cfg.delayBkg}  
 
     # cochlea/IC -> thal
-    if cfg.ICThalInput:
-        netParams.connParams['IC->ThalECore'] = {
-            'preConds': {'pop': 'IC'},
-            'postConds': {'pop': ['TC', 'HTC']},
-            'sec': 'soma',
-            'loc': 0.5,
-            'synMech': ESynMech,
-            'probability': cfg.ICThalInput['probECore'],
-            'weight': cfg.ICThalInput['weightECore'],
-            'synMechWeightFactor': cfg.synWeightFractionEE,
-            'delay': cfg.delayBkg}
-
-        netParams.connParams['IC->ThalICore'] = {
-            'preConds': {'pop': 'IC'},
-            'postConds': {'pop': ['RE', 'TI']},
-            'sec': 'soma',
-            'loc': 0.5,
-            'synMech': 'GABAA',
-            'probability': cfg.ICThalInput['probICore'],
-            'weight': cfg.ICThalInput['weightICore'],
-            'delay': cfg.delayBkg}
-
-        # IC -> thalamic matrix
-        netParams.connParams['IC->ThalEMatrix'] = {
-            'preConds': {'pop': 'IC'},
-            'postConds': {'pop': ['TCM']},
-            'sec': 'soma',
-            'loc': 0.5,
-            'synMech': ESynMech,
-            'probability': cfg.ICThalInput['probEMatrix'],
-            'weight': cfg.ICThalInput['weightEMatrix'],
-            'synMechWeightFactor': cfg.synWeightFractionEE,
-            'delay': cfg.delayBkg}
-
-        netParams.connParams['IC->ThalIMatrix'] = {
-            'preConds': {'pop': 'IC'},
-            'postConds': {'pop': ['IREM', 'TIM']},
-            'sec': 'soma',
-            'loc': 0.5,
-            'synMech': 'GABAA',
-            'probability': cfg.ICThalInput['probIMatrix'],
-            'weight': cfg.ICThalInput['weightIMatrix'],
-            'delay': cfg.delayBkg}
+    # if cfg.ICThalInput:
+    #     netParams.connParams['IC->ThalECore'] = {
+    #         'preConds': {'pop': 'IC'},
+    #         'postConds': {'pop': ['TC', 'HTC']},
+    #         'sec': 'soma',
+    #         'loc': 0.5,
+    #         'synMech': ESynMech,
+    #         'probability': cfg.ICThalInput['probECore'],
+    #         'weight': cfg.ICThalInput['weightECore'],
+    #         'synMechWeightFactor': cfg.synWeightFractionEE,
+    #         'delay': cfg.delayBkg}
+    #
+    #     netParams.connParams['IC->ThalICore'] = {
+    #         'preConds': {'pop': 'IC'},
+    #         'postConds': {'pop': ['RE', 'TI']},
+    #         'sec': 'soma',
+    #         'loc': 0.5,
+    #         'synMech': 'GABAA',
+    #         'probability': cfg.ICThalInput['probICore'],
+    #         'weight': cfg.ICThalInput['weightICore'],
+    #         'delay': cfg.delayBkg}
+    #
+    #     # IC -> thalamic matrix
+    #     netParams.connParams['IC->ThalEMatrix'] = {
+    #         'preConds': {'pop': 'IC'},
+    #         'postConds': {'pop': ['TCM']},
+    #         'sec': 'soma',
+    #         'loc': 0.5,
+    #         'synMech': ESynMech,
+    #         'probability': cfg.ICThalInput['probEMatrix'],
+    #         'weight': cfg.ICThalInput['weightEMatrix'],
+    #         'synMechWeightFactor': cfg.synWeightFractionEE,
+    #         'delay': cfg.delayBkg}
+    #
+    #     netParams.connParams['IC->ThalIMatrix'] = {
+    #         'preConds': {'pop': 'IC'},
+    #         'postConds': {'pop': ['IREM', 'TIM']},
+    #         'sec': 'soma',
+    #         'loc': 0.5,
+    #         'synMech': 'GABAA',
+    #         'probability': cfg.ICThalInput['probIMatrix'],
+    #         'weight': cfg.ICThalInput['weightIMatrix'],
+    #         'delay': cfg.delayBkg}
 
 
     #------------------------------------------------------------------------------

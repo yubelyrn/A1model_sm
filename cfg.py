@@ -69,7 +69,7 @@ cfg.recordDipole = True
 # Saving
 #------------------------------------------------------------------------------
 
-cfg.simLabel = 'smc_11_7'
+cfg.simLabel = 'control_noIC'
 cfg.saveFolder = 'data/' + cfg.simLabel  ## Set file output name
 cfg.savePickle = True         							## Save pkl file
 cfg.saveJson = False           							## Save json file
@@ -91,7 +91,6 @@ cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig'
 #cfg.analysis['plotLFP'] = {'plots': ['timeSeries'], 'electrodes': [10], 'maxFreq': 80, 'figSize': (8,4), 'saveData': False, 'saveFig': True, 'showFig': False} # 'PSD', 'spectrogram'
 #cfg.analysis['plotDipole'] = {'saveFig': True}
 #cfg.analysis['plotEEG'] = {'saveFig': True}
-cfg.analysis['plotConn'] = {'include': cfg.allpops, 'saveFig': 'data/connMat.png'}
 
 #layer_bounds= {'L1': 100, 'L2': 160, 'L3': 950, 'L4': 1250, 'L5A': 1334, 'L5B': 1550, 'L6': 2000}
 #cfg.analysis['plotCSD'] = {'spacing_um': 100, 'LFP_overlay': 1, 'layer_lines': 1, 'layer_bounds': layer_bounds, 'saveFig': 1, 'showFig': 0}
@@ -131,12 +130,12 @@ cfg.useHScale = False
 # Network 
 #------------------------------------------------------------------------------
 ## These values taken from M1 cfg.py (https://github.com/Neurosim-lab/netpyne/blob/development/examples/M1detailed/cfg.py)
-cfg.singleCellPops = True
+cfg.singleCellPops = False
 cfg.singlePop = ''
 cfg.removeWeightNorm = False
 cfg.scale = 1.0     # Is this what should be used? 
 cfg.sizeY = 2000.0 #1350.0 in M1_detailed # should this be set to 2000 since that is the full height of the column? 
-cfg.sizeX = 200.0 # 400 - This may change depending on electrode radius 
+cfg.sizeX = 200.0 # 400 - This may change depending on electrode radius
 cfg.sizeZ = 200.0
 cfg.scaleDensity = 1.0 #0.25 #1.0 #0.075 # Should be 1.0 unless need lower cell density for test simulation or visualization
 
@@ -258,79 +257,79 @@ import json
 with open('data/v34_batch25/trial_2142/trial_2142_cfg.json', 'rb') as f:       # 'data/salva_runs/v29_batch3_trial_13425_cfg.json'
 	cfgLoad = json.load(f)['simConfig']
 
-#
-# ## UPDATE CORTICAL GAIN PARAMS
-# cfg.EEGain = cfgLoad['EEGain']
-# cfg.EIGain = cfgLoad['EIGain']
-# cfg.IEGain = cfgLoad['IEGain']
-# cfg.IIGain = cfgLoad['IIGain']
-#
-# cfg.EICellTypeGain['PV'] =  cfgLoad['EICellTypeGain']['PV']
-# cfg.EICellTypeGain['SOM'] = cfgLoad['EICellTypeGain']['SOM']
-# cfg.EICellTypeGain['VIP'] = cfgLoad['EICellTypeGain']['VIP']
-# cfg.EICellTypeGain['NGF'] = cfgLoad['EICellTypeGain']['NGF']
-#
-# cfg.IECellTypeGain['PV'] = cfgLoad['IECellTypeGain']['PV']
-# cfg.IECellTypeGain['SOM'] = cfgLoad['IECellTypeGain']['SOM']
-# cfg.IECellTypeGain['VIP'] = cfgLoad['IECellTypeGain']['VIP']
-# cfg.IECellTypeGain['NGF'] = cfgLoad['IECellTypeGain']['NGF']
-#
-# cfg.EILayerGain['1'] = cfgLoad['EILayerGain']['1']
-# cfg.IILayerGain['1'] = cfgLoad['IILayerGain']['1']
-#
-# cfg.EELayerGain['2'] = cfgLoad['EELayerGain']['2']
-# cfg.EILayerGain['2'] = cfgLoad['EILayerGain']['2']
-# cfg.IELayerGain['2'] = cfgLoad['IELayerGain']['2']
-# cfg.IILayerGain['2'] = cfgLoad['IILayerGain']['2']
-#
-#
-# cfg.EELayerGain['3'] = cfgLoad['EELayerGain']['3']
-# cfg.EILayerGain['3'] = cfgLoad['EILayerGain']['3']
-# cfg.IELayerGain['3'] = cfgLoad['IELayerGain']['3']
-# cfg.IILayerGain['3'] = cfgLoad['IILayerGain']['3']
-#
-#
-# cfg.EELayerGain['4'] = cfgLoad['EELayerGain']['4']
-# cfg.EILayerGain['4'] = cfgLoad['EILayerGain']['4']
-# cfg.IELayerGain['4'] = cfgLoad['IELayerGain']['4']
-# cfg.IILayerGain['4'] = cfgLoad['IILayerGain']['4']
-#
-# cfg.EELayerGain['5A'] = cfgLoad['EELayerGain']['5A']
-# cfg.EILayerGain['5A'] = cfgLoad['EILayerGain']['5A']
-# cfg.IELayerGain['5A'] = cfgLoad['IELayerGain']['5A']
-# cfg.IILayerGain['5A'] = cfgLoad['IILayerGain']['5A']
-#
-# cfg.EELayerGain['5B'] = cfgLoad['EELayerGain']['5B']
-# cfg.EILayerGain['5B'] = cfgLoad['EILayerGain']['5B']
-# cfg.IELayerGain['5B'] = cfgLoad['IELayerGain']['5B']
-# cfg.IILayerGain['5B'] = cfgLoad['IILayerGain']['5B']
-#
-# cfg.EELayerGain['6'] = cfgLoad['EELayerGain']['6']
-# cfg.EILayerGain['6'] = cfgLoad['EILayerGain']['6']
-# cfg.IELayerGain['6'] = cfgLoad['IELayerGain']['6']
-# cfg.IILayerGain['6'] = cfgLoad['IILayerGain']['6']
-#
-#
-#
-# # UPDATE THALAMIC GAIN PARAMS
-# cfg.thalamoCorticalGain = cfgLoad['thalamoCorticalGain']
-# cfg.intraThalamicGain = cfgLoad['intraThalamicGain']
-# cfg.EbkgThalamicGain = cfgLoad['EbkgThalamicGain']
-# cfg.IbkgThalamicGain = cfgLoad['IbkgThalamicGain']
-#
-#
-#
-# # UPDATE WMAT VALUES
-# cfg.wmat = cfgLoad['wmat']
 
-cfg.ICThalInput = {'file': 'data/ICoutput/40Hz_10kHz_4s_AM_click_train_1kBMF_100CF.mat',#'data/ICoutput/ICoutput_CF_5256_6056_wav_BBN_100ms_burst.mat', # BBN_trials/ICoutput_CF_9600_10400_wav_BBN_100ms_burst_AN.mat', 
-                   'startTime': 1500,#list(np.arange(5000, 9000, 300)),
-                   'weightECore': cfg.ICThalweightECore, # default=0.375
-                   'weightICore': cfg.ICThalweightICore, # default=0.375
-                   'probECore': cfg.ICThalprobECore,
-                   'probICore': cfg.ICThalweightICore,
-                   'weightEMatrix': cfg.ICThalweightEMatrix,
-                   'weightIMatrix': cfg.ICThalweightIMatrix,
-                   'probEMatrix': cfg.ICThalprobEMatrix,
-                   'probIMatrix': cfg.ICThalprobIMatrix,
-                   'seed': 1}  # SHOULD THIS BE ZERO?                   
+## UPDATE CORTICAL GAIN PARAMS
+cfg.EEGain = cfgLoad['EEGain']
+cfg.EIGain = cfgLoad['EIGain']
+cfg.IEGain = cfgLoad['IEGain']
+cfg.IIGain = cfgLoad['IIGain']
+
+cfg.EICellTypeGain['PV'] =  cfgLoad['EICellTypeGain']['PV']
+cfg.EICellTypeGain['SOM'] = cfgLoad['EICellTypeGain']['SOM']
+cfg.EICellTypeGain['VIP'] = cfgLoad['EICellTypeGain']['VIP']
+cfg.EICellTypeGain['NGF'] = cfgLoad['EICellTypeGain']['NGF']
+
+cfg.IECellTypeGain['PV'] = cfgLoad['IECellTypeGain']['PV']
+cfg.IECellTypeGain['SOM'] = cfgLoad['IECellTypeGain']['SOM']
+cfg.IECellTypeGain['VIP'] = cfgLoad['IECellTypeGain']['VIP']
+cfg.IECellTypeGain['NGF'] = cfgLoad['IECellTypeGain']['NGF']
+
+cfg.EILayerGain['1'] = cfgLoad['EILayerGain']['1']
+cfg.IILayerGain['1'] = cfgLoad['IILayerGain']['1']
+
+cfg.EELayerGain['2'] = cfgLoad['EELayerGain']['2']
+cfg.EILayerGain['2'] = cfgLoad['EILayerGain']['2']
+cfg.IELayerGain['2'] = cfgLoad['IELayerGain']['2']
+cfg.IILayerGain['2'] = cfgLoad['IILayerGain']['2']
+
+
+cfg.EELayerGain['3'] = cfgLoad['EELayerGain']['3']
+cfg.EILayerGain['3'] = cfgLoad['EILayerGain']['3']
+cfg.IELayerGain['3'] = cfgLoad['IELayerGain']['3']
+cfg.IILayerGain['3'] = cfgLoad['IILayerGain']['3']
+
+
+cfg.EELayerGain['4'] = cfgLoad['EELayerGain']['4']
+cfg.EILayerGain['4'] = cfgLoad['EILayerGain']['4']
+cfg.IELayerGain['4'] = cfgLoad['IELayerGain']['4']
+cfg.IILayerGain['4'] = cfgLoad['IILayerGain']['4']
+
+cfg.EELayerGain['5A'] = cfgLoad['EELayerGain']['5A']
+cfg.EILayerGain['5A'] = cfgLoad['EILayerGain']['5A']
+cfg.IELayerGain['5A'] = cfgLoad['IELayerGain']['5A']
+cfg.IILayerGain['5A'] = cfgLoad['IILayerGain']['5A']
+
+cfg.EELayerGain['5B'] = cfgLoad['EELayerGain']['5B']
+cfg.EILayerGain['5B'] = cfgLoad['EILayerGain']['5B']
+cfg.IELayerGain['5B'] = cfgLoad['IELayerGain']['5B']
+cfg.IILayerGain['5B'] = cfgLoad['IILayerGain']['5B']
+
+cfg.EELayerGain['6'] = cfgLoad['EELayerGain']['6']
+cfg.EILayerGain['6'] = cfgLoad['EILayerGain']['6']
+cfg.IELayerGain['6'] = cfgLoad['IELayerGain']['6']
+cfg.IILayerGain['6'] = cfgLoad['IILayerGain']['6']
+
+
+
+# UPDATE THALAMIC GAIN PARAMS
+cfg.thalamoCorticalGain = cfgLoad['thalamoCorticalGain']
+cfg.intraThalamicGain = cfgLoad['intraThalamicGain']
+cfg.EbkgThalamicGain = cfgLoad['EbkgThalamicGain']
+cfg.IbkgThalamicGain = cfgLoad['IbkgThalamicGain']
+
+
+
+# UPDATE WMAT VALUES
+cfg.wmat = cfgLoad['wmat']
+
+# cfg.ICThalInput = {'file': 'data/ICoutput/40Hz_10kHz_4s_AM_click_train_1kBMF_100CF.mat',#'data/ICoutput/ICoutput_CF_5256_6056_wav_BBN_100ms_burst.mat', # BBN_trials/ICoutput_CF_9600_10400_wav_BBN_100ms_burst_AN.mat',
+#                    'startTime': 1500,#list(np.arange(5000, 9000, 300)),
+#                    'weightECore': cfg.ICThalweightECore, # default=0.375
+#                    'weightICore': cfg.ICThalweightICore, # default=0.375
+#                    'probECore': cfg.ICThalprobECore,
+#                    'probICore': cfg.ICThalweightICore,
+#                    'weightEMatrix': cfg.ICThalweightEMatrix,
+#                    'weightIMatrix': cfg.ICThalweightIMatrix,
+#                    'probEMatrix': cfg.ICThalprobEMatrix,
+#                    'probIMatrix': cfg.ICThalprobIMatrix,
+#                    'seed': 1}  # SHOULD THIS BE ZERO?
