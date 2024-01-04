@@ -35,13 +35,11 @@ cfg.connRandomSecFromList = False  # set to false for reproducibility
 cfg.cvode_active = False
 cfg.cvode_atol = 1e-6
 cfg.cache_efficient = True
-# cfg.printRunTime = 0.1  			## specified above 
 cfg.oneSynPerNetcon = False
 cfg.includeParamsLabel = False
 cfg.printPopAvgRates = [0, cfg.duration]   # "printPopAvgRates": [[1500,1750],[1750,2000],[2000,2250],[2250,2500]]
 cfg.validateNetParams = False
 
-#cfg.seeds = {'conn':1, 'stim':1, 'loc':1,}
 
 #------------------------------------------------------------------------------
 # Recording 
@@ -171,7 +169,6 @@ cfg.IECellTypeGain= {'PV': 1.0, 'SOM': 1.0, 'VIP': 1.0, 'NGF': 1.0}
 # Thalamic
 cfg.addIntraThalamicConn = 1.0
 cfg.addCorticoThalamicConn = 1.0
-cfg.addCorticoThalamicConn = 1.0
 cfg.addThalamoCorticalConn = 1.0
 
 cfg.thalamoCorticalGain = 1.0
@@ -179,13 +176,13 @@ cfg.intraThalamicGain = 1.0
 cfg.corticoThalamicGain = 1.0
 
 # these params control IC -> Thalamic Core
-cfg.ICThalweightECore = 1.0
-cfg.ICThalweightICore = 0.25
-cfg.ICThalprobECore = 0.19
-cfg.ICThalprobICore = 0.12
+cfg.ICThalweightECore = 2.5
+cfg.ICThalweightICore = 0.75
+cfg.ICThalprobECore = 0.16
+cfg.ICThalprobICore = 0.09
 
 # these params control IC -> Thalamic Matrix
-cfg.ICThalMatrixCoreFactor = 0.1
+cfg.ICThalMatrixCoreFactor = 0.8
 cfg.ICThalweightEMatrix = cfg.ICThalweightECore * cfg.ICThalMatrixCoreFactor
 cfg.ICThalweightIMatrix = cfg.ICThalweightICore * cfg.ICThalMatrixCoreFactor
 cfg.ICThalprobEMatrix = cfg.ICThalprobECore
@@ -193,8 +190,8 @@ cfg.ICThalprobIMatrix = cfg.ICThalprobICore
 
 # these params added from Christoph Metzner branch
 
-cfg.thalL4E = 2.0
-cfg.thalL4PV = 0.25
+cfg.thalL4E = 2.5
+cfg.thalL4PV = 0.05
 cfg.thalL4SOM = 0.25
 
 cfg.thalL4VIP = 1.0
