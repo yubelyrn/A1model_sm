@@ -24,7 +24,7 @@ cfg, netParams = sim.readCmdLineArgs(simConfigDefault='cfg.py', netParamsDefault
 # sim.createSimulateAnalyze(netParams, cfg)
 
 sim.initialize(
-    simConfig = cfg, 	
+    simConfig = cfg,
     netParams = netParams)  				# create network object and set cfg and net params
 sim.net.createPops()               			# instantiate network populations
 sim.net.createCells()              			# instantiate network cells based on defined populations

@@ -106,7 +106,6 @@ def setRunCfg(b, type='hpc_sge'):
 if __name__ == '__main__':
 
 
-
     #b = assr_batch('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
