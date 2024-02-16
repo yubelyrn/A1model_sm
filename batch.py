@@ -27,9 +27,17 @@ def assr_batch_grid(filename):
     cfgLoad2 = cfgLoad
 
     # #### SET weights####
-    params[('ICThalInput', 'weightECore')] = [2.5]
-    params['L4L3VIP'] = [0.5, 1.0]
-    params['L4L3NGF'] = [0.5, 1.0]
+    minF_E = 1.25
+    maxF_E = 1.5
+
+    minF_I = 0.1
+    maxF_I = 0.25
+
+
+    # #### SET CONN AND STIM SEEDS ####
+    params[('L4L3PV ')] = [minF_I,maxF_]
+    params[('L4L3SOM ')] = [minF_I,maxF_I]
+    params[('L4L3E ')] = [minF_E,maxF_]
 
     #### GROUPED PARAMS ####
     groupedParams = []
@@ -54,8 +62,10 @@ def assr_batch_grid(filename):
 
     # from prev - best of 50% cell density
     updateParams = ['EEGain', 'EIGain', 'IEGain', 'IIGain',
-                    ('EICellTypeGain', 'PV'), ('EICellTypeGain', 'SOM'), ('EICellTypeGain', 'VIP'), ('EICellTypeGain', 'NGF'),
-                    ('IECellTypeGain', 'PV'), ('IECellTypeGain', 'SOM'), ('IECellTypeGain', 'VIP'), ('IECellTypeGain', 'NGF'),
+                    ('EICellTypeGain', 'PV'), ('EICellTypeGain', 'SOM'), ('EICellTypeGain', 'VIP'),
+                    ('EICellTypeGain', 'NGF'),
+                    ('IECellTypeGain', 'PV'), ('IECellTypeGain', 'SOM'), ('IECellTypeGain', 'VIP'),
+                    ('IECellTypeGain', 'NGF'),
                     ('EILayerGain', '1'), ('IILayerGain', '1'),
                     ('EELayerGain', '2'), ('EILayerGain', '2'),  ('IELayerGain', '2'), ('IILayerGain', '2'),
                     ('EELayerGain', '3'), ('EILayerGain', '3'), ('IELayerGain', '3'), ('IILayerGain', '3'),
@@ -110,7 +120,7 @@ if __name__ == '__main__':
     #b = assr_batch('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'ASSR_grid10_smc'
+    b.batchLabel = 'ASSR_grid_0216'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_sge')
