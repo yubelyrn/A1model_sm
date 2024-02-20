@@ -108,6 +108,22 @@ def setRunCfg(b, type='hpc_sge'):
                     'vmem': '256G', # or however much memory you need
                     'walltime': '1:15:00', # make 2 hours or something
                     'skip': True}
+    elif type == 'hpc_slurm_Expanse':
+        b.runCfg = {'type': 'hpc_slurm',
+                    'allocation': 'TG-IBN140002',
+                    'partition': 'large-shared',
+                    'walltime': '0:30:00',
+                    'nodes': 1,
+                    'coresPerNode': 64,
+                    'email': 'scott.mcelroy@downstate.edu',
+                    'folder': '/home/smcelroy/sim/',
+                    'script': 'init.py',
+                    'mpiCommand': 'mpirun',
+                    'custom': '#SBATCH --mem=512G\n#SBATCH --export=ALL\n#SBATCH --partition=large-shared',
+                    'skip': True}
+    # ------------------------------
+
+
 # ----------------------------------------------------------------------------------------------
 # Main code
 # ----------------------------------------------------------------------------------------------
@@ -118,10 +134,10 @@ if __name__ == '__main__':
     #b = assr_batch('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'ASSR_grid_0219_2'
+    b.batchLabel = 'ASSR_grid_0220'
     b.saveFolder = 'data/'+b.batchLabel
 
-    setRunCfg(b, 'hpc_sge')
+    setRunCfg(b, 'hpc_slurm_Expanse')
     b.run() # run batch
 
 
