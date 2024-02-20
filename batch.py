@@ -35,9 +35,7 @@ def assr_batch_grid(filename):
 
 
     # #### SET CONN AND STIM SEEDS ####
-    params[('L4L3PV ')] = [minF_I,maxF_]
-    params[('L4L3SOM ')] = [minF_I,maxF_I]
-    params[('L4L3E ')] = [minF_E,maxF_]
+    params[('L4L3PV ')] = [0, 10]
 
     #### GROUPED PARAMS ####
     groupedParams = []
@@ -104,11 +102,11 @@ def assr_batch_grid(filename):
 def setRunCfg(b, type='hpc_sge'):
     if type == 'hpc_sge':
         b.runCfg = {'type': 'hpc_sge', # for downstate HPC
-                    'jobName': 'smc_ASSR_batch2', # label for job
+                    'jobName': 'smc_ASSR_batch', # label for job
                     'cores': 60, # give 60 cores here
                     'script': 'init.py', # what you normally run
                     'vmem': '256G', # or however much memory you need
-                    'walltime': '3:00:00', # make 2 hours or something
+                    'walltime': '1:15:00', # make 2 hours or something
                     'skip': True}
 # ----------------------------------------------------------------------------------------------
 # Main code
@@ -120,7 +118,7 @@ if __name__ == '__main__':
     #b = assr_batch('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'ASSR_grid_0216'
+    b.batchLabel = 'ASSR_grid_0219_2'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_sge')
