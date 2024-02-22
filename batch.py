@@ -106,15 +106,15 @@ def setRunCfg(b, type='hpc_sge'):
                     'cores': 60, # give 60 cores here
                     'script': 'init.py', # what you normally run
                     'vmem': '256G', # or however much memory you need
-                    'walltime': '1:15:00', # make 2 hours or something
+                    'walltime': '2:00:00', # make 2 hours or something
                     'skip': True}
-    elif type == 'hpc_slurm_Expanse':
+    elif type == 'hpc_slurm_expanse':
         b.runCfg = {'type': 'hpc_slurm',
                     'allocation': 'TG-IBN140002',
                     'partition': 'large-shared',
-                    'walltime': '0:30:00',
+                    'walltime': '1:30:00',
                     'nodes': 1,
-                    'coresPerNode': 64,
+                    'coresPerNode': 128,
                     'email': 'scott.mcelroy@downstate.edu',
                     'folder': '/home/smcelroy/sim/',
                     'script': 'init.py',
@@ -134,10 +134,10 @@ if __name__ == '__main__':
     #b = assr_batch('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'ASSR_grid_0220'
+    b.batchLabel = 'ASSR_grid_0222'
     b.saveFolder = 'data/'+b.batchLabel
 
-    setRunCfg(b, 'hpc_slurm_Expanse')
+    setRunCfg(b, 'hpc_sge')
     b.run() # run batch
 
 
