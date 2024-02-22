@@ -121,6 +121,12 @@ def setRunCfg(b, type='hpc_sge'):
                     'mpiCommand': 'mpirun',
                     'custom': '#SBATCH --mem=512G\n#SBATCH --export=ALL\n#SBATCH --partition=large-shared',
                     'skip': True}
+    elif type=='mpi_direct':
+        b.runCfg = {'type': 'mpi_direct',
+                    'cores': 1,
+                    'script': 'init.py',
+                    'mpiCommand': 'mpirun', # --use-hwthread-cpus
+                    'skip': True}
     # ------------------------------
 
 
