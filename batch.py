@@ -33,9 +33,9 @@ def assr_batch_grid(filename):
     minF_I = 0.1
     maxF_I = 0.25
 
-    params[('L4L3PV')] = [minF_I,maxF_]
+    params[('L4L3PV')] = [minF_I,maxF_I]
     params[('L4L3SOM')] = [minF_I,maxF_I]
-    params[('L4L3E')] = [minF_E,maxF_]
+    params[('L4L3E')] = [minF_E,maxF_E]
 
     #### GROUPED PARAMS ####
     groupedParams = []
