@@ -54,8 +54,7 @@ cfg.allThalPops = ['TC', 'TCM', 'HTC', 'IRE', 'IREM', 'TI', 'TIM', 'IC']
 
 alltypes = ['NGF1', 'IT2', 'PV2', 'SOM2', 'VIP2', 'ITS4', 'PT5B', 'TC', 'HTC', 'IRE', 'TI']
 
-cfg.recordTraces = {
-    'V_soma': {'sec': 'soma', 'loc': 0.5, 'var': 'v'}}  ## Dict with traces to record -- taken from M1 cfg.py
+cfg.recordTraces = {'V_soma': {'sec': 'soma', 'loc': 0.5, 'var': 'v'}}  ## Dict with traces to record -- taken from M1 cfg.py
 cfg.recordStim = False  ## Seen in M1 cfg.py
 cfg.recordTime = True  ## SEen in M1 cfg.py
 cfg.recordStep = 0.05  ## Step size (in ms) to save data -- value from M1 cfg.py
@@ -163,23 +162,15 @@ cfg.IELayerGain = {'1': 1.0, '2': 1.0, '3': 1.0, '4': 1.0, '5A': 1.0, '5B': 1.0,
 cfg.IILayerGain = {'1': 1.0, '2': 1.0, '3': 1.0, '4': 1.0, '5A': 1.0, '5B': 1.0, '6': 1.0}
 
 # E -> E based on postsynaptic cortical E neuron population
-# cfg.EEPopGain = {'IT2': 1.3125, 'IT3': 1.55, 'ITP4': 1.0, 'ITS4': 1.0, 'IT5A': 1.0, 'CT5A': 1.1, 'IT5B': 0.375, 'CT5B': 1.1, 'PT5B': 1.0, 'IT6': 1.0, 'CT6': 1.0}
-# cfg.EEPopGain = {'IT2': 1.3125, 'IT3': 1.55, 'ITP4': 1.0, 'ITS4': 1.0, 'IT5A': 1.05, 'CT5A': 1.1500000000000001, 'IT5B': 0.425, 'CT5B': 1.1500000000000001, 'PT5B': 1.05, 'IT6': 1.05, 'CT6': 1.05} # this is from after generation 203 of optunaERP_23dec23_ , values used in
-cfg.EEPopGain = {'IT2': 0.0, 'IT3': 1.75, 'ITP4': 1.0, 'ITS4': 1.0, 'IT5A': 1.05, 'CT5A': 1.1500000000000001,
+cfg.EEPopGain = {'IT2': 0.5, 'IT3': 1.75, 'ITP4': 1.0, 'ITS4': 1.0, 'IT5A': 1.05, 'CT5A': 1.1500000000000001,
                  'IT5B': 0.425, 'CT5B': 1.1500000000000001, 'PT5B': 1.05, 'IT6': 1.05,
                  'CT6': 1.05}  # this is from after generation 203 of optunaERP_23dec23_ , values used in
-# cfg.EEPopGain = {'IT2': 1.0, 'IT3': 1.0, 'ITP4': 1.0, 'ITS4': 1.0, 'IT5A': 1.0, 'CT5A': 1.0, 'IT5B': 1.0, 'CT5B': 1.0, 'PT5B': 1.0, 'IT6': 1.0, 'CT6': 1.0} # default
-
 
 # gains from E -> I based on postsynaptic cortical I neuron population
-# cfg.EIPopGain = {'NGF1': 1.0, 'SOM2': 1.0, 'PV2': 1.0, 'VIP2': 1.0, 'NGF2': 1.0, 'SOM3': 1.0, 'PV3': 1.0, 'VIP3': 1.0, 'NGF3': 1.0, 'SOM4': 1.0, 'PV4': 1.0, 'VIP4': 1.0, 'NGF4': 1.0, 'SOM5A': 1.0, 'PV5A': 1.4, 'VIP5A': 1.25, 'NGF5A': 0.8, 'SOM5B': 1.0, 'PV5B': 1.4, 'VIP5B': 1.4, 'NGF5B': 0.9, 'SOM6': 1.0, 'PV6': 1.4, 'VIP6': 1.4, 'NGF6': 0.65}
-# cfg.EIPopGain = {'NGF1': 1.0, 'SOM2': 1.0, 'PV2': 1.0, 'VIP2': 1.0, 'NGF2': 1.0, 'SOM3': 1.0, 'PV3': 0.5, 'VIP3': 1.0, 'NGF3': 1.0, 'SOM4': 1.0, 'PV4': 0.5, 'VIP4': 1.0, 'NGF4': 1.0, 'SOM5A': 1.0, 'PV5A': 1.4, 'VIP5A': 1.25, 'NGF5A': 0.8, 'SOM5B': 1.0, 'PV5B': 1.45, 'VIP5B': 1.4, 'NGF5B': 0.9500000000000001, 'SOM6': 1.0, 'PV6': 1.4, 'VIP6': 1.3499999999999999, 'NGF6': 0.65} # this is from after generation 203 of optunaERP_23dec23_ , values used in generation 204 of the same optimization
 cfg.EIPopGain = {'NGF1': 0.1, 'SOM2': 1.0, 'PV2': 1.0, 'VIP2': 1.0, 'NGF2': 0.1, 'SOM3': 0.25, 'PV3': 0.15,
                  'VIP3': 0.25, 'NGF3': 0.1, 'SOM4': 0.5, 'PV4': 0.5, 'VIP4': 1.0, 'NGF4': 0.1, 'SOM5A': 1.0,
                  'PV5A': 1.0, 'VIP5A': 1.0, 'NGF5A': 1.0, 'SOM5B': 1.0, 'PV5B': 1.0, 'VIP5B': 1.0, 'NGF5B': 1.0,
                  'SOM6': 1.0, 'PV6': 1.0, 'VIP6': 1.0, 'NGF6': 1.0}
-# cfg.EIPopGain = {'NGF1': 1.0, 'SOM2': 1.0, 'PV2': 1.0, 'VIP2': 1.0, 'NGF2': 1.0, 'SOM3': 1.0, 'PV3': 1.0, 'VIP3': 1.0, 'NGF3': 1.0, 'SOM4': 1.0, 'PV4': 1.0, 'VIP4': 1.0, 'NGF4': 1.0, 'SOM5A': 1.0, 'PV5A': 1.0, 'VIP5A': 1.0, 'NGF5A': 1.0, 'SOM5B': 1.0, 'PV5B': 1.0, 'VIP5B': 1.0, 'NGF5B': 1.0, 'SOM6': 1.0, 'PV6': 1.0, 'VIP6': 1.0, 'NGF6': 1.0} # default
-
 
 ## E->I by target cell type
 cfg.EICellTypeGain = {'PV': 1.0, 'SOM': 1.0, 'VIP': 1.0,
@@ -273,17 +264,7 @@ cfg.addIClamp = 0
 # NetStim inputs
 # ------------------------------------------------------------------------------
 
-cfg.addNetStim = 0  # 1
-
-## LAYER 1
-# cfg.NetStim1 = {'pop': 'NGF1', 'ynorm': [0,2.0], 'sec': 'soma', 'loc': 0.5, 'synMech': ['AMPA'], 'synMechWeightFactor': [1.0], 'start': 0, 'interval': 1000.0/60.0, 'noise': 0.0, 'number': 0.0, 'weight': 10.0, 'delay': 0}
-
-# ## LAYER 2
-# cfg.NetStim2 = {'pop': 'IT2',  'ynorm': [0,1], 'sec': 'soma', 'loc': 0.5, 'synMech': ['AMPA'], 'synMechWeightFactor': [1.0], 'start': 0, 'interval': 1000.0/60.0, 'noise': 0.0, 'number': 60.0, 	'weight': 10.0, 'delay': 0}
-
-## LAYER 3
-# cfg.NetStim3 = {'pop': 'IT3',  'ynorm': [0,1], 'sec': 'soma', 'loc': 0.5, 'synMech': ['AMPA'], 'synMechWeightFactor': [1.0], 'start': 0, 'interval': 1000.0/20.0, 'noise': 0.0, 'number': 20.0,   'weight': 10.0, 'delay': 0}
-
+cfg.addNetStim = 0
 
 cfg.tune = {}
 
@@ -354,7 +335,7 @@ cfg.tune = {}
 # cfg.wmat = cfgLoad['wmat']
 
 cfg.ICThalInput = {'file': 'data/ICoutput/40Hz_10kHz_4s_AM_click_train_1kBMF_100CF.mat',
-                   'startTime': 1500,  # list(np.arange(4000, 8000, 300)),
+                   'startTime': 3000,  # list(np.arange(4000, 8000, 300)),
                    'weightECore': cfg.ICThalweightECore,
                    'weightICore': cfg.ICThalweightICore,
                    'probECore': cfg.ICThalprobECore,

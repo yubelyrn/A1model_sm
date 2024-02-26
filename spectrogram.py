@@ -1,7 +1,6 @@
 from netpyne import sim
 from netpyne.support.morlet import MorletSpec, index2ms
 import numpy as np
-from simTools import simTools
 from lfpykit.eegmegcalc import NYHeadModel
 import os
 from scipy import signal
@@ -23,7 +22,7 @@ plt.rcParams['font.family'] = 'Helvetica'
 nyhead = NYHeadModel(nyhead_file=os.getenv('NP_LFPYKIT_HEAD_FILE', None))
 
 # Load EEG data
-sim.load('/Users/scottmcelroy/A1_scz/A1_sim_data/ASSR_02_15SMtest/ASSR_02_15SMtest_data.pkl', 'rb',
+sim.load('/Users/scottmcelroy/A1_scz/A1_sim_data/ASSR_grid_0223_0_0_1_data.pkl', 'rb',
          instantiateConns=False,
          instantiateStims=False)
 
@@ -65,46 +64,46 @@ stim_window = np.arange(2500, 6000, 0.05)
 
 
 # ERP plot
-plt.figure(figsize=(10, 6))
-plt.plot(goodchan)
-plt.xlabel('Time (ms)')
-plt.ylabel('uV')
-plt.savefig('/Users/scottmcelroy/A1_scz/A1_figs/ASSR_02_15_111ERP.png')
-plt.show()
+# plt.figure(figsize=(10, 6))
+# plt.plot(stim_window,stim_data)
+# plt.xlabel('Time (ms)')
+# plt.ylabel('uV')
+# plt.savefig('/Users/scottmcelroy/A1_scz/A1_figs/ASSR_02_23_001ERP.png')
+# plt.show()
 
 
 # sampling frequency
-# fs = int(1000.0 / 0.05)
-#
-# # Define freqs you care about
-# minFreq = 1
-# maxFreq = 60
-#
-# # Perform Morlet transform
-# freqList = None
-# spec = (MorletSpec(stim_data, fs, freqmin=minFreq, freqmax=maxFreq, freqstep=1, lfreq=freqList))
-#
-#
-# # Min and mox for the color of normalized power
-# vmin = spec.TFR.min()
-# vmax = spec.TFR.max()
-#
-# T = timeRange  #Time
-# F = spec.f    #Define frequencies
-# S = spec.TFR  #Spectral data for spectrogram
-# signal = 10*(np.log10(np.mean(S, 1))) #Use this for PSD plotting
-#
-# # Spectrogram plot params
-# plt.figure()
-# plt.xlabel('Time (ms)')
-# plt.ylabel('Frequency (Hz)')
-# plt.imshow(S,extent=(np.amin(T), np.amax(T), np.amin(F), np.amax(F)),
-#             origin='lower',
-#             interpolation='None',
-#             aspect='auto',
-#             vmin=vmin,
-#             vmax=vmax,
-#             cmap=plt.get_cmap('viridis'),
-#         )
-# plt.show()
-# plt.savefig('/Users/scottmcelroy/A1_scz/A1_figs/ASSR_0216_111.png')
+fs = int(1000.0 / 0.05)
+
+# Define freqs you care about
+minFreq = 1
+maxFreq = 60
+
+# Perform Morlet transform
+freqList = None
+spec = (MorletSpec(stim_data, fs, freqmin=minFreq, freqmax=maxFreq, freqstep=1, lfreq=freqList))
+
+
+# Min and mox for the color of normalized power
+vmin = spec.TFR.min()
+vmax = spec.TFR.max()
+
+T = timeRange  #Time
+F = spec.f    #Define frequencies
+S = spec.TFR  #Spectral data for spectrogram
+signal = 10*(np.log10(np.mean(S, 1))) #Use this for PSD plotting
+
+# Spectrogram plot params
+plt.figure()
+plt.xlabel('Time (ms)')
+plt.ylabel('Frequency (Hz)')
+plt.imshow(S,extent=(np.amin(T), np.amax(T), np.amin(F), np.amax(F)),
+            origin='lower',
+            interpolation='None',
+            aspect='auto',
+            vmin=vmin,
+            vmax=vmax,
+            cmap=plt.get_cmap('viridis'),
+        )
+plt.show()
+plt.savefig('/Users/scottmcelroy/A1_scz/A1_figs/ASSR_0223_001.png')
