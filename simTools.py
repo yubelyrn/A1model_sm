@@ -25,6 +25,7 @@ class simTools:
         # gather dipole data
         p = sim.allSimData['dipoleSum']
         p = np.array(p).T
+
         p = nyhead.rotate_dipole_to_surface_normal(p)
 
         # Calculate EEG
@@ -63,7 +64,7 @@ class simTools:
     def plotERP(data, time, fname):
         plt.figure(figsize=(10, 6))
         plt.plot(time,data/1000)
-        plt.xlabel('Time (ms)')
+        plt.xlabel('Time (s)')
         plt.ylabel('uV')
         plt.savefig('/Users/scottmcelroy/A1_scz/A1_figs/' + fname + 'ERP.png')
 
@@ -89,8 +90,8 @@ class simTools:
         signal = 10 * (np.log10(np.mean(S, 1)))  # Use this for PSD plotting
 
         # Spectrogram plot params
-        plt.figure()
-        plt.xlabel('Time (ms)')
+        plt.figure(figsize=(20, 20))
+        plt.xlabel('Time (s)')
         plt.ylabel('Frequency (Hz)')
         plt.imshow(S, extent=(np.amin(T), np.amax(T), np.amin(F), np.amax(F)),
                    origin='lower',
@@ -98,7 +99,7 @@ class simTools:
                    aspect='auto',
                    vmin=vmin,
                    vmax=vmax,
-                   cmap=plt.get_cmap('viridis'),
+                   cmap=plt.get_cmap('viridis')
                    )
         plt.savefig('/Users/scottmcelroy/A1_scz/A1_figs/' + fname + 'spect.png')
 
