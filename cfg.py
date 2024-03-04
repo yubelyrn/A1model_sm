@@ -352,3 +352,5 @@ cfg.artFB = {'file': 'data/FBinput/FBinput_test_numCell200.pkl',
              'weight': cfg.artFBweight,
              'prob': cfg.artFBprob,
              }
+
+# What the fuck
