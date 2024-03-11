@@ -330,13 +330,12 @@ if cfg.addConn and cfg.EIGain > 0.0:
         for post in Ipops:
             for postType in Itypes:
                 if postType in post: # only create rule if celltype matches pop
-                    for l in layerGainLabels:  # used to tune each layer group independently
+                    for l in layerGainLabels: # used to tune each layer group independently
                         scaleFactor = 1.0
                         if connDataSource['E->E/I'] in ['Allen_V1', 'Allen_custom']:
                             prob = '%f * exp(-dist_2D/%f)' % (pmat[pre][post], lmat[pre][post])
                         else:
                             prob = pmat[pre][post]
-
                         if 'NGF' in post:
                             synWeightFactor = cfg.synWeightFractionENGF
                         elif 'PV' in post:
@@ -373,7 +372,6 @@ if cfg.addConn and cfg.EIGain > 0.0:
 if cfg.addConn and cfg.IEGain > 0.0:
 
     if connDataSource['I->E/I'] == 'Allen_custom':
-
         ESynMech = ['AMPA', 'NMDA']
         SOMESynMech = ['GABAASlow','GABAB']
         SOMISynMech = ['GABAASlow']
@@ -419,7 +417,6 @@ if cfg.addConn and cfg.IIGain > 0.0:
         for pre in Ipops:
             for post in Ipops:
                 for l in layerGainLabels:
-
                     prob = '%f * exp(-dist_2D/%f)' % (pmat[pre][post], lmat[pre][post])
 
                     if 'SOM' in pre:

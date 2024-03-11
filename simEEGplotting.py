@@ -5,16 +5,11 @@ import numpy as np
 # snippet of code to import matplotlib and dynamically switch backend to "MacOSX" for plotting
 from pydoc import source_synopsis
 import sys
+from netpyne.support.morlet import MorletSpec, index2ms
 import matplotlib
 matplotlib.use("MacOSX")
 from matplotlib import pyplot as plt
-
 from lfpykit.eegmegcalc import NYHeadModel
-
-# Plot style params
-plt.rcParams['font.size'] = 20
-plt.rcParams['axes.labelweight'] = 'bold'
-plt.rcParams['font.family'] = 'Helvetica'
 
 # Load sim EEG data
 # base_dir = '/Users/scottmcelroy/A1_scz/A1_sim_data/ASSR_grid_0226/'
@@ -34,10 +29,13 @@ stim_ERP, stim_wind = simTools.calculateEEG(sim, stimOn=4000, end=5000)
 
 
 # t = np.arange(100, step=0.05)
-ts = np.arange(1, step=0.00005)
+ts = 4+(np.arange(1, step=0.00005))
 
-filtered_data = simTools.filterEEG(stim_ERP, 1, 80, 1000, 4)
-# simTools.plotERP(filtered_data, ts, 'ASSRtune_0228fullFINAL')
-simTools.plot_spectrogram(stim_ERP, ts, 'ASSRtune_0228FINAL')
+# filtered_data = simTools.filterEEG(stim_ERP, 1, 80, 1000, 4)
+simTools.plotERP(stim_ERP, ts, 'ASSRtune_0228unFILT', (30, 15))
+# simTools.plot_spectrogram(stim_ERP, ts, 'ASSRtune_0228FINAL', (30, 15))
 
 
+# Line ran for grant fig raster
+# sim.analysis.plotRaster(timeRange=(4000,5000), orderInverse=True, markerSize=1000, figSize = (27,23),
+# saveFig = '/Users/scottmcelroy/A1_scz/A1_figs/0228_RasterF')

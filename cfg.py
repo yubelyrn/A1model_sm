@@ -153,9 +153,9 @@ cfg.synWeightFractionII = [0.9, 0.1]  # SOM -> E GABAASlow to GABAB ratio (updat
 cfg.addConn = 1
 
 cfg.EEGain = 1.0
-cfg.EIGain = 1.0  # 1.8600534795309025
-cfg.IEGain = 1.0  # 0.75
-cfg.IIGain = 1.0  # 0.5
+cfg.EIGain = 1.0
+cfg.IEGain = 1.0
+cfg.IIGain = 1.0
 
 ## E/I->E/I layer weights (L1-3, L4, L5, L6)
 cfg.EELayerGain = {'1': 1.0, '2': 1.0, '3': 1.0, '4': 1.0, '5A': 1.0, '5B': 1.0, '6': 1.0}
@@ -176,7 +176,7 @@ cfg.EIPopGain = {'NGF1': 0.1, 'SOM2': 1.0, 'PV2': 1.0, 'VIP2': 1.0, 'NGF2': 0.1,
 
 ## E->I by target cell type
 cfg.EICellTypeGain = {'PV': 1.0, 'SOM': 1.0, 'VIP': 1.0,
-                      'NGF': 0.1}  # default: {'PV': 1.0, 'SOM': 1.0, 'VIP': 1.0, 'NGF': 1.0}
+                      'NGF': 0.1}
 
 ## I->E by target cell type
 cfg.IECellTypeGain = {'PV': 1.0, 'SOM': 1.0, 'VIP': 1.0, 'NGF': 1.0}
@@ -214,7 +214,7 @@ cfg.thalL4NGF = 1.0
 cfg.thalL1NGF = 1.0
 cfg.ENGF1 = 1.0
 
-cfg.L4L3E = 2.0  # 1.0
+cfg.L4L3E = 2.0
 cfg.L4L3PV = 0.1
 cfg.L4L3SOM = 1.0
 
@@ -255,7 +255,8 @@ cfg.rateBkg = {'exc': 40, 'inh': 40}
 cfg.EbkgThalamicGain = 4.0
 cfg.IbkgThalamicGain = 4.0
 
-cfg.cochlearThalInput = False  # {'numCells': 200, 'freqRange': [9*1e3, 11*1e3], 'toneFreq': 10*1e3, 'loudnessDBs': 50}  # parameters to generate realistic  auditory thalamic inputs using Brian Hears
+cfg.cochlearThalInput = False  # {'numCells': 200, 'freqRange': [9*1e3, 11*1e3], 'toneFreq': 10*1e3, 'loudnessDBs': 50}
+# parameters to generate realistic  auditory thalamic inputs using Brian Hears
 
 # ------------------------------------------------------------------------------
 # Current inputs
@@ -272,69 +273,69 @@ cfg.tune = {}
 
 # ------------------------ ADD PARAM VALUES FROM .JSON FILES:
 # COMMENT THIS OUT IF USING GCP !!! ONLY USE IF USING NEUROSIM!!!
-import json
-
-with open('data/v34_batch25/trial_2142/trial_2142_cfg.json',
-          'rb') as f:  # 'data/salva_runs/v29_batch3_trial_13425_cfg.json'
-    cfgLoad = json.load(f)['simConfig']
-
-## UPDATE CORTICAL GAIN PARAMS
-cfg.EEGain = cfgLoad['EEGain']
-cfg.EIGain = cfgLoad['EIGain']
-cfg.IEGain = cfgLoad['IEGain']
-cfg.IIGain = cfgLoad['IIGain']
-
-cfg.EICellTypeGain['PV'] = cfgLoad['EICellTypeGain']['PV']
-cfg.EICellTypeGain['SOM'] = cfgLoad['EICellTypeGain']['SOM']
-cfg.EICellTypeGain['VIP'] = cfgLoad['EICellTypeGain']['VIP']
-cfg.EICellTypeGain['NGF'] = cfgLoad['EICellTypeGain']['NGF']
-
-cfg.IECellTypeGain['PV'] = cfgLoad['IECellTypeGain']['PV']
-cfg.IECellTypeGain['SOM'] = cfgLoad['IECellTypeGain']['SOM']
-cfg.IECellTypeGain['VIP'] = cfgLoad['IECellTypeGain']['VIP']
-cfg.IECellTypeGain['NGF'] = cfgLoad['IECellTypeGain']['NGF']
-
-cfg.EILayerGain['1'] = cfgLoad['EILayerGain']['1']
-cfg.IILayerGain['1'] = cfgLoad['IILayerGain']['1']
-
-cfg.EELayerGain['2'] = cfgLoad['EELayerGain']['2']
-cfg.EILayerGain['2'] = cfgLoad['EILayerGain']['2']
-cfg.IELayerGain['2'] = cfgLoad['IELayerGain']['2']
-cfg.IILayerGain['2'] = cfgLoad['IILayerGain']['2']
-
-cfg.EELayerGain['3'] = cfgLoad['EELayerGain']['3']
-cfg.EILayerGain['3'] = cfgLoad['EILayerGain']['3']
-cfg.IELayerGain['3'] = cfgLoad['IELayerGain']['3']
-cfg.IILayerGain['3'] = cfgLoad['IILayerGain']['3']
-
-cfg.EELayerGain['4'] = cfgLoad['EELayerGain']['4']
-cfg.EILayerGain['4'] = cfgLoad['EILayerGain']['4']
-cfg.IELayerGain['4'] = cfgLoad['IELayerGain']['4']
-cfg.IILayerGain['4'] = cfgLoad['IILayerGain']['4']
-
-cfg.EELayerGain['5A'] = cfgLoad['EELayerGain']['5A']
-cfg.EILayerGain['5A'] = cfgLoad['EILayerGain']['5A']
-cfg.IELayerGain['5A'] = cfgLoad['IELayerGain']['5A']
-cfg.IILayerGain['5A'] = cfgLoad['IILayerGain']['5A']
-
-cfg.EELayerGain['5B'] = cfgLoad['EELayerGain']['5B']
-cfg.EILayerGain['5B'] = cfgLoad['EILayerGain']['5B']
-cfg.IELayerGain['5B'] = cfgLoad['IELayerGain']['5B']
-cfg.IILayerGain['5B'] = cfgLoad['IILayerGain']['5B']
-
-cfg.EELayerGain['6'] = cfgLoad['EELayerGain']['6']
-cfg.EILayerGain['6'] = cfgLoad['EILayerGain']['6']
-cfg.IELayerGain['6'] = cfgLoad['IELayerGain']['6']
-cfg.IILayerGain['6'] = cfgLoad['IILayerGain']['6']
-
-# UPDATE THALAMIC GAIN PARAMS
-cfg.thalamoCorticalGain = cfgLoad['thalamoCorticalGain']
-cfg.intraThalamicGain = cfgLoad['intraThalamicGain']
-cfg.EbkgThalamicGain = cfgLoad['EbkgThalamicGain']
-cfg.IbkgThalamicGain = cfgLoad['IbkgThalamicGain']
-
-# UPDATE WMAT VALUES
-cfg.wmat = cfgLoad['wmat']
+# import json
+#
+# with open('data/v34_batch25/trial_2142/trial_2142_cfg.json',
+#           'rb') as f:  # 'data/salva_runs/v29_batch3_trial_13425_cfg.json'
+#     cfgLoad = json.load(f)['simConfig']
+#
+# ## UPDATE CORTICAL GAIN PARAMS
+# cfg.EEGain = cfgLoad['EEGain']
+# cfg.EIGain = cfgLoad['EIGain']
+# cfg.IEGain = cfgLoad['IEGain']
+# cfg.IIGain = cfgLoad['IIGain']
+#
+# cfg.EICellTypeGain['PV'] = cfgLoad['EICellTypeGain']['PV']
+# cfg.EICellTypeGain['SOM'] = cfgLoad['EICellTypeGain']['SOM']
+# cfg.EICellTypeGain['VIP'] = cfgLoad['EICellTypeGain']['VIP']
+# cfg.EICellTypeGain['NGF'] = cfgLoad['EICellTypeGain']['NGF']
+#
+# cfg.IECellTypeGain['PV'] = cfgLoad['IECellTypeGain']['PV']
+# cfg.IECellTypeGain['SOM'] = cfgLoad['IECellTypeGain']['SOM']
+# cfg.IECellTypeGain['VIP'] = cfgLoad['IECellTypeGain']['VIP']
+# cfg.IECellTypeGain['NGF'] = cfgLoad['IECellTypeGain']['NGF']
+#
+# cfg.EILayerGain['1'] = cfgLoad['EILayerGain']['1']
+# cfg.IILayerGain['1'] = cfgLoad['IILayerGain']['1']
+#
+# cfg.EELayerGain['2'] = cfgLoad['EELayerGain']['2']
+# cfg.EILayerGain['2'] = cfgLoad['EILayerGain']['2']
+# cfg.IELayerGain['2'] = cfgLoad['IELayerGain']['2']
+# cfg.IILayerGain['2'] = cfgLoad['IILayerGain']['2']
+#
+# cfg.EELayerGain['3'] = cfgLoad['EELayerGain']['3']
+# cfg.EILayerGain['3'] = cfgLoad['EILayerGain']['3']
+# cfg.IELayerGain['3'] = cfgLoad['IELayerGain']['3']
+# cfg.IILayerGain['3'] = cfgLoad['IILayerGain']['3']
+#
+# cfg.EELayerGain['4'] = cfgLoad['EELayerGain']['4']
+# cfg.EILayerGain['4'] = cfgLoad['EILayerGain']['4']
+# cfg.IELayerGain['4'] = cfgLoad['IELayerGain']['4']
+# cfg.IILayerGain['4'] = cfgLoad['IILayerGain']['4']
+#
+# cfg.EELayerGain['5A'] = cfgLoad['EELayerGain']['5A']
+# cfg.EILayerGain['5A'] = cfgLoad['EILayerGain']['5A']
+# cfg.IELayerGain['5A'] = cfgLoad['IELayerGain']['5A']
+# cfg.IILayerGain['5A'] = cfgLoad['IILayerGain']['5A']
+#
+# cfg.EELayerGain['5B'] = cfgLoad['EELayerGain']['5B']
+# cfg.EILayerGain['5B'] = cfgLoad['EILayerGain']['5B']
+# cfg.IELayerGain['5B'] = cfgLoad['IELayerGain']['5B']
+# cfg.IILayerGain['5B'] = cfgLoad['IILayerGain']['5B']
+#
+# cfg.EELayerGain['6'] = cfgLoad['EELayerGain']['6']
+# cfg.EILayerGain['6'] = cfgLoad['EILayerGain']['6']
+# cfg.IELayerGain['6'] = cfgLoad['IELayerGain']['6']
+# cfg.IILayerGain['6'] = cfgLoad['IILayerGain']['6']
+#
+# # UPDATE THALAMIC GAIN PARAMS
+# cfg.thalamoCorticalGain = cfgLoad['thalamoCorticalGain']
+# cfg.intraThalamicGain = cfgLoad['intraThalamicGain']
+# cfg.EbkgThalamicGain = cfgLoad['EbkgThalamicGain']
+# cfg.IbkgThalamicGain = cfgLoad['IbkgThalamicGain']
+#
+# # UPDATE WMAT VALUES
+# cfg.wmat = cfgLoad['wmat']
 
 cfg.ICThalInput = {'file': 'data/ICoutput/40Hz_10kHz_4s_AM_click_train_1kBMF_100CF.mat',
                    'startTime': 3000,  # list(np.arange(4000, 8000, 300)),

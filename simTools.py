@@ -25,18 +25,18 @@ class simTools:
         # gather dipole data
         p = sim.allSimData['dipoleSum']
         p = np.array(p).T
-
+        p = p[:, timeSteps[0]: timeSteps[1]]
         p = nyhead.rotate_dipole_to_surface_normal(p)
 
         # Calculate EEG
         eeg = M @ p * 1e9
-        goodchan = eeg[38]
+        goodchan = eeg[38, :]
 
         onset = int(stimOn / 0.05)
         offset = int(end / 0.05)
-        stim_data = (goodchan[onset:offset])  # / 1000
-        stim_window = np.arange(stimOn, end, 0.05)
-        return stim_data, stim_window
+        fig = plt.plot(t, goodchan)
+        plt.show()
+        return goodchan, t, fig
 
     def filterEEG(EEG, lowcut, highcut, fs, order):
         b, a = butter(order, [lowcut, highcut], btype='band', fs=fs)
@@ -61,14 +61,15 @@ class simTools:
                 spk_gids.append(spkGids[spk_gid_ind])
                 spk_times.append(spkTimes[spk_gid_ind])
         return spk_gids, spk_times
-    def plotERP(data, time, fname):
-        plt.figure(figsize=(10, 6))
-        plt.plot(time,data/1000)
-        plt.xlabel('Time (s)')
-        plt.ylabel('uV')
+    def plotERP(data, time, fname, figsize = (30,20)):
+        plt.figure(figsize=figsize)
+        plt.plot(time,data/1000, linewidth = 4)
+        plt.tick_params(labelsize=50)
+        plt.xlabel('Time (s)', fontsize = 65)
+        plt.ylabel('uV', fontsize = 65)
         plt.savefig('/Users/scottmcelroy/A1_scz/A1_figs/' + fname + 'ERP.png')
 
-    def plot_spectrogram(data, time, fname):
+    def plot_spectrogram(data, time,fname, figsize = (20,20)):
         # sampling frequency
         fs = int(1000.0 / 0.05)
 
@@ -90,7 +91,7 @@ class simTools:
         signal = 10 * (np.log10(np.mean(S, 1)))  # Use this for PSD plotting
 
         # Spectrogram plot params
-        plt.figure(figsize=(20, 20))
+        plt.figure(figsize=figsize)
         plt.xlabel('Time (s)')
         plt.ylabel('Frequency (Hz)')
         plt.imshow(S, extent=(np.amin(T), np.amax(T), np.amin(F), np.amax(F)),
