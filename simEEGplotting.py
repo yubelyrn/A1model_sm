@@ -11,29 +11,19 @@ matplotlib.use("MacOSX")
 from matplotlib import pyplot as plt
 from lfpykit.eegmegcalc import NYHeadModel
 
+
+batch = 'ASSR_grid_0310' #Name of batch for fig saving
+
 # Load sim EEG data
-# base_dir = '/Users/scottmcelroy/A1_scz/A1_sim_data/ASSR_grid_0226/'
-# for file in os.listdir(base_dir):
-#     if file.endswith('.pkl'):
-#         sim.load(os.path.join(base_dir, file), 'rb', instantiateStims=False, instantiateConns=False)
-#         fname = file[0:18]
-#         stim_data, stim_window = simTools.calculateEEG(sim, stimOn=3000, end=6000)
-#         # filtered_data = simTools.filterEEG(stim_data, 10, 80, 1000, 4)
-#         simTools.plotERP(stim_data, stim_window, fname)
-#         simTools.plot_spectrogram(data=stim_data, time=stim_window, fname=fname)
-
-sim.load('/Users/scottmcelroy/A1_scz/A1_sim_data/ASSR_tune_0228_data.pkl', 'rb',
-         instantiateStims=False, instantiateConns=False)
-
-stim_ERP, stim_wind = simTools.calculateEEG(sim, stimOn=4000, end=5000)
-
-
-# t = np.arange(100, step=0.05)
-ts = 4+(np.arange(1, step=0.00005))
-
-# filtered_data = simTools.filterEEG(stim_ERP, 1, 80, 1000, 4)
-simTools.plotERP(stim_ERP, ts, 'ASSRtune_0228unFILT', (30, 15))
-# simTools.plot_spectrogram(stim_ERP, ts, 'ASSRtune_0228FINAL', (30, 15))
+base_dir = '/Users/scottmcelroy/A1_scz/A1_sim_data/'+ batch +'/'
+for file in os.listdir(base_dir):
+    if file.endswith('.pkl'):
+        sim.load(os.path.join(base_dir, file), 'rb', instantiateStims=False, instantiateConns=False)
+        fname = file[0:18]
+        stim_data, stim_window = simTools.calculateEEG(sim, stimOn=4000, end=5000)
+        filtered_data = simTools.filterEEG(stim_data, 1, 80, 1000, 4)
+        simTools.plotERP(filtered_data, stim_window, fname, batch)
+        simTools.plot_spectrogram(data=filtered_data, time=stim_window, fname=fname, batch=batch)
 
 
 # Line ran for grant fig raster

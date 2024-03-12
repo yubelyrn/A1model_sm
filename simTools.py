@@ -34,9 +34,7 @@ class simTools:
 
         onset = int(stimOn / 0.05)
         offset = int(end / 0.05)
-        fig = plt.plot(t, goodchan)
-        plt.show()
-        return goodchan, t, fig
+        return goodchan, t
 
     def filterEEG(EEG, lowcut, highcut, fs, order):
         b, a = butter(order, [lowcut, highcut], btype='band', fs=fs)
@@ -61,15 +59,17 @@ class simTools:
                 spk_gids.append(spkGids[spk_gid_ind])
                 spk_times.append(spkTimes[spk_gid_ind])
         return spk_gids, spk_times
-    def plotERP(data, time, fname, figsize = (30,20)):
+    def plotERP(data, time, fname, batch, figsize = (30,20)):
         plt.figure(figsize=figsize)
         plt.plot(time,data/1000, linewidth = 4)
         plt.tick_params(labelsize=50)
         plt.xlabel('Time (s)', fontsize = 65)
         plt.ylabel('uV', fontsize = 65)
-        plt.savefig('/Users/scottmcelroy/A1_scz/A1_figs/' + fname + 'ERP.png')
+        if not os.path.exists('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch):
+            os.mkdir('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch)
+        plt.savefig('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch + '/' + fname + 'ERP.png')
 
-    def plot_spectrogram(data, time,fname, figsize = (20,20)):
+    def plot_spectrogram(data, time, fname, batch, figsize = (20,20)):
         # sampling frequency
         fs = int(1000.0 / 0.05)
 
@@ -102,7 +102,9 @@ class simTools:
                    vmax=vmax,
                    cmap=plt.get_cmap('viridis')
                    )
-        plt.savefig('/Users/scottmcelroy/A1_scz/A1_figs/' + fname + 'spect.png')
+        if not os.path.exists('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch):
+            os.mkdir('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch)
+        plt.savefig('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch + '/' + fname + 'spect.png')
 
 
 

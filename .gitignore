@@ -2,4 +2,4 @@
 *86_64
 *.mat
 *.png
-*__pycache__
+*.pyc
