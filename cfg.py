@@ -71,7 +71,7 @@ cfg.saveDipolePops = cfg.allpops
 # Saving
 # ------------------------------------------------------------------------------
 
-cfg.simLabel = 'ASSR_tune_0312'
+cfg.simLabel = 'RatioNMDA0328'
 cfg.saveFolder = 'data/' + cfg.simLabel  ## Set file output name
 cfg.savePickle = True ## Save pkl file
 cfg.saveJson = False  ## Save json file
@@ -134,7 +134,7 @@ cfg.useHScale = False
 # Network
 # ------------------------------------------------------------------------------
 ## These values taken from M1 cfg.py (https://github.com/Neurosim-lab/netpyne/blob/development/examples/M1detailed/cfg.py)
-cfg.singleCellPops = True
+cfg.singleCellPops = False
 cfg.singlePop = ''
 cfg.removeWeightNorm = False
 cfg.scale = 1.0  # Is this what should be used?
