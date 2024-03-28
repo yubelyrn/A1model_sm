@@ -341,7 +341,7 @@ if cfg.addConn and cfg.EIGain > 0.0:
                         elif 'PV' in post:
                             synWeightFactor = cfg.synWeightFractionEI_CustomCort
                         else:
-                            synWeightFactor = cfg.synWeightFractionEI #cfg.synWeightFractionEI_CustomCort  #cfg.synWeightFractionEI
+                            synWeightFactor = cfg.synWeightFractionEI
                         if 'NGF1' in post:
                             scaleFactor = cfg.ENGF1
                         if pre=='ITS4' or pre=='ITP4':
@@ -358,7 +358,8 @@ if cfg.addConn and cfg.EIGain > 0.0:
                             'postConds': {'pop': post, 'cellType': postType, 'ynorm': layer[l]},
                             'synMech': ESynMech,
                             'probability': prob,
-                            'weight': wmat[pre][post] * cfg.EIGain * cfg.EICellTypeGain[postType] * cfg.EILayerGain[l] * cfg.EIPopGain[post]*scaleFactor,
+                            'weight': wmat[pre][post] * cfg.EIGain * cfg.EICellTypeGain[postType]
+                                      * cfg.EILayerGain[l] * cfg.EIPopGain[post]*scaleFactor,
                             'synMechWeightFactor': synWeightFactor,
                             'delay': 'defaultDelay+dist_3D/propVelocity',
                             'synsPerConn': 1,

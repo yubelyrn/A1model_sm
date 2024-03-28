@@ -20,10 +20,10 @@ for file in os.listdir(base_dir):
     if file.endswith('.pkl'):
         sim.load(os.path.join(base_dir, file), 'rb', instantiateStims=False, instantiateConns=False)
         fname = file[0:18]
-        stim_data, stim_window = simTools.calculateEEG(sim, stimOn=4000, end=5000)
-        filtered_data = simTools.filterEEG(stim_data, 1, 80, 1000, 4)
-        simTools.plotERP(filtered_data, stim_window, fname, batch)
-        simTools.plot_spectrogram(data=filtered_data, time=stim_window, fname=fname, batch=batch)
+        stim_data, stim_window, eeg = simTools.calculateEEG(sim, stimOn=4000, end=5000)
+        # filtered_data = simTools.filterEEG(stim_data, 1, 80, 1000, 4)
+        # simTools.plotERP(filtered_data, stim_window, fname, batch)
+        # simTools.plot_spectrogram(data=filtered_data, time=stim_window, fname=fname, batch=batch)
 
 
 # Line ran for grant fig raster

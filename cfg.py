@@ -65,7 +65,7 @@ cfg.recordLFP = [[100, y, 100] for y in range(0, 2000, 100)]  # +[[100, 2500, 20
 
 cfg.recordDipole = True
 # cfg.saveDipoleCells = ['all']
-# cfg.saveDipolePops = cfg.allpops
+cfg.saveDipolePops = cfg.allpops
 
 # ------------------------------------------------------------------------------
 # Saving
@@ -73,8 +73,8 @@ cfg.recordDipole = True
 
 cfg.simLabel = 'ASSR_tune_0312'
 cfg.saveFolder = 'data/' + cfg.simLabel  ## Set file output name
-cfg.savePickle = False  ## Save pkl file
-cfg.saveJson = True  ## Save json file
+cfg.savePickle = True ## Save pkl file
+cfg.saveJson = False  ## Save json file
 cfg.saveDataInclude = ['simData', 'simConfig', 'netParams', 'net']
 cfg.backupCfgFile = None
 cfg.gatherOnlySimData = False
@@ -120,7 +120,7 @@ cfg.KgbarFactor = 1.0
 cfg.AMPATau2Factor = 1.0
 cfg.synWeightFractionEE = [0.5, 0.5]  # E->E AMPA to NMDA ratio
 cfg.synWeightFractionEI = [0.5, 0.5]  # E->I AMPA to NMDA ratio
-cfg.synWeightFractionEI_CustomCort = [0.5, 0.5]  # E->I AMPA to NMDA ratio custom for cortex NMDA manipulation
+cfg.synWeightFractionEI_CustomCort = [0.75, 0.25]  # E->I AMPA to NMDA ratio custom for cortex NMDA manipulation
 cfg.synWeightFractionSOME = [0.9, 0.1]  # SOM -> E GABAASlow to GABAB ratio
 cfg.synWeightFractionNGF = [0.5, 0.5]  # NGF GABAA to GABAB ratio
 cfg.synWeightFractionENGF = [0.834, 0.166]  # NGF AMPA to NMDA ratio
@@ -134,7 +134,7 @@ cfg.useHScale = False
 # Network
 # ------------------------------------------------------------------------------
 ## These values taken from M1 cfg.py (https://github.com/Neurosim-lab/netpyne/blob/development/examples/M1detailed/cfg.py)
-cfg.singleCellPops = False
+cfg.singleCellPops = True
 cfg.singlePop = ''
 cfg.removeWeightNorm = False
 cfg.scale = 1.0  # Is this what should be used?
@@ -354,4 +354,3 @@ cfg.artFB = {'file': 'data/FBinput/FBinput_test_numCell200.pkl',
              'prob': cfg.artFBprob,
              }
 
-# What the fuck
