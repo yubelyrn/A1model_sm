@@ -61,17 +61,17 @@ cfg.recordStep = 0.05  ## Step size (in ms) to save data -- value from M1 cfg.py
 
 cfg.recordLFP = [[100, y, 100] for y in range(0, 2000, 100)]  # +[[100, 2500, 200], [100,2700,200]]			# null,
 # cfg.recordLFP = [[x, 1000, 100] for x in range(100, 2200, 200)] #+[[100, 2500, 200], [100,2700,200]]
-cfg.saveLFPPops =  cfg.allpops #, "IT3", "SOM3", "PV3", "VIP3", "NGF3", "ITP4", "ITS4", "IT5A", "CT5A", "IT5B", "PT5B", "CT5B", "IT6", "CT6"]
+# cfg.saveLFPPops =  cfg.allpops #, "IT3", "SOM3", "PV3", "VIP3", "NGF3", "ITP4", "ITS4", "IT5A", "CT5A", "IT5B", "PT5B", "CT5B", "IT6", "CT6"]
 
 cfg.recordDipole = True
 # cfg.saveDipoleCells = ['all']
-cfg.saveDipolePops = cfg.allpops
+# cfg.saveDipolePops = cfg.allpops
 
 # ------------------------------------------------------------------------------
 # Saving
 # ------------------------------------------------------------------------------
 
-cfg.simLabel = 'RatioNMDA0328'
+cfg.simLabel = 'CochTune0418'
 cfg.saveFolder = 'data/' + cfg.simLabel  ## Set file output name
 cfg.savePickle = True ## Save pkl file
 cfg.saveJson = False  ## Save json file
@@ -209,7 +209,7 @@ cfg.cochThalprobICore = 0.09
 cfg.cochThalMatrixCoreFactor = 0.1
 cfg.cochThalprobEMatrix = cfg.cochThalprobECore
 cfg.cochThalprobIMatrix = cfg.cochThalprobICore
-cfg.cochThalFreqRange = [1000, 2000]
+cfg.cochThalFreqRange = [9600, 10400]
 
 # these params added from Christoph Metzner branch
 # Control the strength of thalamic inputs to different subpopulations
@@ -271,7 +271,7 @@ cfg.cochlearThalInput = True  # {'numCells': 200, 'freqRange': [9*1e3, 11*1e3], 
 cochlearThalInput = 1
 
 if cochlearThalInput:
-  cfg.cochlearThalInput = {"numCenterFreqs": 100, "freqRange": [125, 20000], "loudnessDBs": 50, "fnwave":"40Hz_click_train.wav"}
+  cfg.cochlearThalInput = {"numCenterFreqs": 100, "freqRange": cfg.cochThalFreqRange, "loudnessDBs": 50, "fnwave":"40Hz_click_train.wav"}
   cti = cfg.cochlearThalInput
   cti['probECore'] = cfg.cochThalprobECore
   cti['weightECore'] = cfg.cochThalweightECore
