@@ -364,7 +364,7 @@ cfg.IbkgThalamicGain = cfgLoad['IbkgThalamicGain']
 cfg.wmat = cfgLoad['wmat']
 
 cfg.ICThalInput = False
-cfg.artFB = False
+# cfg.artFB = False
 # cfg.ICThalInput = {'file': 'data/ICoutput/40Hz_10kHz_4s_AM_click_train_1kBMF_100CF.mat',
 #                    'startTime': 3000,  # list(np.arange(4000, 8000, 300)),
 #                    'weightECore': cfg.ICThalweightECore,
@@ -376,8 +376,8 @@ cfg.artFB = False
 #                    'MatrixCoreFactor': cfg.ICThalMatrixCoreFactor,
 #                    'seed': 1}  # SHOULD THIS BE ZERO?
 
-# cfg.artFB = {'file': 'data/FBinput/FBinput_test_numCell200.pkl',
-#              'weight': cfg.artFBweight,
-#              'prob': cfg.artFBprob,
-#              }
+cfg.artFB = {'file': 'data/FBinput/FBinput_test_numCell200.pkl',
+             'weight': cfg.artFBweight,
+             'prob': cfg.artFBprob,
+             }
 
