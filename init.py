@@ -147,9 +147,9 @@ sim.gatherData()                  			# gather spiking data and cell info from ea
 # distributed saving (to avoid errors with large output data)
 sim.saveDataInNodes()
 sim.gatherDataFromFiles()
-
-sim.saveData()
-
+#
+# sim.saveData()
+#
 sim.analysis.plotData()    # plot spike raster etc
 
 now = datetime.now()
