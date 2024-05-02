@@ -27,8 +27,7 @@ def assr_batch_grid(filename):
     cfgLoad2 = cfgLoad
 
     # #### SET weights####
-    params[('thalL1NGF')] = [0.5, 1.0, 1.5]
-    params[('L4L3E')] = [2.0, 2.5]
+    params[('gabaBtau2')] = [0, 200, 260.9, 300]
 
     #### GROUPED PARAMS ####
     groupedParams = []
@@ -96,7 +95,7 @@ def setRunCfg(b, type='hpc_sge'):
     if type == 'hpc_sge':
         b.runCfg = {'type': 'hpc_sge', # for downstate HPC
                     'jobName': 'smc_ASSR_batch', # label for job
-                    'cores': 60, # give 60 cores here
+                    'cores': 50, # give 60 cores here
                     'script': 'init.py', # what you normally run
                     'vmem': '256G', # or however much memory you need
                     'walltime': '2:00:00', # make 2 hours or something
@@ -133,7 +132,7 @@ if __name__ == '__main__':
     #b = assr_batch('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'ASSR_grid_0310'
+    b.batchLabel = 'gabaBtune0502'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_sge')

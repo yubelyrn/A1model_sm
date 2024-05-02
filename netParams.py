@@ -269,7 +269,7 @@ Ipops = ['NGF1',                            # L1
 ### From M1 detailed netParams.py
 netParams.synMechParams['NMDA'] = {'mod': 'MyExp2SynNMDABB', 'tau1NMDA': 15, 'tau2NMDA': 150, 'e': 0}
 netParams.synMechParams['AMPA'] = {'mod':'MyExp2SynBB', 'tau1': 0.05, 'tau2': 5.3*cfg.AMPATau2Factor, 'e': 0}
-netParams.synMechParams['GABAB'] = {'mod':'MyExp2SynBB', 'tau1': 3.5, 'tau2': 260.9, 'e': -93}
+netParams.synMechParams['GABAB'] = {'mod':'MyExp2SynBB', 'tau1': 3.5, 'tau2': cfg.gabaBtau2, 'e': -93}
 netParams.synMechParams['GABAA'] = {'mod':'MyExp2SynBB', 'tau1': 0.07, 'tau2': 18.2, 'e': -80}
 netParams.synMechParams['GABAA_VIP'] = {'mod':'MyExp2SynBB', 'tau1': 0.3, 'tau2': 6.4, 'e': -80}  # Pi et al 2013
 netParams.synMechParams['GABAASlow'] = {'mod': 'MyExp2SynBB','tau1': 2, 'tau2': 100, 'e': -80}
@@ -496,55 +496,55 @@ if cfg.addConn and cfg.addCorticoThalamicConn: connectCortexToThal()
 #------------------------------------------------------------------------------
 ## Thalamocortical - this was added from Christoph Metzner's branch
 def connectThalToCortex ():
-  # thalamocortical connections, some params added from Christoph Metzner's branch
-  for pre in TEpops+TIpops:
-      for post in Epops+Ipops:
-          scaleFactor = 1.0
-          if post in pmat[pre]:
-              if IsThalamicCore(pre): # use spatially dependent wiring for thalamic core
-                prob = '%f * exp(-dist_x/%f)' % (pmat[pre][post], ThalamicCoreLambda) # NB: should check if this is ok
-              else:
-                prob = '%f * exp(-dist_2D/%f)' % (pmat[pre][post], lmat[pre][post]) # NB: check what the 2D inverse distance based on. lmat from conn/conn.pkl
-              # for syns use ESynMech, SOMESynMech and SOMISynMech
-              if pre in TEpops:     # E->E/I
-                  if post=='PV4':
+    # thalamocortical connections, some params added from Christoph Metzner's branch
+    for pre in TEpops+TIpops:
+        for post in Epops+Ipops:
+            scaleFactor = 1.0
+            if post in pmat[pre]:
+                if IsThalamicCore(pre): # use spatially dependent wiring for thalamic core
+                    prob = '%f * exp(-dist_x/%f)' % (pmat[pre][post], ThalamicCoreLambda) # NB: should check if this is ok
+                else:
+                    prob = '%f * exp(-dist_2D/%f)' % (pmat[pre][post], lmat[pre][post]) # NB: check what the 2D inverse distance based on. lmat from conn/conn.pkl
+                # for syns use ESynMech, SOMESynMech and SOMISynMech
+                if pre in TEpops:     # E->E/I
+                    if post=='PV4':
                       syn = ESynMech
                       synWeightFactor = cfg.synWeightFractionEE
                       scaleFactor = cfg.thalL4PV#25
-                  elif post=='SOM4':
+                    elif post=='SOM4':
                       syn = ESynMech
                       synWeightFactor = cfg.synWeightFractionEE
                       scaleFactor = cfg.thalL4SOM
-                  elif post=='ITS4':
+                    elif post=='ITS4':
                       syn = ESynMech
                       synWeightFactor = cfg.synWeightFractionEE
                       scaleFactor = cfg.thalL4E#25
-                  elif post=='ITP4':
+                    elif post=='ITP4':
                       syn = ESynMech
                       synWeightFactor = cfg.synWeightFractionEE
                       scaleFactor = cfg.thalL4E#25
-                  elif post=='NGF4':
+                    elif post=='NGF4':
                       syn = ESynMech
                       synWeightFactor = cfg.synWeightFractionEE
                       scaleFactor = cfg.thalL4NGF#25
-                  elif post=='VIP4':
+                    elif post=='VIP4':
                       syn = ESynMech
                       synWeightFactor = cfg.synWeightFractionEE
                       scaleFactor = cfg.thalL4VIP#25
-                  elif post=='NGF1':
+                    elif post=='NGF1':
                       syn = ESynMech
                       synWeightFactor = cfg.synWeightFractionEE
                       scaleFactor = cfg.thalL1NGF#25
-                  else:
+                    else:
                       syn = ESynMech
                       synWeightFactor = cfg.synWeightFractionEE
-              elif post in Epops:  # I->E
+                elif post in Epops:  # I->E
                   syn = SOMESynMech
                   synWeightFactor = cfg.synWeightFractionIE
-              else:                  # I->I
+                else:                  # I->I
                   syn = SOMISynMech
                   synWeightFactor = [1.0]
-              netParams.connParams['ThCx_'+pre+'_'+post] = {
+                netParams.connParams['ThCx_'+pre+'_'+post] = {
                   'preConds': {'pop': pre},
                   'postConds': {'pop': post},
                   'synMech': syn,
@@ -569,89 +569,89 @@ if cfg.addConn and cfg.addThalamoCorticalConn: connectThalToCortex()
 # Set target sections (somatodendritic distribution of synapses)
 # From Billeh 2019 (Allen V1) (fig 4F) and Tremblay 2016 (fig 3)
 def addSubConn ():
-  #------------------------------------------------------------------------------
-  # E -> E2/3,4: soma,dendrites <200um
-  netParams.subConnParams['E->E2,3,4'] = {
+    #------------------------------------------------------------------------------
+    # E -> E2/3,4: soma,dendrites <200um
+    netParams.subConnParams['E->E2,3,4'] = {
       'preConds': {'cellType': ['IT', 'ITS4', 'PT', 'CT']},
       'postConds': {'pops': ['IT2', 'IT3', 'ITP4', 'ITS4']},
       'sec': 'proximal',
       'groupSynMechs': ESynMech,
       'density': 'uniform'}
-  #------------------------------------------------------------------------------
-  # E -> E5,6: soma,dendrites (all)
-  netParams.subConnParams['E->E5,6'] = {
+    #------------------------------------------------------------------------------
+    # E -> E5,6: soma,dendrites (all)
+    netParams.subConnParams['E->E5,6'] = {
       'preConds': {'cellType': ['IT', 'ITS4', 'PT', 'CT']},
       'postConds': {'pops': ['IT5A', 'CT5A', 'IT5B', 'PT5B', 'CT5B', 'IT6', 'CT6']},
       'sec': 'all',
       'groupSynMechs': ESynMech,
       'density': 'uniform'}
-  #------------------------------------------------------------------------------
-  # E -> I: soma, dendrite (all)
-  netParams.subConnParams['E->I'] = {
+    #------------------------------------------------------------------------------
+    # E -> I: soma, dendrite (all)
+    netParams.subConnParams['E->I'] = {
       'preConds': {'cellType': ['IT', 'ITS4', 'PT', 'CT']},
       'postConds': {'cellType': ['PV','SOM','NGF', 'VIP']},
       'sec': 'all',
       'groupSynMechs': ESynMech,
       'density': 'uniform'}
-  #------------------------------------------------------------------------------
-  # NGF1 -> E: apic_tuft
-  netParams.subConnParams['NGF1->E'] = {
+    #------------------------------------------------------------------------------
+    # NGF1 -> E: apic_tuft
+    netParams.subConnParams['NGF1->E'] = {
       'preConds': {'pops': ['NGF1']},
       'postConds': {'cellType': ['IT', 'ITS4', 'PT', 'CT']},
       'sec': 'apic_tuft',
       'groupSynMechs': NGFSynMech,
       'density': 'uniform'}
-  #------------------------------------------------------------------------------
-  # NGF2,3,4 -> E2,3,4: apic_trunk
-  netParams.subConnParams['NGF2,3,4->E2,3,4'] = {
+    #------------------------------------------------------------------------------
+    # NGF2,3,4 -> E2,3,4: apic_trunk
+    netParams.subConnParams['NGF2,3,4->E2,3,4'] = {
       'preConds': {'pops': ['NGF2', 'NGF3', 'NGF4']},
       'postConds': {'pops': ['IT2', 'IT3', 'ITP4', 'ITS4']},
       'sec': 'apic_trunk',
       'groupSynMechs': NGFSynMech,
       'density': 'uniform'}
-  #------------------------------------------------------------------------------
-  # NGF2,3,4 -> E5,6: apic_uppertrunk
-  netParams.subConnParams['NGF2,3,4->E5,6'] = {
+    #------------------------------------------------------------------------------
+    # NGF2,3,4 -> E5,6: apic_uppertrunk
+    netParams.subConnParams['NGF2,3,4->E5,6'] = {
       'preConds': {'pops': ['NGF2', 'NGF3', 'NGF4']},
       'postConds': {'pops': ['IT5A', 'CT5A', 'IT5B', 'PT5B', 'CT5B', 'IT6', 'CT6']},
       'sec': 'apic_uppertrunk',
       'groupSynMechs': NGFSynMech,
       'density': 'uniform'}
-  #------------------------------------------------------------------------------
-  # NGF5,6 -> E5,6: apic_lowerrunk
-  netParams.subConnParams['NGF5,6->E5,6'] = {
+    #------------------------------------------------------------------------------
+    # NGF5,6 -> E5,6: apic_lowerrunk
+    netParams.subConnParams['NGF5,6->E5,6'] = {
       'preConds': {'pops': ['NGF5A', 'NGF5B', 'NGF6']},
       'postConds': {'pops': ['IT5A', 'CT5A', 'IT5B', 'PT5B', 'CT5B', 'IT6', 'CT6']},
       'sec': 'apic_lowertrunk',
       'groupSynMechs': NGFSynMech,
       'density': 'uniform'}
-  #------------------------------------------------------------------------------
-  #  SOM -> E: all_dend (not close to soma)
-  netParams.subConnParams['SOM->E'] = {
+    #------------------------------------------------------------------------------
+    #  SOM -> E: all_dend (not close to soma)
+    netParams.subConnParams['SOM->E'] = {
       'preConds': {'cellType': ['SOM']},
       'postConds': {'cellType': ['IT', 'ITS4', 'PT', 'CT']},
       'sec': 'dend_all',
       'groupSynMechs': SOMESynMech,
       'density': 'uniform'}
-  #------------------------------------------------------------------------------
-  #  PV -> E: proximal
-  netParams.subConnParams['PV->E'] = {
+    #------------------------------------------------------------------------------
+    #  PV -> E: proximal
+    netParams.subConnParams['PV->E'] = {
       'preConds': {'cellType': ['PV']},
       'postConds': {'cellType': ['IT', 'ITS4', 'PT', 'CT']},
       'sec': 'proximal',
       'groupSynMechs': PVSynMech,
       'density': 'uniform'}
-  #------------------------------------------------------------------------------
-  #  TC -> E: proximal
-  netParams.subConnParams['TC->E'] = {
+    #------------------------------------------------------------------------------
+    #  TC -> E: proximal
+    netParams.subConnParams['TC->E'] = {
       'preConds': {'cellType': ['TC', 'HTC']},
       'postConds': {'cellType': ['IT', 'ITS4', 'PT', 'CT']},
       'sec': 'proximal',
       'groupSynMechs': ESynMech,
       'density': 'uniform'}
-  #------------------------------------------------------------------------------
-  #  TCM -> E: apical
-  netParams.subConnParams['TCM->E'] = {
+    #------------------------------------------------------------------------------
+    #  TCM -> E: apical
+    netParams.subConnParams['TCM->E'] = {
       'preConds': {'cellType': ['TCM']},
       'postConds': {'cellType': ['IT', 'ITS4', 'PT', 'CT']},
       'sec': 'apic',
@@ -709,8 +709,8 @@ if cfg.addBkgConn:
         numCochlearCells = len(cochlearCenterFreqs)
         netParams.popParams['cochlea'] = {'cellModel': 'VecStim', 'numCells': numCochlearCells, 'spkTimes': cochlearSpkTimes, 'ynormRange': layer['cochlear']}
         netParams.popParams['cochlea']['gridSpacing'] = 1
-        netParams.popParams['cochlea']['sizeX'] = numCochlearCells + 1
-        netParams.popParams['cochlea']['sizeY'] = netParams.popParams['cochlea']['sizeZ'] = 1
+        # netParams.popParams['cochlea']['sizeX'] = numCochlearCells + 1
+        # netParams.popParams['cochlea']['sizeY'] = netParams.popParams['cochlea']['sizeZ'] = 1
 
     if cfg.ICThalInput:
         # load file with IC output rates

@@ -15,7 +15,6 @@ MPI usage:
 Contributors: ericaygriffith@gmail.com, salvadordura@gmail.com
 """
 from datetime import datetime
-
 import matplotlib; matplotlib.use('Agg')  # to avoid graphics error in servers
 from input import cochlearInputSpikes
 from netpyne import sim
@@ -25,15 +24,13 @@ cfg, netParams = sim.readCmdLineArgs(simConfigDefault='cfg.py', netParamsDefault
 
 ThalamicCoreLambda = 5.0
 
-dcoch = cochlearInputSpikes(freqRange = cfg.cochlearThalInput['freqRange'],
-                            numCenterFreqs=cfg.cochlearThalInput['numCenterFreqs'],
-                            loudnessDBs=cfg.cochlearThalInput['loudnessDBs'],
-                            fnwave=cfg.cochlearThalInput['fnwave'])
-cochlearSpkTimes = dcoch['spkT']
-cochlearCenterFreqs = dcoch['cf']
-numCochlearCells = len(cochlearCenterFreqs)
-
-# sim.createSimulateAnalyze(netParams, cfg)
+# dcoch = cochlearInputSpikes(freqRange = cfg.cochlearThalInput['freqRange'],
+#                             numCenterFreqs=cfg.cochlearThalInput['numCenterFreqs'],
+#                             loudnessDBs=cfg.cochlearThalInput['loudnessDBs'],
+#                             fnwave=cfg.cochlearThalInput['fnwave'])
+# cochlearSpkTimes = dcoch['spkT']
+# cochlearCenterFreqs = dcoch['cf']
+# numCochlearCells = len(cochlearCenterFreqs)
 
 sim.initialize(simConfig = cfg,
                netParams = netParams)  		# create network object and set cfg and net params
@@ -72,71 +69,11 @@ def setCellGridLocations (pop, sz, scale, checkcf=True):
         c.tags['xnorm'] = cellx / netParams.sizeX # make sure these values consistent
       c.updateShape()
 
-setCellGridLocations('cochlea', netParams.popParams['cochlea']['numCells'],
-                     netParams.popParams['cochlea']['sizeX'])
+if cfg.cochlearThalInput:
+  setCellGridLocations('cochlea', netParams.popParams['cochlea']['numCells'],
+                       netParams.popParams['cochlea']['sizeX'])
 
-# def prob2conv (prob, npre):
-#   # probability to convergence; prob is connection probability, npre is number of presynaptic neurons
-#   return int(0.5 + prob * npre)
-#
-# # cochlea -> thal
-# def connectCochleaToThal ():
-#   # these next two parameters are derived, so should be set here in case used by batch/optimization; because cfg.py
-#   # gets copied as a .json file without re-interpreting the other variables
-#   cfg.cochlearThalInput['weightEMatrix'] = cfg.cochlearThalInput['weightECore'] * cfg.cochlearThalInput['MatrixCoreFactor']
-#   cfg.cochlearThalInput['weightIMatrix'] = cfg.cochlearThalInput['weightICore'] * cfg.cochlearThalInput['MatrixCoreFactor']
-#   #coch2coreIDX = []
-#   #for idx, cf in enumerate(cochlearCenterFreqs):
-#   #  if cf >= cfg.cochThalFreqRange[0] and cf <= cfg.cochThalFreqRange[1]:
-#   #    coch2coreIDX.append(idx) # this cochlear cell can project to core
-#   # cochlea to thalamic core uses topographic wiring, cochlea to matrix uses random wiring
-#   for ct in ['TC', 'HTC']:  # cochlea -> Thal Core E neurons
-#     prob = '%f * exp(-dist_x/%f)' % (cfg.cochlearThalInput['probECore'], ThalamicCoreLambda)
-#     netParams.connParams['cochlea->ThalECore'+ct] = {
-#         'preConds': {'pop': 'cochlea'},
-#         'postConds': {'cellType': [ct]},
-#         'sec': 'soma',
-#         'loc': 0.5,
-#         'synMech': ESynMech,
-#         'probability': prob,
-#         'weight': cfg.cochlearThalInput['weightECore'],
-#         'synMechWeightFactor': cfg.synWeightFractionEE,
-#         'delay': cfg.delayBkg}
-#   for ct in ['IRE', 'TI']:
-#     prob = '%f * exp(-dist_x/%f)' % (cfg.cochlearThalInput['probICore'],ThalamicCoreLambda)
-#     netParams.connParams['cochlea->ThalICore'+ct] = {
-#         'preConds': {'pop': 'cochlea'},
-#         'postConds': {'cellType': [ct]},
-#         'sec': 'soma',
-#         'loc': 0.5,
-#         'synMech': ESynMech,
-#         'probability': prob,
-#         'weight': cfg.cochlearThalInput['weightICore'],
-#         'synMechWeightFactor': cfg.synWeightFractionEI,
-#         'delay': cfg.delayBkg}
-#   # cochlea -> Thal Matrix
-#   netParams.connParams['cochlea->ThalEMatrix'] = {
-#       'preConds': {'pop': 'cochlea'},
-#       'postConds': {'cellType': ['TCM']},
-#       'sec': 'soma',
-#       'loc': 0.5,
-#       'synMech': ESynMech,
-#       'convergence': prob2conv(cfg.cochlearThalInput['probEMatrix'], numCochlearCells),
-#       'weight': cfg.cochlearThalInput['weightEMatrix'],
-#       'synMechWeightFactor': cfg.synWeightFractionEE,
-#       'delay': cfg.delayBkg}
-#   netParams.connParams['cochlea->ThalIMatrix'] = {
-#       'preConds': {'pop': 'cochlea'},
-#       'postConds': {'cellType': ['IREM','TIM']},
-#       'sec': 'soma',
-#       'loc': 0.5,
-#       'synMech': ESynMech,
-#       'convergence': prob2conv(cfg.cochlearThalInput['probIMatrix'], numCochlearCells),
-#       'weight': cfg.cochlearThalInput['weightIMatrix'],
-#       'synMechWeightFactor': cfg.synWeightFractionEI,
-#       'delay': cfg.delayBkg}
-#
-# if cfg.cochlearThalInput: connectCochleaToThal()
+
 
 sim.net.connectCells()            			# create connections between cells based on params
 sim.net.addStims() 							# add network stimulation
@@ -147,9 +84,7 @@ sim.gatherData()                  			# gather spiking data and cell info from ea
 # distributed saving (to avoid errors with large output data)
 sim.saveDataInNodes()
 sim.gatherDataFromFiles()
-#
-# sim.saveData()
-#
+sim.saveData()
 sim.analysis.plotData()    # plot spike raster etc
 
 now = datetime.now()
