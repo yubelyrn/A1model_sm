@@ -22,8 +22,6 @@ import numpy as np
 
 cfg, netParams = sim.readCmdLineArgs(simConfigDefault='cfg.py', netParamsDefault='netParams.py')
 
-ThalamicCoreLambda = 5.0
-
 # dcoch = cochlearInputSpikes(freqRange = cfg.cochlearThalInput['freqRange'],
 #                             numCenterFreqs=cfg.cochlearThalInput['numCenterFreqs'],
 #                             loudnessDBs=cfg.cochlearThalInput['loudnessDBs'],
@@ -69,25 +67,25 @@ def setCellGridLocations (pop, sz, scale, checkcf=True):
         c.tags['xnorm'] = cellx / netParams.sizeX # make sure these values consistent
       c.updateShape()
 
-if cfg.cochlearThalInput:
-  setCellGridLocations('cochlea', netParams.popParams['cochlea']['numCells'],
-                       netParams.popParams['cochlea']['sizeX'])
+# if cfg.cochlearThalInput:
+#   setCellGridLocations('cochlea', netParams.popParams['cochlea']['numCells'],
+#                        netParams.popParams['cochlea']['sizeX'])
 
 
 
 sim.net.connectCells()            			# create connections between cells based on params
 sim.net.addStims() 							# add network stimulation
-sim.setupRecording()              			# setup variables to record for each cell (spikes, V traces, etc)
-sim.runSim()                      			# run parallel Neuron simulation
-sim.gatherData()                  			# gather spiking data and cell info from each node
-
-# distributed saving (to avoid errors with large output data)
-sim.saveDataInNodes()
-sim.gatherDataFromFiles()
+# sim.setupRecording()              			# setup variables to record for each cell (spikes, V traces, etc)
+# sim.runSim()                      			# run parallel Neuron simulation
+# sim.gatherData()                  			# gather spiking data and cell info from each node
+#
+# # distributed saving (to avoid errors with large output data)
+# sim.saveDataInNodes()
+# sim.gatherDataFromFiles()
 # sim.saveData()
-sim.analysis.plotData()    # plot spike raster etc
-
-now = datetime.now()
-
-current_time = now.strftime("%H:%M:%S")
-print("Current Time =", current_time)
+# sim.analysis.plotData()    # plot spike raster etc
+#
+# now = datetime.now()
+#
+# current_time = now.strftime("%H:%M:%S")
+# print("Current Time =", current_time)

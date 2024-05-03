@@ -48,7 +48,7 @@ netParams.defaultThreshold = 0.0 # spike threshold, 10 mV is NetCon default, low
 netParams.defaultDelay = 2.0 # default conn delay (ms)
 netParams.propVelocity = 500.0 # propagation velocity (um/ms)
 netParams.probLambda = 100.0  # length constant (lambda) for connection probability decay (um)
-ThalamicCoreLambda = 5.0
+ThalamicCoreLambda = 160.0
 #------------------------------------------------------------------------------
 # Cell parameters
 #------------------------------------------------------------------------------
@@ -860,7 +860,7 @@ if cfg.addBkgConn:
                 'sec': 'soma',
                 'loc': 0.5,
                 'synMech': ESynMech,
-                'probability': 1,
+                'probability': prob,
                 'weight': cfg.cochlearThalInput['weightECore'],
                 'synMechWeightFactor': cfg.synWeightFractionEE,
                 'delay': cfg.delayBkg}
@@ -872,7 +872,7 @@ if cfg.addBkgConn:
                 'sec': 'soma',
                 'loc': 0.5,
                 'synMech': ESynMech,
-                'probability': 1,
+                'probability': prob,
                 'weight': cfg.cochlearThalInput['weightICore'],
                 'synMechWeightFactor': cfg.synWeightFractionEI,
                 'delay': cfg.delayBkg}
@@ -995,7 +995,7 @@ if cfg.addNetStim:
 
         for eachPop in pop:
             # connect stim source to target
-            print(key, eachPop)
+
             netParams.stimTargetParams[key+'_'+eachPop] =  {
                 'source': key,
                 'conds': {'pop': eachPop, 'ynorm': ynorm},

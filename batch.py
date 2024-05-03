@@ -27,10 +27,10 @@ def assr_batch_grid(filename):
     cfgLoad2 = cfgLoad
 
     # #### SET weights####
-    params[('gabaBtau2')] = [0, 200, 260.9, 300]
-
+    params['ICThalweightECore'] = [0.8350476447841453, 1.0, 1.5]
+    params['ICThalweightICore'] = [0.2114492149101151, 0.5 , 1.0]
     #### GROUPED PARAMS ####
-    groupedParams = []
+    groupedParams = ['ICThalweightECore', 'ICThalweightICore']
 
     # --------------------------------------------------------
     # initial config
@@ -132,7 +132,7 @@ if __name__ == '__main__':
     #b = assr_batch('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'gabaBtune0502'
+    b.batchLabel = 'ICweightTune'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_sge')
