@@ -71,7 +71,7 @@ cfg.recordDipole = True
 # Saving
 # ------------------------------------------------------------------------------
 
-cfg.simLabel = 'CochDebug0503'
+cfg.simLabel = 'CochDebug0506'
 cfg.saveFolder = 'data/' + cfg.simLabel  ## Set file output name
 cfg.savePickle = True ## Save pkl file
 cfg.saveJson = False  ## Save json file
