@@ -82,13 +82,13 @@ def checkCochConns():
   for cell in sim.net.cells:
     if cell.tags['pop'] == 'cochlea':
       cochGids.append(cell.gid)
-      print('Number of Cochlea Cells is ' + len(cochGids))
+      print('Number of Cochlea Cells is ' + str(len(cochGids)))
 
   for cell in sim.net.cells:
     for conn in cell.conns:
       if conn['preGid'] in cochGids:
         cochConns.append(conn)
-        print ('Number of Cochlea Conns is ' + len(cochConns))
+        print ('Number of Cochlea Conns is ' + str(len(cochConns)))
 
 checkCochConns()
 
