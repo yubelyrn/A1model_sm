@@ -22,7 +22,7 @@ cfg = specs.SimConfig()
 # ------------------------------------------------------------------------------
 # Run parameters
 # ------------------------------------------------------------------------------
-cfg.duration = 6e3  ## Duration of the sim, in ms
+cfg.duration = 100  ## Duration of the sim, in ms
 cfg.dt = 0.05  ## Internal Integration Time Step
 cfg.verbose = 0  ## Show detailed messages
 cfg.hParams['celsius'] = 37
@@ -271,18 +271,18 @@ cfg.cochlearThalInput = True
 # parameters to generate realistic  auditory thalamic inputs using Brian Hears
 
 
-if cfg.cochlearThalInput:
-  cfg.cochlearThalInput = {"numCenterFreqs": 100, "freqRange": cfg.cochThalFreqRange, "loudnessDBs": 50, "fnwave":"40Hz_click_train.wav"}
-  cti = cfg.cochlearThalInput
-  cti['probECore'] = cfg.cochThalprobECore
-  cti['weightECore'] = cfg.cochThalweightECore
-  cti['probICore'] = cfg.cochThalprobICore
-  cti['weightICore'] = cfg.cochThalweightICore
-  cti['probEMatrix'] = cfg.cochThalprobEMatrix
-  cti['probIMatrix'] = cfg.cochThalprobIMatrix
-  cti['MatrixCoreFactor'] = cfg.cochThalMatrixCoreFactor
-else:
-  cfg.cochlearThalInput = False
+# if cfg.cochlearThalInput:
+#   cfg.cochlearThalInput = {"numCenterFreqs": 100, "freqRange": cfg.cochThalFreqRange, "loudnessDBs": 50, "fnwave":"40Hz_click_train.wav"}
+#   cti = cfg.cochlearThalInput
+#   cti['probECore'] = cfg.cochThalprobECore
+#   cti['weightECore'] = cfg.cochThalweightECore
+#   cti['probICore'] = cfg.cochThalprobICore
+#   cti['weightICore'] = cfg.cochThalweightICore
+#   cti['probEMatrix'] = cfg.cochThalprobEMatrix
+#   cti['probIMatrix'] = cfg.cochThalprobIMatrix
+#   cti['MatrixCoreFactor'] = cfg.cochThalMatrixCoreFactor
+# else:
+#   cfg.cochlearThalInput = False
 
 
 # ------------------------------------------------------------------------------

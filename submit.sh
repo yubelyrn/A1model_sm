@@ -2,7 +2,7 @@
 #$ -cwd
 #$ -N ASSR_cfgTune
 #$ -q cpu.q
-#$ -pe smp 60
+#$ -pe smp 30
 #$ -l h_vmem=256G
 #$ -l h_rt=2:00:00
 #$ -o /ddn/smcelroy97/A1model_sm/data/singleSim.out

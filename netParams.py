@@ -699,6 +699,20 @@ if cfg.addBkgConn:
     netParams.stimSourceParams['inhBkg'] = {'type': 'NetStim', 'start': cfg.startBkg, 'rate': cfg.rateBkg['inh'], 'noise': cfg.noiseBkg, 'number': 1e9}
 
     if cfg.cochlearThalInput:
+        cfg.cochlearThalInput = {"numCenterFreqs": 100, "freqRange": cfg.cochThalFreqRange, "loudnessDBs": 50,
+                                 "fnwave": "40Hz_click_train.wav"}
+        cti = cfg.cochlearThalInput
+        cti['probECore'] = cfg.cochThalprobECore
+        cti['weightECore'] = cfg.cochThalweightECore
+        cti['probICore'] = cfg.cochThalprobICore
+        cti['weightICore'] = cfg.cochThalweightICore
+        cti['probEMatrix'] = cfg.cochThalprobEMatrix
+        cti['probIMatrix'] = cfg.cochThalprobIMatrix
+        cti['MatrixCoreFactor'] = cfg.cochThalMatrixCoreFactor
+    else:
+        cfg.cochlearThalInput = False
+
+    if cfg.cochlearThalInput:
         from input import cochlearInputSpikes
         dcoch = cochlearInputSpikes(freqRange = cfg.cochlearThalInput['freqRange'],
                                     numCenterFreqs=cfg.cochlearThalInput['numCenterFreqs'],
