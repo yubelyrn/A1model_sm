@@ -698,18 +698,6 @@ if cfg.addBkgConn:
     netParams.stimSourceParams['excBkg'] = {'type': 'NetStim', 'start': cfg.startBkg, 'rate': cfg.rateBkg['exc'], 'noise': cfg.noiseBkg, 'number': 1e9}
     netParams.stimSourceParams['inhBkg'] = {'type': 'NetStim', 'start': cfg.startBkg, 'rate': cfg.rateBkg['inh'], 'noise': cfg.noiseBkg, 'number': 1e9}
 
-    if cfg.cochlearThalInput:
-        cfg.cochlearThalInput = {"numCenterFreqs": 100, "freqRange": cfg.cochThalFreqRange, "loudnessDBs": 50,
-                                 "fnwave": "40Hz_click_train.wav"}
-        cfg.cochlearThalInput['probECore'] = cfg.cochThalprobECore
-        cfg.cochlearThalInput['weightECore'] = cfg.cochThalweightECore
-        cfg.cochlearThalInput['probICore'] = cfg.cochThalprobICore
-        cfg.cochlearThalInput['weightICore'] = cfg.cochThalweightICore
-        cfg.cochlearThalInput['probEMatrix'] = cfg.cochThalprobEMatrix
-        cfg.cochlearThalInput['probIMatrix'] = cfg.cochThalprobIMatrix
-        cfg.cochlearThalInput['MatrixCoreFactor'] = cfg.cochThalMatrixCoreFactor
-    else:
-        cfg.cochlearThalInput = False
 
     if cfg.cochlearThalInput:
         from input import cochlearInputSpikes

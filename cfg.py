@@ -71,7 +71,7 @@ cfg.recordDipole = True
 # Saving
 # ------------------------------------------------------------------------------
 
-cfg.simLabel = 'CochDebug0506'
+cfg.simLabel = 'CochDebug0507'
 cfg.saveFolder = 'data/' + cfg.simLabel  ## Set file output name
 cfg.savePickle = True ## Save pkl file
 cfg.saveJson = False  ## Save json file
@@ -271,18 +271,18 @@ cfg.cochlearThalInput = True
 # parameters to generate realistic  auditory thalamic inputs using Brian Hears
 
 
-# if cfg.cochlearThalInput:
-#   cfg.cochlearThalInput = {"numCenterFreqs": 100, "freqRange": cfg.cochThalFreqRange, "loudnessDBs": 50, "fnwave":"40Hz_click_train.wav"}
-#   cti = cfg.cochlearThalInput
-#   cti['probECore'] = cfg.cochThalprobECore
-#   cti['weightECore'] = cfg.cochThalweightECore
-#   cti['probICore'] = cfg.cochThalprobICore
-#   cti['weightICore'] = cfg.cochThalweightICore
-#   cti['probEMatrix'] = cfg.cochThalprobEMatrix
-#   cti['probIMatrix'] = cfg.cochThalprobIMatrix
-#   cti['MatrixCoreFactor'] = cfg.cochThalMatrixCoreFactor
-# else:
-#   cfg.cochlearThalInput = False
+if cfg.cochlearThalInput:
+    cfg.cochlearThalInput = {"numCenterFreqs": 100, "freqRange": cfg.cochThalFreqRange, "loudnessDBs": 50,
+                             "fnwave": "40Hz_click_train.wav"}
+    cfg.cochlearThalInput['probECore'] = cfg.cochThalprobECore
+    cfg.cochlearThalInput['weightECore'] = cfg.cochThalweightECore
+    cfg.cochlearThalInput['probICore'] = cfg.cochThalprobICore
+    cfg.cochlearThalInput['weightICore'] = cfg.cochThalweightICore
+    cfg.cochlearThalInput['probEMatrix'] = cfg.cochThalprobEMatrix
+    cfg.cochlearThalInput['probIMatrix'] = cfg.cochThalprobIMatrix
+    cfg.cochlearThalInput['MatrixCoreFactor'] = cfg.cochThalMatrixCoreFactor
+else:
+    cfg.cochlearThalInput = False
 
 
 # ------------------------------------------------------------------------------

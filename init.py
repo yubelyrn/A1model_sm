@@ -22,24 +22,11 @@ import numpy as np
 
 cfg, netParams = sim.readCmdLineArgs(simConfigDefault='cfg.py', netParamsDefault='netParams.py')
 
-# dcoch = cochlearInputSpikes(freqRange = cfg.cochlearThalInput['freqRange'],
-#                             numCenterFreqs=cfg.cochlearThalInput['numCenterFreqs'],
-#                             loudnessDBs=cfg.cochlearThalInput['loudnessDBs'],
-#                             fnwave=cfg.cochlearThalInput['fnwave'])
-# cochlearSpkTimes = dcoch['spkT']
-# cochlearCenterFreqs = dcoch['cf']
-# numCochlearCells = len(cochlearCenterFreqs)
-
 sim.initialize(simConfig = cfg,
                netParams = netParams)  		# create network object and set cfg and net params
 sim.net.createPops()               			# instantiate network populations
 sim.net.createCells()              			# instantiate network cells based on defined populations
-dcoch = cochlearInputSpikes(freqRange = cfg.cochlearThalInput['freqRange'],
-                                    numCenterFreqs=cfg.cochlearThalInput['numCenterFreqs'],
-                                    loudnessDBs=cfg.cochlearThalInput['loudnessDBs'],
-                                    fnwave=cfg.cochlearThalInput['fnwave'])
-cochlearSpkTimes = dcoch['spkT']
-cochlearCenterFreqs = dcoch['cf']
+
 def setdminID (sim, lpop):
   # setup min,max ID and dnumc for each population in lpop
   alltags = sim._gatherAllCellTags() #gather cell tags; see https://github.com/Neurosim-lab/netpyne/blob/development/netpyne/sim/gather.py
@@ -64,14 +51,14 @@ def setCochCellLocationsX (pop, sz, scale):
       if sidx == -1: sidx = idx # start index
       ncellinrange += 1
   if sidx > -1: offset += sidx
-  print('setCochCellLocations: sidx, offset, ncellinrange = ', sidx, offset, ncellinrange)
+  # print('setCochCellLocations: sidx, offset, ncellinrange = ', sidx, offset, ncellinrange)
   for c in sim.net.cells:
     if c.gid in sim.net.pops[pop].cellGids:
       cf = cochlearCenterFreqs[c.gid-sim.simData['dminID'][pop]]
       if cf >= cfg.cochThalFreqRange[0] and cf <= cfg.cochThalFreqRange[1]:
         c.tags['x'] = cellx = ((c.gid-offset)/ncellinrange) * scale
         c.tags['xnorm'] = cellx / netParams.sizeX # make sure these values consistent
-        print('gid,cellx,xnorm,cf=',c.gid,cellx,cellx/netParams.sizeX,cf)
+        # print('gid,cellx,xnorm,cf=',c.gid,cellx,cellx/netParams.sizeX,cf)
       else:
         c.tags['x'] = cellx = 100000  # put it outside range for core
         c.tags['xnorm'] = cellx / netParams.sizeX # make sure these values consistent

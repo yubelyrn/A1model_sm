@@ -13,7 +13,7 @@ from matplotlib import pyplot as plt
 from lfpykit.eegmegcalc import NYHeadModel
 
 
-batch = 'gabaBtune0502' #Name of batch for fig saving
+batch = 'cochDebug0507small' #Name of batch for fig saving
 
 # Load sim EEG data
 base_dir = '/Users/scottmcelroy/A1_scz/A1_sim_data/'+ batch +'/'
@@ -31,7 +31,7 @@ for file in os.listdir(base_dir):
         # simTools.plot_spectrogram(data=filtered_data, time=stim_window, fname=fname, batch=batch) # Use filter only if low frq power skews image
         # simTools.plot_PSD(data=filtered_data, time=stim_window, fname=fname, batch=batch) #PSD should stay unfiltered ideally
         # Raster code used for the grant (looks better than base plot raster)
-        sim.analysis.plotRaster(timeRange=(4000,5000), orderInverse=True, markerSize=1000, figSize = (27,23),
+        sim.analysis.plotRaster( orderInverse=True, markerSize=1000, figSize = (27,23),
         saveFig = '/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'+batch+ '/'+fname+ 'Raster.png')
         # sim.plotting.plotCSD(LFP_Overlay = True, saveFig='/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch+'/'+fname+'CSDpad.jpeg')
 
