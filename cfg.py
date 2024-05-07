@@ -71,7 +71,7 @@ cfg.recordDipole = True
 # Saving
 # ------------------------------------------------------------------------------
 
-cfg.simLabel = 'CochDebug0507'
+cfg.simLabel = 'CochDebug0507samWav'
 cfg.saveFolder = 'data/' + cfg.simLabel  ## Set file output name
 cfg.savePickle = True ## Save pkl file
 cfg.saveJson = False  ## Save json file
@@ -85,7 +85,7 @@ cfg.saveCellConns = True
 # Analysis and plotting
 # -----------------------------------------------------------------------------
 
-cfg.analysis['plotTraces'] = {'include': [cfg.allThalPops], 'oneFigPer': 'trace', 'overlay': True, 'saveFig': True, 'showFig': False, 'figSize':(12,8)} #[(pop,0) for pop in alltypes]		## Seen in M1 cfg.py (line 68)
+cfg.analysis['plotTraces'] = {'include': ['TC'], 'oneFigPer': 'trace', 'overlay': True, 'saveFig': True, 'showFig': False, 'figSize':(12,8)} #[(pop,0) for pop in alltypes]		## Seen in M1 cfg.py (line 68)
 # cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': True, 'popRates': True,
 #                               'orderInverse': True, 'timeRange': [0,cfg.duration], 'figSize': (14,12), 'lw': 0.3,
 #                               'markerSize': 3, 'marker': '.', 'dpi': 300}      	## Plot a raster
@@ -204,10 +204,10 @@ cfg.ICThalprobEMatrix = cfg.ICThalprobECore
 cfg.ICThalprobIMatrix = cfg.ICThalprobICore
 
 # these params control cochlea -> Thalamus
-cfg.cochThalweightECore = 8000
-cfg.cochThalweightICore = 0.1
-cfg.cochThalprobECore = 0.16
-cfg.cochThalprobICore = 0.09
+cfg.cochThalweightECore = 1.0
+cfg.cochThalweightICore = 0.25
+cfg.cochThalprobECore = 0.5
+cfg.cochThalprobICore = 0.15
 cfg.cochThalMatrixCoreFactor = 0.1
 cfg.cochThalprobEMatrix = cfg.cochThalprobECore
 cfg.cochThalprobIMatrix = cfg.cochThalprobICore
@@ -272,8 +272,8 @@ cfg.cochlearThalInput = True
 
 
 if cfg.cochlearThalInput:
-    cfg.cochlearThalInput = {"numCenterFreqs": 100, "freqRange": cfg.cochThalFreqRange, "loudnessDBs": 50,
-                             "fnwave": "40Hz_click_train.wav"}
+    cfg.cochlearThalInput = {"onset" : 1000, "numCenterFreqs": 100, "freqRange":[125, 20000], "loudnessDBs": 50,
+                             "fnwave": "test.wav"}
     cfg.cochlearThalInput['probECore'] = cfg.cochThalprobECore
     cfg.cochlearThalInput['weightECore'] = cfg.cochThalweightECore
     cfg.cochlearThalInput['probICore'] = cfg.cochThalprobICore

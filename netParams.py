@@ -48,7 +48,7 @@ netParams.defaultThreshold = 0.0 # spike threshold, 10 mV is NetCon default, low
 netParams.defaultDelay = 2.0 # default conn delay (ms)
 netParams.propVelocity = 500.0 # propagation velocity (um/ms)
 netParams.probLambda = 100.0  # length constant (lambda) for connection probability decay (um)
-ThalamicCoreLambda = 160.0
+ThalamicCoreLambda = 50.0
 #------------------------------------------------------------------------------
 # Cell parameters
 #------------------------------------------------------------------------------
@@ -902,6 +902,7 @@ if cfg.addBkgConn:
 
     if cfg.cochlearThalInput:
         connectCochleaToThal()
+
     # cochlea/IC -> thal
     if cfg.ICThalInput:
         # IC -> thalamic core
