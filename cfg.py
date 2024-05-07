@@ -22,7 +22,7 @@ cfg = specs.SimConfig()
 # ------------------------------------------------------------------------------
 # Run parameters
 # ------------------------------------------------------------------------------
-cfg.duration = 6e3 ## Duration of the sim, in ms
+cfg.duration = 1e3 ## Duration of the sim, in ms
 cfg.dt = 0.05  ## Internal Integration Time Step
 cfg.verbose = 0  ## Show detailed messages
 cfg.hParams['celsius'] = 37
@@ -71,15 +71,15 @@ cfg.recordDipole = True
 # Saving
 # ------------------------------------------------------------------------------
 
-cfg.simLabel = 'CochDebug0507samWav'
+cfg.simLabel = 'CochDebug0507samWav2'
 cfg.saveFolder = 'data/' + cfg.simLabel  ## Set file output name
-cfg.savePickle = True ## Save pkl file
+cfg.savePickle = False ## Save pkl file
 cfg.saveJson = False  ## Save json file
 cfg.saveDataInclude = ['simData', 'simConfig', 'netParams', 'net']
 cfg.backupCfgFile = None
 cfg.gatherOnlySimData = False
 cfg.saveCellSecs = False
-cfg.saveCellConns = True
+cfg.saveCellConns = False
 
 # ------------------------------------------------------------------------------
 # Analysis and plotting
@@ -89,7 +89,7 @@ cfg.analysis['plotTraces'] = {'include': ['TC'], 'oneFigPer': 'trace', 'overlay'
 # cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': True, 'popRates': True,
 #                               'orderInverse': True, 'timeRange': [0,cfg.duration], 'figSize': (14,12), 'lw': 0.3,
 #                               'markerSize': 3, 'marker': '.', 'dpi': 300}      	## Plot a raster
-cfg.analysis['plotConn'] = {'includePre': ['cochlea', 'CT5A'], 'includePost': cfg.allThalPops, 'saveFig': True}
+# cfg.analysis['plotConn'] = {'includePre': ['cochlea', 'CT5A'], 'includePost': cfg.allThalPops, 'saveFig': True}
 # cfg.analysis['plotSpikeStats'] = {'stats': ['rate'], 'figSize': (6,12), 'timeRange': [0, 2500], 'dpi': 300, 'showFig': 0, 'saveFig': 1}
 
 # cfg.analysis['plotLFP'] = {'plots': ['timeSeries'], 'electrodes': [10], 'maxFreq': 80, 'figSize': (8,4), 'saveData': False, 'saveFig': True, 'showFig': False} # 'PSD', 'spectrogram'
@@ -99,7 +99,7 @@ cfg.analysis['plotConn'] = {'includePre': ['cochlea', 'CT5A'], 'includePost': cf
 
 layer_bounds= {'L1': 100, 'L2': 160, 'L3': 950, 'L4': 1250, 'L5A': 1334, 'L5B': 1550, 'L6': 2000}
 cfg.analysis['plotCSD'] = {'spacing_um': 100, 'LFP_overlay': 1, 'layer_lines': 1, 'layer_bounds': layer_bounds, 'saveFig': 1, 'showFig': 0}
-cfg.analysis['plot2Dnet'] = {'include' : ['cochlea', cfg.allThalPops ], 'showConns': 1, 'saveFig': 1}     	## Plot 2D visualization of cell positions & connections
+# cfg.analysis['plot2Dnet'] = {'include' : ['cochlea', cfg.allThalPops ], 'showConns': 1, 'saveFig': 1}     	## Plot 2D visualization of cell positions & connections
 
 
 # ------------------------------------------------------------------------------
@@ -211,7 +211,7 @@ cfg.cochThalprobICore = 0.15
 cfg.cochThalMatrixCoreFactor = 0.1
 cfg.cochThalprobEMatrix = cfg.cochThalprobECore
 cfg.cochThalprobIMatrix = cfg.cochThalprobICore
-cfg.cochThalFreqRange = [1000, 2000]
+cfg.cochThalFreqRange = [1, 20000]
 
 # these params added from Christoph Metzner branch
 # Control the strength of thalamic inputs to different subpopulations
@@ -272,8 +272,8 @@ cfg.cochlearThalInput = True
 
 
 if cfg.cochlearThalInput:
-    cfg.cochlearThalInput = {"onset" : 1000, "numCenterFreqs": 100, "freqRange":[125, 20000], "loudnessDBs": 50,
-                             "fnwave": "test.wav"}
+    cfg.cochlearThalInput = {"onset" : 1500, "numCenterFreqs": 100, "freqRange":[125, 20000], "loudnessDBs": 100,
+                             "fnwave": "40Hz_1sISI.wav"}
     cfg.cochlearThalInput['probECore'] = cfg.cochThalprobECore
     cfg.cochlearThalInput['weightECore'] = cfg.cochThalweightECore
     cfg.cochlearThalInput['probICore'] = cfg.cochThalprobICore
