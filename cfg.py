@@ -204,8 +204,8 @@ cfg.ICThalprobEMatrix = cfg.ICThalprobECore
 cfg.ICThalprobIMatrix = cfg.ICThalprobICore
 
 # these params control cochlea -> Thalamus
-cfg.cochThalweightECore = 800
-cfg.cochThalweightICore = 150
+cfg.cochThalweightECore = 8000
+cfg.cochThalweightICore = 0.1
 cfg.cochThalprobECore = 0.16
 cfg.cochThalprobICore = 0.09
 cfg.cochThalMatrixCoreFactor = 0.1
@@ -267,7 +267,7 @@ cfg.rateBkg = {'exc': 40, 'inh': 40}
 cfg.EbkgThalamicGain = 3.92
 cfg.IbkgThalamicGain = 3.92
 
-cfg.cochlearThalInput = False
+cfg.cochlearThalInput = True
 # parameters to generate realistic  auditory thalamic inputs using Brian Hears
 
 
@@ -364,17 +364,17 @@ cfg.IbkgThalamicGain = cfgLoad['IbkgThalamicGain']
 # UPDATE WMAT VALUES
 cfg.wmat = cfgLoad['wmat']
 
-# cfg.ICThalInput = False
-cfg.ICThalInput = {'file': 'data/ICoutput/40Hz_10kHz_4s_AM_click_train_1kBMF_100CF.mat',
-                   'startTime': 3000,  # list(np.arange(4000, 8000, 300)),
-                   'weightECore': cfg.ICThalweightECore,
-                   'weightICore': cfg.ICThalweightICore,
-                   'probECore': cfg.ICThalprobECore,
-                   'probICore': cfg.ICThalprobICore,
-                   'probEMatrix': cfg.ICThalprobEMatrix,
-                   'probIMatrix': cfg.ICThalprobIMatrix,
-                   'MatrixCoreFactor': cfg.ICThalMatrixCoreFactor,
-                   'seed': 1}  # SHOULD THIS BE ZERO?
+cfg.ICThalInput = False
+# cfg.ICThalInput = {'file': 'data/ICoutput/40Hz_10kHz_4s_AM_click_train_1kBMF_100CF.mat',
+#                    'startTime': 3000,  # list(np.arange(4000, 8000, 300)),
+#                    'weightECore': cfg.ICThalweightECore,
+#                    'weightICore': cfg.ICThalweightICore,
+#                    'probECore': cfg.ICThalprobECore,
+#                    'probICore': cfg.ICThalprobICore,
+#                    'probEMatrix': cfg.ICThalprobEMatrix,
+#                    'probIMatrix': cfg.ICThalprobIMatrix,
+#                    'MatrixCoreFactor': cfg.ICThalMatrixCoreFactor,
+#                    'seed': 1}  # SHOULD THIS BE ZERO?
 #
 # cfg.artFB = {'file': 'data/FBinput/FBinput_test_numCell200.pkl',
 #              'weight': cfg.artFBweight,
