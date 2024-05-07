@@ -73,7 +73,7 @@ cfg.recordDipole = True
 
 cfg.simLabel = 'CochDebug0507samWav2'
 cfg.saveFolder = 'data/' + cfg.simLabel  ## Set file output name
-cfg.savePickle = False ## Save pkl file
+cfg.savePickle = True ## Save pkl file
 cfg.saveJson = False  ## Save json file
 cfg.saveDataInclude = ['simData', 'simConfig', 'netParams', 'net']
 cfg.backupCfgFile = None
