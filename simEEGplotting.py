@@ -13,7 +13,7 @@ from matplotlib import pyplot as plt
 from lfpykit.eegmegcalc import NYHeadModel
 
 
-batch = 'cochDebug0507small' #Name of batch for fig saving
+batch = 'cochDebug0506' #Name of batch for fig saving
 
 # Load sim EEG data
 base_dir = '/Users/scottmcelroy/A1_scz/A1_sim_data/'+ batch +'/'
