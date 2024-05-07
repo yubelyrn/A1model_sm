@@ -22,7 +22,7 @@ cfg = specs.SimConfig()
 # ------------------------------------------------------------------------------
 # Run parameters
 # ------------------------------------------------------------------------------
-cfg.duration = 6e3  ## Duration of the sim, in ms
+cfg.duration = 6e3 ## Duration of the sim, in ms
 cfg.dt = 0.05  ## Internal Integration Time Step
 cfg.verbose = 0  ## Show detailed messages
 cfg.hParams['celsius'] = 37
@@ -79,17 +79,17 @@ cfg.saveDataInclude = ['simData', 'simConfig', 'netParams', 'net']
 cfg.backupCfgFile = None
 cfg.gatherOnlySimData = False
 cfg.saveCellSecs = False
-cfg.saveCellConns = False
+cfg.saveCellConns = True
 
 # ------------------------------------------------------------------------------
 # Analysis and plotting
 # -----------------------------------------------------------------------------
 
-# cfg.analysis['plotTraces'] = {'include': [(pop, 0) for pop in cfg.allpops], 'oneFigPer': 'trace', 'overlay': True, 'saveFig': True, 'showFig': False, 'figSize':(12,8)} #[(pop,0) for pop in alltypes]		## Seen in M1 cfg.py (line 68)
+cfg.analysis['plotTraces'] = {'include': [cfg.allThalPops], 'oneFigPer': 'trace', 'overlay': True, 'saveFig': True, 'showFig': False, 'figSize':(12,8)} #[(pop,0) for pop in alltypes]		## Seen in M1 cfg.py (line 68)
 # cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': True, 'popRates': True,
 #                               'orderInverse': True, 'timeRange': [0,cfg.duration], 'figSize': (14,12), 'lw': 0.3,
 #                               'markerSize': 3, 'marker': '.', 'dpi': 300}      	## Plot a raster
-# cfg.analysis['plotConn'] = {'includePre': ['cochlea', 'CT5A'], 'includePost': cfg.allThalPops, 'saveFig': True}
+cfg.analysis['plotConn'] = {'includePre': ['cochlea', 'CT5A'], 'includePost': cfg.allThalPops, 'saveFig': True}
 # cfg.analysis['plotSpikeStats'] = {'stats': ['rate'], 'figSize': (6,12), 'timeRange': [0, 2500], 'dpi': 300, 'showFig': 0, 'saveFig': 1}
 
 # cfg.analysis['plotLFP'] = {'plots': ['timeSeries'], 'electrodes': [10], 'maxFreq': 80, 'figSize': (8,4), 'saveData': False, 'saveFig': True, 'showFig': False} # 'PSD', 'spectrogram'
@@ -193,8 +193,8 @@ cfg.intraThalamicGain = 1.0
 cfg.corticoThalamicGain = 1.0
 
 # these params control IC -> Thalamic Core
-cfg.ICThalweightECore = 0.8350476447841453
-cfg.ICThalweightICore = 0.2114492149101151
+cfg.ICThalweightECore = 5  #0.8350476447841453
+cfg.ICThalweightICore =  1.5 #0.2114492149101151
 cfg.ICThalprobECore = 0.163484173596043
 cfg.ICThalprobICore = 0.0936669688856933
 
@@ -267,7 +267,7 @@ cfg.rateBkg = {'exc': 40, 'inh': 40}
 cfg.EbkgThalamicGain = 3.92
 cfg.IbkgThalamicGain = 3.92
 
-cfg.cochlearThalInput = True
+cfg.cochlearThalInput = False
 # parameters to generate realistic  auditory thalamic inputs using Brian Hears
 
 
@@ -364,17 +364,17 @@ cfg.IbkgThalamicGain = cfgLoad['IbkgThalamicGain']
 # UPDATE WMAT VALUES
 cfg.wmat = cfgLoad['wmat']
 
-cfg.ICThalInput = False
-# cfg.ICThalInput = {'file': 'data/ICoutput/40Hz_10kHz_4s_AM_click_train_1kBMF_100CF.mat',
-#                    'startTime': 3000,  # list(np.arange(4000, 8000, 300)),
-#                    'weightECore': cfg.ICThalweightECore,
-#                    'weightICore': cfg.ICThalweightICore,
-#                    'probECore': cfg.ICThalprobECore,
-#                    'probICore': cfg.ICThalprobICore,
-#                    'probEMatrix': cfg.ICThalprobEMatrix,
-#                    'probIMatrix': cfg.ICThalprobIMatrix,
-#                    'MatrixCoreFactor': cfg.ICThalMatrixCoreFactor,
-#                    'seed': 1}  # SHOULD THIS BE ZERO?
+# cfg.ICThalInput = False
+cfg.ICThalInput = {'file': 'data/ICoutput/40Hz_10kHz_4s_AM_click_train_1kBMF_100CF.mat',
+                   'startTime': 3000,  # list(np.arange(4000, 8000, 300)),
+                   'weightECore': cfg.ICThalweightECore,
+                   'weightICore': cfg.ICThalweightICore,
+                   'probECore': cfg.ICThalprobECore,
+                   'probICore': cfg.ICThalprobICore,
+                   'probEMatrix': cfg.ICThalprobEMatrix,
+                   'probIMatrix': cfg.ICThalprobIMatrix,
+                   'MatrixCoreFactor': cfg.ICThalMatrixCoreFactor,
+                   'seed': 1}  # SHOULD THIS BE ZERO?
 #
 # cfg.artFB = {'file': 'data/FBinput/FBinput_test_numCell200.pkl',
 #              'weight': cfg.artFBweight,
