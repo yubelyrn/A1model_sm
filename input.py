@@ -16,7 +16,8 @@ def writewav (dat, fn, sampr):
 def cochlearInputSpikes (freqRange=[125, 20000],
                          numCenterFreqs=100,
                          loudnessDBs=50,
-                         fnwave=None):
+                         fnwave=None,
+                         onset=0):
     import scipy.signal as dsp
     import cochlea
     numCells = numCenterFreqs * 100 # should be ~100 * numCFs
@@ -52,7 +53,7 @@ def cochlearInputSpikes (freqRange=[125, 20000],
     )
     # generate list of spk times
     if len(s) > 0:
-      spkTimes = [list(anf.iloc[i]['spikes']*1000.) for i in range(numCells)]
+      spkTimes = [list(anf.iloc[i]['spikes']*1000. + onset) for i in range(numCells)]
     else:
       spkTimes = [[] for i in range(numCells)]
     cf = [anf.iloc[i]['cf'] for i in range(numCells)]

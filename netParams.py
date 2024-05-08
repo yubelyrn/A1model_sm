@@ -555,7 +555,7 @@ def connectThalToCortex ():
                   'synsPerConn': 1,
                   'sec': 'soma'}
 
-if cfg.addConn and cfg.addThalamoCorticalConn: connectThalToCortex()
+# if cfg.addConn and cfg.addThalamoCorticalConn: connectThalToCortex()
 #------------------------------------------------------------------------------
 # Subcellular connectivity (synaptic distributions)
 #------------------------------------------------------------------------------
@@ -704,7 +704,8 @@ if cfg.addBkgConn:
         dcoch = cochlearInputSpikes(freqRange = cfg.cochlearThalInput['freqRange'],
                                     numCenterFreqs=cfg.cochlearThalInput['numCenterFreqs'],
                                     loudnessDBs=cfg.cochlearThalInput['loudnessDBs'],
-                                    fnwave=cfg.cochlearThalInput['fnwave'])
+                                    fnwave=cfg.cochlearThalInput['fnwave'],
+                                    onset=cfg.cochlearThalInput['onset'])
         cochlearSpkTimes = dcoch['spkT']
         cochlearCenterFreqs = dcoch['cf']
         numCochlearCells = len(cochlearCenterFreqs)

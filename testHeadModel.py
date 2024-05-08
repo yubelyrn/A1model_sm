@@ -12,8 +12,8 @@ M = nyhead.get_transformation_matrix()
 
 fig = plt.figure()
 ax = fig.add_subplot(projection='3d')
-for i in range len(nyhead.elecs)
+# for i in range len(nyhead.elecs):
 ax.scatter(nyhead.elecs[0], nyhead.elecs[1], nyhead.elecs[2], c='r')
-# ax.scatter(nyhead.elecs[3], nyhead.elecs[4], nyhead.elecs[5], c='b')
+plt.show()
 # ax.scatter(nyhead.lead_field)
 # # ax.scatter(idx)
