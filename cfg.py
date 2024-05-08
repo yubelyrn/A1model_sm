@@ -22,7 +22,7 @@ cfg = specs.SimConfig()
 # ------------------------------------------------------------------------------
 # Run parameters
 # ------------------------------------------------------------------------------
-cfg.duration = 4e3 ## Duration of the sim, in ms
+cfg.duration = 6e3 ## Duration of the sim, in ms
 cfg.dt = 0.05  ## Internal Integration Time Step
 cfg.verbose = 0  ## Show detailed messages
 cfg.hParams['celsius'] = 37
@@ -75,7 +75,7 @@ cfg.simLabel = '40hzClickTest'
 cfg.saveFolder = 'data/' + cfg.simLabel  ## Set file output name
 cfg.savePickle = False ## Save pkl file
 cfg.saveJson = False  ## Save json file
-cfg.saveDataInclude = ['simData', 'simConfig', 'netParams', 'net']
+cfg.saveDataInclude = ['simData', 'simConfig', 'netParams', 'net',]
 cfg.backupCfgFile = None
 cfg.gatherOnlySimData = False
 cfg.saveCellSecs = False
@@ -212,7 +212,7 @@ cfg.cochThalMatrixCoreFactor = 0.1
 cfg.cochThalprobEMatrix = cfg.cochThalprobECore
 cfg.cochThalprobIMatrix = cfg.cochThalprobICore
 cfg.cochThalFreqRange = [1000, 2000]
-
+cfg.cochInputFile = '40Hz_5kAmp.wav'
 
 # these params added from Christoph Metzner branch
 # Control the strength of thalamic inputs to different subpopulations
@@ -273,8 +273,8 @@ cfg.cochlearThalInput = True
 
 
 if cfg.cochlearThalInput:
-    cfg.cochlearThalInput = {"onset" : 2000, "numCenterFreqs": 100, "freqRange":[125, 20000], "loudnessDBs": 50,
-                             "fnwave": "40Hz_1sISI.wav"}
+    cfg.cochlearThalInput = {"onset" : 3000, "numCenterFreqs": 100, "freqRange":[125, 20000], "loudnessDBs": 50,
+                             "fnwave": cfg.cochInputFile}
     cfg.cochlearThalInput['probECore'] = cfg.cochThalprobECore
     cfg.cochlearThalInput['weightECore'] = cfg.cochThalweightECore
     cfg.cochlearThalInput['probICore'] = cfg.cochThalprobICore
