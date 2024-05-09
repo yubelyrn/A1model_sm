@@ -391,7 +391,7 @@ def wireCortex():
                                     'probability': prob,
                                     'weight': wmat[pre][post] * cfg.IEGain * cfg.IECellTypeGain[preType] *
                                               cfg.IELayerGain[l],
-                                    'synMechWeightFactor': cfg.synWeightFractionEI,
+                                    'synMechWeightFactor': cfg.synWeightFractionIE,
                                     'delay': 'defaultDelay+dist_3D/propVelocity',
                                     'synsPerConn': 1,
                                     'sec': 'proximal'}

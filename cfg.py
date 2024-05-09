@@ -128,8 +128,8 @@ cfg.synWeightFractionENGF = [0.834, 0.166]  # NGF AMPA to NMDA ratio
 cfg.useHScale = False
 cfg.gabaBtau2 = 260.9
 
-# cfg.synWeightFractionIE = [0.9, 0.1]
-# cfg.synWeightFractionII = [0.9, 0.1]
+cfg.synWeightFractionIE = [0.9, 0.1]
+cfg.synWeightFractionII = [0.9, 0.1]
 
 
 # ------------------------------------------------------------------------------
@@ -148,8 +148,6 @@ cfg.scaleDensity = 1.0  # 0.25 #1.0 #0.075 # Should be 1.0 unless need lower cel
 # ------------------------------------------------------------------------------
 # Connectivity
 # ------------------------------------------------------------------------------
-cfg.synWeightFractionIE = [0.9, 0.1]  # SOM -> E GABAASlow to GABAB ratio (update this)
-cfg.synWeightFractionII = [0.9, 0.1]  # SOM -> E GABAASlow to GABAB ratio (update this)
 
 # Cortical
 cfg.addConn = 1
@@ -212,7 +210,7 @@ cfg.cochThalMatrixCoreFactor = 0.1
 cfg.cochThalprobEMatrix = cfg.cochThalprobECore
 cfg.cochThalprobIMatrix = cfg.cochThalprobICore
 cfg.cochThalFreqRange = [1000, 2000]
-cfg.cochInputFile = '40Hz_5kAmp.wav'
+cfg.cochInputFile = 'test.wav'
 
 # these params added from Christoph Metzner branch
 # Control the strength of thalamic inputs to different subpopulations
@@ -274,7 +272,7 @@ cfg.cochlearThalInput = True
 
 if cfg.cochlearThalInput:
     cfg.cochlearThalInput = {"onset" : 3000, "numCenterFreqs": 100, "freqRange":[125, 20000], "loudnessDBs": 50,
-                             "fnwave": cfg.cochInputFile}
+                             "fnwave": "40Hz_10kAmp.wav"}
     cfg.cochlearThalInput['probECore'] = cfg.cochThalprobECore
     cfg.cochlearThalInput['weightECore'] = cfg.cochThalweightECore
     cfg.cochlearThalInput['probICore'] = cfg.cochThalprobICore

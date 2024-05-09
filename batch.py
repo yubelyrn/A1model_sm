@@ -27,7 +27,7 @@ def assr_batch_grid(filename):
     cfgLoad2 = cfgLoad
 
     # #### SET weights####
-    params['cochInputFile'] = ["40Hz_1kAmp.wav", "40Hz_2_5kAmp.wav", "40Hz_5kAmp.wav"]
+    params[('cochlearThalInput', 'fnwave')] = ["40Hz_1kAmp.wav", "40Hz_2_5kAmp.wav", "40Hz_5kAmp.wav"]
 
     #### GROUPED PARAMS ####
     groupedParams = []
