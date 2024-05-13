@@ -91,7 +91,7 @@ def checkCochConns():
     if cell.tags['pop'] :
       for conn in cell.conns:
         if conn['preGid'] in cochGids:
-            cochConns.append(conn)
+          cochConns.append(conn)
           print(len(cochConns))
   print ('Number of Cochlea Conns is ' + str(len(cochConns)))
 
