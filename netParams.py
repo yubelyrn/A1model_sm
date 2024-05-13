@@ -555,7 +555,7 @@ def connectThalToCortex ():
                   'synsPerConn': 1,
                   'sec': 'soma'}
 
-# if cfg.addConn and cfg.addThalamoCorticalConn: connectThalToCortex()
+if cfg.addConn and cfg.addThalamoCorticalConn: connectThalToCortex()
 #------------------------------------------------------------------------------
 # Subcellular connectivity (synaptic distributions)
 #------------------------------------------------------------------------------

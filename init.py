@@ -88,9 +88,11 @@ def checkCochConns():
   print('Number of Cochlea Cells is ' + str(len(cochGids)))
 
   for cell in sim.net.cells:
-    for conn in cell.conns:
-      if conn['preGid'] in cochGids:
-        cochConns.append(conn)
+    if cell.tags['pop'] :
+      for conn in cell.conns:
+        if conn['preGid'] in cochGids:
+            cochConns.append(conn)
+          print(len(cochConns))
   print ('Number of Cochlea Conns is ' + str(len(cochConns)))
 
 checkCochConns()
@@ -106,7 +108,7 @@ sim.gatherDataFromFiles()
 sim.saveData()
 sim.analysis.plotData()    # plot spike raster etc
 
-# now = datetime.now()
-#
-# current_time = now.strftime("%H:%M:%S")
-# print("Current Time =", current_time)
+now = datetime.now()
+
+current_time = now.strftime("%H:%M:%S")
+print("Current Time =", current_time)
