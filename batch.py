@@ -27,8 +27,8 @@ def assr_batch_grid(filename):
     cfgLoad2 = cfgLoad
 
     # #### SET weights####
-    params['cochlearThalInput','weightECore'] = [0.45, 0.35, 0.25]
-    params['cochlearThalInput', 'weightICore'] = [0.25, 0.15, 0.1]
+    params['cochlearThalInput','weightECore'] = [0.85, 0.5, 0.35]
+    params['cochlearThalInput', 'weightICore'] = [0.25, 0.15]
     #### GROUPED PARAMS ####
     groupedParams = []
 
@@ -38,7 +38,7 @@ def assr_batch_grid(filename):
     initCfg = {} # set default options from prev sim
 
     initCfg['duration'] = 6000 #11500
-    initCfg['printPopAvgRates'] = [1500, 3500]
+    initCfg['printPopAvgRates'] = [3000, 6000]
     initCfg['scaleDensity'] = 1.0
     initCfg['recordStep'] = 0.05
 

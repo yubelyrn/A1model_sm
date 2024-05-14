@@ -22,6 +22,7 @@ for file in os.listdir(base_dir):
         fname = file[0:18] # Create filename (can change to whatever)
         if not os.path.exists('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch):
             os.mkdir('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch)  # Create Figure directory if one doesn't already exist
+
 # # Calculate EEG signal at one electode (currently set to 'Cz'
 #         stim_data, stim_window = simTools.calculateEEG(sim, stimOn=2800, end=4000) # Generate EEG data from dipole sums
 # # Filter EEG data
@@ -37,7 +38,7 @@ for file in os.listdir(base_dir):
 #         sim.analysis.plotRaster( orderInverse=True, markerSize=1000, figSize = (27,23),
 #         saveFig = '/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'+batch+ '/'+fname+ 'Raster.png')
 # # Plot LFP PSD
-#         sim.analysis.plotLFP(plots = 'PSD', timeRange=[2500, 5000], saveFig= '/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'+batch+ '/'+fname+ 'LFP.png')
+#         sim.analysis.plotLFP(plots = 'PSD', saveFig= '/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'+batch+ '/'+fname+ 'LFP.png')
 # # Plot CSD
 #         sim.plotting.plotCSD(overlay= 'CSD', timeRange=[2500, 5000],saveFig='/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch+'/'+fname+'CSDpad.jpeg')
 #         spikes_legacy.plotRatePSD(include = ['IT2', 'IT3', 'ITP4', 'ITS4', 'IT5A', 'CT5A', 'IT5B', 'CT5B' , 'PT5B', 'IT6', 'CT6'],timeRange=[3000, 5000],  saveFig='/Users/scottmcelroy/Desktop/ASSRratePSDAll.png')
@@ -49,10 +50,10 @@ for file in os.listdir(base_dir):
 
 
 
-
-######### Code for PSD HeatMap plots TODO - put into simTools
-        lfp_PSD = sim.analysis.preparePSD(CSD = False, timeRange = [2500, 5000])
-        csd_PSD = sim.analysis.preparePSD(CSD=True, timeRange=[2500, 5000])
+        sim.setupRecordLFP()
+######## Code for PSD HeatMap plots TODO - put into simTools
+        lfp_PSD = sim.analysis.preparePSD(CSD = False, timeRange=[2500, 11500])
+        csd_PSD = sim.analysis.preparePSD(CSD=True, timeRange=[2500, 11500])
 
         plt.figure(figsize=(12, 6))
         plt.subplot(121)
