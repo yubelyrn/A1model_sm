@@ -73,7 +73,7 @@ cfg.recordDipole = True
 
 cfg.simLabel = '40hzClickTest'
 cfg.saveFolder = 'data/' + cfg.simLabel  ## Set file output name
-cfg.savePickle = False ## Save pkl file
+cfg.savePickle = True ## Save pkl file
 cfg.saveJson = False  ## Save json file
 cfg.saveDataInclude = ['simData', 'simConfig', 'netParams', 'net',]
 cfg.backupCfgFile = None
@@ -136,7 +136,7 @@ cfg.synWeightFractionII = [0.9, 0.1]
 # Network
 # ------------------------------------------------------------------------------
 ## These values taken from M1 cfg.py (https://github.com/Neurosim-lab/netpyne/blob/development/examples/M1detailed/cfg.py)
-cfg.singleCellPops =True
+cfg.singleCellPops =False
 cfg.singlePop = ''
 cfg.removeWeightNorm = False
 cfg.scale = 1.0  # Is this what should be used?

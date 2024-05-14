@@ -11,7 +11,7 @@ matplotlib.use("MacOSX")
 from matplotlib import pyplot as plt
 from lfpykit.eegmegcalc import NYHeadModel
 
-batch = 'ASSR_tune_0228' #Name of batch for fig saving
+batch = 'v34_batch56_0_0_data' #Name of batch for fig saving
 
 # Load sim EEG data
 base_dir = '/Users/scottmcelroy/A1_scz/A1_sim_data/'+ batch +'/'
@@ -40,7 +40,7 @@ for file in os.listdir(base_dir):
 #         sim.analysis.plotLFP(plots = 'PSD', timeRange=[2500, 5000], saveFig= '/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'+batch+ '/'+fname+ 'LFP.png')
 # # Plot CSD
 #         sim.plotting.plotCSD(overlay= 'CSD', timeRange=[2500, 5000],saveFig='/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch+'/'+fname+'CSDpad.jpeg')
-        spikes_legacy.plotRatePSD(include = ['IT2', 'IT3', 'ITP4', 'ITS4', 'IT5A', 'CT5A', 'IT5B', 'CT5B' , 'PT5B', 'IT6', 'CT6'],timeRange=[3000, 5000],  saveFig='/Users/scottmcelroy/Desktop/ASSRratePSDAll.png')
+#         spikes_legacy.plotRatePSD(include = ['IT2', 'IT3', 'ITP4', 'ITS4', 'IT5A', 'CT5A', 'IT5B', 'CT5B' , 'PT5B', 'IT6', 'CT6'],timeRange=[3000, 5000],  saveFig='/Users/scottmcelroy/Desktop/ASSRratePSDAll.png')
         # spikes_legacy.plotRatePSD(include = ['ITP4', 'ITS4'], timeRange=[3000, 5000], saveFig='/Users/scottmcelroy/Desktop/ASSRratePSDGran.png')
         # spikes_legacy.plotRatePSD(include = ['IT5A', 'CT5A'], timeRange=[3000, 5000], saveFig='/Users/scottmcelroy/Desktop/ASSRratePSDL5A.png')
         # spikes_legacy.plotRatePSD(include = ['IT5B', 'CT5B' , 'PT5B'], timeRange=[3000, 5000], saveFig='/Users/scottmcelroy/Desktop/ASSRratePSDL5B.png')
@@ -50,30 +50,30 @@ for file in os.listdir(base_dir):
 
 
 
-########## Code for PSD HeatMap plots TODO - put into simTools
-        # lfp_PSD = sim.analysis.preparePSD(CSD = False, timeRange = [2500, 5000])
-        # csd_PSD = sim.analysis.preparePSD(CSD=True, timeRange=[2500, 5000])
-        #
-        # plt.figure(figsize=(12, 6))
-        # plt.subplot(121)
-        # plt.imshow(lfp_PSD['psdSignal'], aspect='auto', origin='lower', cmap='viridis')
-        # plt.gca().invert_yaxis()
-        # plt.colorbar(label='LFP Amplitude')
-        # plt.xlabel('Frequency')
-        # plt.ylabel('Electrode Depth')
-        # plt.title('Local Field Potential (LFP) Heatmap')
-        #
-        # # Plotting the CSD heatmap
-        # plt.subplot(122)
-        # plt.imshow(csd_PSD['psdSignal'], aspect='auto', origin='lower', cmap='viridis')
-        # plt.gca().invert_yaxis()
-        # plt.colorbar(label='CSD Amplitude')
-        # plt.xlabel('Frequency')
-        # plt.ylabel('Electrode Depth')
-        # plt.title('Current Source Density (CSD) Heatmap')
-        #
-        # plt.tight_layout()
-        # plt.savefig('/Users/scottmcelroy/Desktop/comboPSDheat.png')
+######### Code for PSD HeatMap plots TODO - put into simTools
+        lfp_PSD = sim.analysis.preparePSD(CSD = False, timeRange = [2500, 5000])
+        csd_PSD = sim.analysis.preparePSD(CSD=True, timeRange=[2500, 5000])
+
+        plt.figure(figsize=(12, 6))
+        plt.subplot(121)
+        plt.imshow(lfp_PSD['psdSignal'], aspect='auto', origin='lower', cmap='viridis')
+        plt.gca().invert_yaxis()
+        plt.colorbar(label='LFP Amplitude')
+        plt.xlabel('Frequency')
+        plt.ylabel('Electrode Depth')
+        plt.title('Local Field Potential (LFP) Heatmap')
+
+        # Plotting the CSD heatmap
+        plt.subplot(122)
+        plt.imshow(csd_PSD['psdSignal'], aspect='auto', origin='lower', cmap='viridis')
+        plt.gca().invert_yaxis()
+        plt.colorbar(label='CSD Amplitude')
+        plt.xlabel('Frequency')
+        plt.ylabel('Electrode Depth')
+        plt.title('Current Source Density (CSD) Heatmap')
+
+        plt.tight_layout()
+        plt.savefig('/Users/scottmcelroy/Desktop/v34_batch56_0_0comboPSDheat.png')
 
         ################## Scrap for resampling if needed later ##################################################
         # num_samples = len(stim_data)
