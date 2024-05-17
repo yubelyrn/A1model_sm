@@ -15,7 +15,7 @@ class simTools:
     def calculateEEG(sim, stimOn, end):
         # Load 3D head model for EEG
         nyhead = NYHeadModel(nyhead_file=os.getenv('NP_LFPYKIT_HEAD_FILE', None))
-        nyhead.set_dipole_pos('parietal_lobe')
+        nyhead.set_dipole_pos([ 39.74573803, -21.57684261, 7.82510972])
         M = nyhead.get_transformation_matrix()
 
         # Adjsut time for stimulation window
@@ -73,7 +73,8 @@ class simTools:
         plt.ylabel('uV', fontsize = 65)
         if not os.path.exists('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch):
             os.mkdir('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch)
-        plt.savefig('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch + '/' + fname + 'ERP.png')
+        plt.savefig('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch + '/' + fname + 'ERPnew.png')
+        print('saved')
 
     def plot_spectrogram(data, time, fname, batch, figsize = (20,20)):
         # sampling frequency

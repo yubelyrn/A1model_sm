@@ -85,7 +85,10 @@ cfg.saveCellConns = False
 # Analysis and plotting
 # -----------------------------------------------------------------------------
 
-# cfg.analysis['plotTraces'] = {'include': ['TC', 'IRE', 'TI'], 'oneFigPer': 'trace', 'overlay': True, 'saveFig': True, 'showFig': False, 'figSize':(12,8)} #[(pop,0) for pop in alltypes]		## Seen in M1 cfg.py (line 68)
+pops = ['TC']
+record_pops = [(pop,list(np.arange(0,40))) for pop in pops]
+
+cfg.analysis['plotTraces'] = {'include': [('TC', i) for i in range(40)], 'oneFigPer': 'trace', 'overlay': True, 'saveFig': True, 'showFig': False, 'figSize':(12,8)} #[(pop,0) for pop in alltypes]		## Seen in M1 cfg.py (line 68)
 cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': True, 'popRates': True,
                               'orderInverse': True, 'timeRange': [0,cfg.duration], 'figSize': (14,12), 'lw': 0.3,
                               'markerSize': 3, 'marker': '.', 'dpi': 300}      	## Plot a raster
