@@ -21,15 +21,6 @@ from netpyne import sim
 import numpy as np
 
 cfg, netParams = sim.readCmdLineArgs(simConfigDefault='cfg.py', netParamsDefault='netParams.py')
-if cfg.cochlearThalInput:
-  from input import cochlearInputSpikes
-
-  dcoch = cochlearInputSpikes(freqRange=cfg.cochlearThalInput['freqRange'],
-                              numCenterFreqs=cfg.cochlearThalInput['numCenterFreqs'],
-                              loudnessDBs=cfg.cochlearThalInput['loudnessDBs'],
-                              fnwave=cfg.cochlearThalInput['fnwave'])
-  cochlearSpkTimes = dcoch['spkT']
-  cochlearCenterFreqs = dcoch['cf']
 
 sim.initialize(simConfig = cfg,
                netParams = netParams)  		# create network object and set cfg and net params
@@ -55,7 +46,7 @@ def setCochCellLocationsX (pop, sz, scale):
   offset = sim.simData['dminID'][pop]
   ncellinrange = 0 # number of cochlear cells with center frequency in frequency range represented by this model
   sidx = -1
-  for idx,cf in enumerate(cochlearCenterFreqs):
+  for idx,cf in enumerate(netParams.cf):
     if cf >= cfg.cochThalFreqRange[0] and cf <= cfg.cochThalFreqRange[1]:
       if sidx == -1: sidx = idx # start index
       ncellinrange += 1
@@ -63,7 +54,7 @@ def setCochCellLocationsX (pop, sz, scale):
   # print('setCochCellLocations: sidx, offset, ncellinrange = ', sidx, offset, ncellinrange)
   for c in sim.net.cells:
     if c.gid in sim.net.pops[pop].cellGids:
-      cf = cochlearCenterFreqs[c.gid-sim.simData['dminID'][pop]]
+      cf = netParams.cf[c.gid-sim.simData['dminID'][pop]]
       if cf >= cfg.cochThalFreqRange[0] and cf <= cfg.cochThalFreqRange[1]:
         c.tags['x'] = cellx = ((c.gid-offset)/ncellinrange) * scale
         c.tags['xnorm'] = cellx / netParams.sizeX # make sure these values consistent
@@ -73,7 +64,7 @@ def setCochCellLocationsX (pop, sz, scale):
         c.tags['xnorm'] = cellx / netParams.sizeX # make sure these values consistent
       c.updateShape()
 
-if cfg.cochlearThalInput: setCochCellLocationsX('cochlea', len(cochlearInputSpikes()['cf']), cfg.sizeX)
+if cfg.cochlearThalInput: setCochCellLocationsX('cochlea', netParams.popParams['cochlea']['numCells'], cfg.sizeX)
 
 
 sim.net.connectCells()            			# create connections between cells based on params
@@ -95,7 +86,7 @@ def checkCochConns():
           print(len(cochConns))
   print ('Number of Cochlea Conns is ' + str(len(cochConns)))
 
-checkCochConns()
+# checkCochConns()
 
 sim.net.addStims() 							# add network stimulation
 sim.setupRecording()              			# setup variables to record for each cell (spikes, V traces, etc)

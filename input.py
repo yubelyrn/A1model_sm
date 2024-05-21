@@ -13,11 +13,24 @@ def writewav (dat, fn, sampr):
   # write array dat to wav file fn using sampling rate sampr
   sf.write(fn, dat, sampr)
 
+def cochlearSpikes(freqRange=[125, 20000], numCenterFreqs=100, loudnessScale=1, lfnwave=[], lonset=[]):
+  dout = {};
+  i = 0
+  for fnwave, onset in zip(lfnwave, lonset):
+      d = cochlearInputSpikes(freqRange=freqRange, numCenterFreqs=numCenterFreqs, loudnessScale=loudnessScale,
+                              fnwave=fnwave, onset=onset)
+      if i == 0:
+          dout = d
+      else:
+          for spktA, spktB in zip(d['spkT'], dout['spkT']):
+              for t in spktA: spktB.append(t)
+      i += 1
+  return dout
+
 def cochlearInputSpikes (freqRange=[125, 20000],
                          numCenterFreqs=100,
-                         loudnessDBs=50,
-                         fnwave=None,
-                         onset=0):
+                         loudnessScale=1,
+                         fnwave=None,onset=0):
     import scipy.signal as dsp
     import cochlea
     numCells = numCenterFreqs * 100 # should be ~100 * numCFs
@@ -28,7 +41,7 @@ def cochlearInputSpikes (freqRange=[125, 20000],
       toneFreq = 5000
       t = np.arange(0, duration/1000.0, 1/sampr)
       s = dsp.chirp(t, toneFreq-100, t[-1], toneFreq+100)
-      s = cochlea.set_dbspl(s, loudnessDBs)
+      s = cochlea.set_dbspl(s, 50 * loudnessScale)
     elif fnwave:
       dat, sampr = readwav(fnwave)
       if sampr < 100e3:
@@ -36,11 +49,13 @@ def cochlearInputSpikes (freqRange=[125, 20000],
         N = int(len(dat) * 100e3 / sampr)
         dat = resample(dat, N)
         sampr = 100000
-      s = cochlea.set_dbspl(dat, loudnessDBs) # is this needed?
+      s = dat * loudnessScale
+      # print('s range:',np.amin(s),np.amax(s))
     else:
       s = []
-    pad = np.zeros(int(10e-3 * sampr))
-    sound = np.concatenate( (s, pad) )
+    # pad = np.zeros(int(10e-3 * sampr))
+    sound = s # np.concatenate( (s, pad) )
+    # print('sound range:',np.amin(sound),np.amax(sound))
     # Run model
     anf = cochlea.run_zilany2014(
         sound,
@@ -50,6 +65,7 @@ def cochlearInputSpikes (freqRange=[125, 20000],
         seed=0,
         powerlaw='approximate',
         species='human',
+        ffGn=False
     )
     # generate list of spk times
     if len(s) > 0:

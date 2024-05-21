@@ -422,7 +422,7 @@ def wireCortex():
                             'synsPerConn': 1,
                             'sec': 'proximal'}
 
-if cfg.addConn: wireCortex()
+if cfg.addConn and cfg.wireCortex: wireCortex()
 
 
 #------------------------------------------------------------------------------
@@ -700,14 +700,15 @@ if cfg.addBkgConn:
 
 
     if cfg.cochlearThalInput:
-        from input import cochlearInputSpikes
-        dcoch = cochlearInputSpikes(freqRange = cfg.cochlearThalInput['freqRange'],
+        from input import cochlearSpikes
+        dcoch = cochlearSpikes(freqRange = cfg.cochlearThalInput['freqRange'],
                                     numCenterFreqs=cfg.cochlearThalInput['numCenterFreqs'],
-                                    loudnessDBs=cfg.cochlearThalInput['loudnessDBs'],
-                                    fnwave=cfg.cochlearThalInput['fnwave'],
-                                    onset=cfg.cochlearThalInput['onset'])
+                                    loudnessScale=cfg.cochlearThalInput['loudnessScale'],
+                                    lfnwave=cfg.cochlearThalInput['lfnwave'],
+                                    lonset=cfg.cochlearThalInput['lonset'])
         cochlearSpkTimes = dcoch['spkT']
         cochlearCenterFreqs = dcoch['cf']
+        netParams.cf = dcoch['cf']
         numCochlearCells = len(cochlearCenterFreqs)
         netParams.popParams['cochlea'] = {'cellModel': 'VecStim', 'numCells': numCochlearCells, 'spkTimes': cochlearSpkTimes, 'ynormRange': layer['cochlear']}
         # netParams.popParams['cochlea']['gridSpacing'] = 1
