@@ -151,7 +151,7 @@ cfg.scaleDensity = 1.0  # 0.25 #1.0 #0.075 # Should be 1.0 unless need lower cel
 
 # Cortical
 cfg.addConn = 1
-cfg.wireCortex
+cfg.wireCortex = 1
 
 cfg.EEGain = 0.75
 cfg.EIGain = 1.5
