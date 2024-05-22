@@ -11,7 +11,7 @@ matplotlib.use("MacOSX")
 from matplotlib import pyplot as plt
 from lfpykit.eegmegcalc import NYHeadModel
 
-batch = 'CochInputTune0515_2' #Name of batch for fig saving
+batch = 'CochInputTune0521' #Name of batch for fig saving
 
 
 # Load sim EEG data
@@ -25,20 +25,20 @@ for file in os.listdir(base_dir):
             os.mkdir('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch)  # Create Figure directory if one doesn't already exist
 
 # Calculate EEG signal at one electode (currently set to 'Cz'
-        stim_data, stim_window = simTools.calculateEEG(sim, stimOn=2800, end=3500) # Generate EEG data from dipole sums
+#         stim_data, stim_window = simTools.calculateEEG(sim, stimOn=2800, end=3500) # Generate EEG data from dipole sums
 
 # Filter EEG data
-        filtered_data = simTools.filterEEG(stim_data, 2, 12, 20000, 2) # Filter (if needed)
+#         filtered_data = simTools.filterEEG(stim_data, 2, 12, 20000, 2) # Filter (if needed)
 # Time vector starting at t=0 instead of timeRange[0]
-        t = np.arange(-200, 500, 0.05)
-        simTools.plotERP(filtered_data, stim_window, fname, batch) # Create ERP plot of time window specified
+#         t = np.arange(-200, 500, 0.05)
+#         simTools.plotERP(filtered_data, stim_window, fname, batch) # Create ERP plot of time window specified
 # # Plot EEG Spectrogram
 #         simTools.plot_spectrogram(data=filtered_data, time=stim_window, fname=fname, batch=batch) # Use filter only if low frq power skews image
 # # Plot EEG PSD - not perfect
 #         simTools.plot_PSD(data=filtered_data, time=stim_window, fname=fname, batch=batch) #PSD should stay unfiltered ideally
-# # Plot Raster
-#         sim.analysis.plotRaster(include=['TC', 'cochlea' ],orderInverse=True, timeRange=[3000,6000],  markerSize=1000, figSize = (27,23),
-#         saveFig = '/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'+batch+ '/'+fname+ 'Raster.png')
+# Plot Raster
+        sim.analysis.plotRaster(orderInverse=True, timeRange=[3000,6000],  markerSize=1000, figSize = (27,23),
+        saveFig = '/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'+batch+ '/'+fname+ 'Raster.png')
 # # Plot LFP PSD
 #         sim.analysis.plotLFP(plots = 'PSD', saveFig= '/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'+batch+ '/'+fname+ 'LFP.png')
 # # Plot CSD
