@@ -11,7 +11,7 @@ matplotlib.use("MacOSX")
 from matplotlib import pyplot as plt
 from lfpykit.eegmegcalc import NYHeadModel
 
-batch = 'CochInputTune0521' #Name of batch for fig saving
+batch = 'CochInputTune0522' #Name of batch for fig saving
 
 
 # Load sim EEG data

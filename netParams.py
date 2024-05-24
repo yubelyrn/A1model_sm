@@ -281,6 +281,8 @@ SOMISynMech = ['GABAASlow']
 PVSynMech = ['GABAA']
 VIPSynMech = ['GABAA_VIP']
 NGFSynMech = ['GABAA', 'GABAB']
+ThalIESynMech = ['GABAASlow','GABAB']
+ThalIISynMech = ['GABAASlow']
 
 
 #------------------------------------------------------------------------------
@@ -443,19 +445,19 @@ def wireThal ():
   for pre in TEpops+TIpops:
       for post in TEpops+TIpops:
           if post in pmat[pre]:
-              # for syns use ESynMech, SOMESynMech and SOMISynMech
+              # for syns use ESynMech, ThalIESynMech and ThalIISynMech
               if pre in TEpops:     # E->E/I
                   syn = ESynMech
                   synWeightFactor = cfg.synWeightFractionEE
               elif post in TEpops:  # I->E
-                  syn = SOMESynMech
-                  synWeightFactor = cfg.synWeightFractionIE
+                  syn = ThalIESynMech
+                  synWeightFactor = cfg.synWeightFractionThalIE
               else:                  # I->I
-                  syn = SOMISynMech
-                  synWeightFactor = [1.0]
+                  syn = ThalIISynMech
+                  synWeightFactor = cfg.synWeightFractionThalII
               # use spatially dependent wiring between thalamic core excitatory neurons
               if (pre == 'TC' and (post == 'TC' or post == 'HTC')) or (pre == 'HTC' and (post == 'TC' or post == 'HTC')):
-                prob = '%f * exp(-dist_x/%f)' % (pmat[pre][post], ThalamicCoreLambda)
+                prob = '%f * exp(-dist_x/%f)' % (pmat[pre][post], dconf['net']['ThalamicCoreLambda'])
               else:
                 prob = pmat[pre][post]
               netParams.connParams['ITh_'+pre+'_'+post] = {
@@ -539,11 +541,11 @@ def connectThalToCortex ():
                       syn = ESynMech
                       synWeightFactor = cfg.synWeightFractionEE
                 elif post in Epops:  # I->E
-                  syn = SOMESynMech
-                  synWeightFactor = cfg.synWeightFractionIE
+                  syn = ThalIESynMech
+                  synWeightFactor = cfg.synWeightFractionThalCtxIE
                 else:                  # I->I
-                  syn = SOMISynMech
-                  synWeightFactor = [1.0]
+                  syn = ThalIISynMech
+                  synWeightFactor = cfg.synWeightFractionThalCtxII
                 netParams.connParams['ThCx_'+pre+'_'+post] = {
                   'preConds': {'pop': pre},
                   'postConds': {'pop': post},
