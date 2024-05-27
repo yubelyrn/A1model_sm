@@ -204,9 +204,9 @@ cfg.ICThalprobEMatrix = cfg.ICThalprobECore
 cfg.ICThalprobIMatrix = cfg.ICThalprobICore
 
 # these params control cochlea -> Thalamus
-cfg.cochThalweightECore = 0.3
-cfg.cochThalweightICore = 0.1
-cfg.cochThalprobECore = 0.5
+cfg.cochThalweightECore = 0.15
+cfg.cochThalprobECore = 0.3
+cfg.cochThalweightICore = 0.09
 cfg.cochThalprobICore = 0.15
 cfg.cochThalMatrixCoreFactor = 0.1
 cfg.cochThalprobEMatrix = cfg.cochThalprobECore
@@ -358,8 +358,8 @@ cfg.IILayerGain['6'] = cfgLoad['IILayerGain']['6']
 # UPDATE THALAMIC GAIN PARAMS
 cfg.thalamoCorticalGain = cfgLoad['thalamoCorticalGain']
 cfg.intraThalamicGain = cfgLoad['intraThalamicGain']
-cfg.EbkgThalamicGain = cfgLoad['EbkgThalamicGain']
-cfg.IbkgThalamicGain = cfgLoad['IbkgThalamicGain']
+# cfg.EbkgThalamicGain = cfgLoad['EbkgThalamicGain']
+# cfg.IbkgThalamicGain = cfgLoad['IbkgThalamicGain']
 
 # UPDATE WMAT VALUES
 cfg.wmat = cfgLoad['wmat']
