@@ -45,25 +45,7 @@ class simTools:
         b, a = butter(order, [low, high], btype='band')
         filtered_signal = filtfilt(b, a, EEG)
         return filtered_signal
-    def processRaster(spkTimes, spkGids):
-        raster_dict = {'tone': {}}
-        for event in raster_dict.keys(): raster_dict[event].update({'spkTimes': [], 'spkGids': []})
-        for spkt_ind, spkt in enumerate(spkTimes):
-            if (1500 <= (spkt) <= 5500):
-                event = 'tone'
-            raster_dict[event]['spkTimes'].append(spkTimes[spkt_ind])
-            raster_dict[event]['spkGids'].append(spkGids[spkt_ind])
-        return raster_dict
 
-    def getPopSpks(spkTimes, spkGids, popGids, window):
-        spk_gids = []
-        spk_times = []
-        for spk_gid_ind, spk_gid in enumerate(spkGids):
-            if (spk_gid in popGids) and (window[0]<= (spkTimes[spk_gid_ind])<= window[1]):
-                print(spk_gid)
-                spk_gids.append(spkGids[spk_gid_ind])
-                spk_times.append(spkTimes[spk_gid_ind])
-        return spk_gids, spk_times
     def plotERP(data, time, fname, batch, figsize = (30,20)):
         plt.figure(figsize=figsize)
         plt.plot(time,data/1000, color='black', linewidth = 8)
@@ -72,7 +54,7 @@ class simTools:
         plt.xlabel('Time (ms)', fontsize = 65)
         plt.ylabel('uV', fontsize = 65)
         plt.savefig('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'
-                    + batch + '/' + fname + 'ERPnew.png')
+                    + batch + '/' + fname + 'ERP.png')
         print('saved')
 
     def plot_spectrogram(data, time, fname, batch, figsize = (20,20)):
@@ -114,7 +96,7 @@ class simTools:
                     + batch + '/' + fname + 'spect.png')
 
 
-    def plot_PSD(data, time, fname, batch, figsize = (20,20)):
+    def plot_PSD(data, fname, batch, figsize = (20,20)):
         # sampling frequency
         fs = int(1000.0 / 0.05)
 
@@ -137,11 +119,11 @@ class simTools:
 
         # PSD plot params
         plt.figure(figsize=figsize)
-        plt.xlabel('Time (s)')
+        plt.xlabel('Frequency')
         plt.ylabel('Power')
         plt.plot(F, signal)
         plt.savefig('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'
-                    + batch + '/' + fname + 'PSD.png')
+                    + batch + '/' + fname + '_PSD.png')
 
 
     def plotPSDSpectrogram(
@@ -200,6 +182,7 @@ class simTools:
                 filtFreq=filtFreq,
                 timeRange=timeRange)
 
+            plt.figure()
             plt.imshow(lfp_PSD['psdSignal'], aspect='auto', origin='lower', cmap='viridis')
             plt.gca().invert_yaxis()
             plt.colorbar(label='LFP Amplitude')
@@ -217,6 +200,7 @@ class simTools:
                 filtFreq=filtFreq,
                 timeRange=timeRange)
 
+            plt.figure()
             plt.imshow(csd_PSD['psdSignal'], aspect='auto', origin='lower', cmap='viridis')
             plt.gca().invert_yaxis()
             plt.colorbar(label='CSD Amplitude')
@@ -228,6 +212,74 @@ class simTools:
             plt.tight_layout()
             plt.savefig('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'
                         + batch + '/' + fname + 'CSDPSDspect.png')
+
+    def calculate_firing_rate(spike_counts, bin_width):
+            firing_rate = spike_counts / bin_width
+            return firing_rate
+
+        # Get the spike times for each population
+    def get_spike_times_for_populations(sim, populations):
+        spike_times = []
+        for pop in populations:
+            pop_spike_times = [t for i, t in zip(sim.allSimData['spkid'], sim.allSimData['spkt']) if i in sim.net.allPops[pop]['cellGids']]
+            spike_times.append(pop_spike_times)
+        return spike_times
+
+
+    def bin_spikes(spike_times, stimuli_start_times, stimuli_duration):
+        # Create bins based on stimuli start times and duration
+        bins = [start for start in stimuli_start_times]
+        bins.append(stimuli_start_times[-1] + stimuli_duration)  # Add the end of the last stimulus to bins
+
+        # Calculate the number of spikes in each bin
+        spike_counts, _ = np.histogram(spike_times, bins)
+
+        return spike_counts
+
+
+    def bin_spikes_for_populations(spike_times, stimuli_start_times, stimuli_duration, populations):
+        spike_counts = []
+        for times in spike_times:
+            counts = simTools.bin_spikes(times, stimuli_start_times, stimuli_duration)
+            spike_counts.append(counts)
+        return spike_counts
+
+
+    def calculate_firing_rate_for_populations(spike_counts, stimuli_duration, populations):
+        firing_rate = []
+        for count in spike_counts:
+            rate = simTools.calculate_firing_rate(count, stimuli_duration)
+            firing_rate.append(rate)
+        popRates = {pop: firing_rate[i] for i, pop in enumerate(populations)}
+        return popRates
+
+    def plotMUApops(sim, populations, binStarts, stimDur, batch, fname):
+        spike_times = simTools.get_spike_times_for_populations(
+            sim,
+            populations)
+
+        spike_counts = simTools.bin_spikes_for_populations(
+            spike_times,
+            binStarts,
+            stimDur,
+            populations)
+
+        popRates = simTools.calculate_firing_rate_for_populations(
+            spike_counts,
+            stimDur,
+            populations)
+
+        plt.figure()
+        for pop, rates in popRates.items():
+            plt.plot(rates, label=pop)
+
+        plt.xlabel('Bin Index')
+        plt.ylabel('Firing Rate (Hz)')
+        plt.xticks(range(0, len(binStarts)))
+        plt.legend(title='Population')
+        plt.savefig('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'
+                    + batch + '/' + fname + '_MUA.png')
+
 
 #####################################################
 #    Funcitons for editing a network after cells and conns are made     #

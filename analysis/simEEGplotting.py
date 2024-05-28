@@ -12,7 +12,7 @@ matplotlib.use("MacOSX")
 from matplotlib import pyplot as plt
 from lfpykit.eegmegcalc import NYHeadModel
 
-batch = 'ASSR_tune_0228'  # Name of batch for fig saving
+batch = 'NoThalBkg'  # Name of batch for fig saving
 
 stim_on = 3000
 # calcEEG = {'start': 2800, 'stop': 4000}
@@ -21,7 +21,8 @@ stim_on = 3000
 # plotSpectrogram = {'useFilter': True}
 # plotPSD = {'useFilter': True}
 # plotRaster = {'timeRange': [2800, 4000]}
-PSDSpect = {'timeRange': [3000, 4000], 'useLFP': False, 'useCSD': True}
+# PSDSpect = {'timeRange': [3000, 4000], 'useLFP': False, 'useCSD': True}
+plotMUA = {'populations': ['ITP4', 'ITS4', 'TC', 'HTC', 'IRE'], 'stimDur': 100}
 
 calcEEG = False
 filter = False
@@ -29,7 +30,8 @@ plotERP = False
 plotSpectrogram = False
 plotPSD = False
 plotRaster = False
-# PSDSpect = False
+PSDSpect = False
+# plotMUA = False
 
 # Load sim EEG data
 base_dir = '/Users/scottmcelroy/A1_scz/A1_sim_data/' + batch + '/'
@@ -45,8 +47,8 @@ for file in os.listdir(base_dir):
         if calcEEG:
             stim_data, stim_window = simTools.calculateEEG(
                 sim,
-                start=2800,
-                end=3500)  # Generate EEG data from dipole sums
+                start=calcEEG['start'],
+                end=calcEEG['stop'])  # Generate EEG data from dipole sums
             # Time vector starting at t=0 instead of timeRange[0]
             offsetStart = calcEEG['start'] - stim_on
             endWindow = calcEEG['end'] - stim_on
@@ -56,7 +58,7 @@ for file in os.listdir(base_dir):
         if filter:
             filtered_data = simTools.filterEEG(
                 stim_data,
-                lowcut=['lowCut'],
+                lowcut=filter['lowCut'],
                 highcut=filter['hiCut'],
                 fs=20000,
                 order=2)  # Filter (if needed)
@@ -64,24 +66,32 @@ for file in os.listdir(base_dir):
         # Plot ERP '
         if plotERP:
             if plotERP['useFilter'] == True:
-                simTools.plotERP(filtered_data, t, fname, batch)  # Create ERP plot of time window specified
+                simTools.plotERP(
+                    data = filtered_data,
+                    time = t,
+                    fname = fname,
+                    batch = batch)  # Create ERP plot of time window specified
 
             else:
-                simTools.plotERP(stim_data, t, fname, batch)
+                simTools.plotERP(
+                    data = stim_data,
+                    time = t,
+                    fname = fname,
+                    batch = batch)
 
         # Plot EEG Spectrogram
         if plotSpectrogram:
             if plotSpectrogram['useFilter'] == True:
                 simTools.plot_spectrogram(
                     data=filtered_data,
-                    time=stim_window,
+                    time=t,
                     fname=fname,
                     batch=batch)
 
             else:
                 simTools.plot_spectrogram(
-                    data=filtered_data,
-                    time=stim_window,
+                    data=stim_data,
+                    time=t,
                     fname=fname,
                     batch=batch)
 
@@ -90,14 +100,12 @@ for file in os.listdir(base_dir):
             if plotPSD['useFilter'] == True:
                 simTools.plot_PSD(
                     data=filtered_data,
-                    time=stim_window,
                     fname=fname,
                     batch=batch)
 
             else:
-                simTools.plot_spectrogram(
+                simTools.plot_PSD(
                     data=stim_data,
-                    time=stim_window,
                     fname=fname,
                     batch=batch)
 
@@ -113,12 +121,24 @@ for file in os.listdir(base_dir):
 
         if PSDSpect:
             simTools.plotPSDSpectrogram(
-                    sim,
-                    batch,
-                    fname,
+                    sim = sim,
+                    batch = batch,
+                    fname = fname,
                     timeRange = PSDSpect['timeRange'],
-                    useLFP=PSDSpect['useLFP'],
-                    useCSD=PSDSpect['useCSD'])
+                    useLFP = PSDSpect['useLFP'],
+                    useCSD = PSDSpect['useCSD'])
+
+
+        if plotMUA:
+            simTools.plotMUApops(
+                sim = sim,
+                populations = plotMUA['populations'],
+                binStarts = sim.cfg.cochlearThalInput['lonset'],
+                stimDur = plotMUA['stimDur'],
+                batch = batch,
+                fname = fname)
+
+
 
 # # Plot LFP PSD
 #         sim.analysis.plotLFP(plots = 'PSD', saveFig= '/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'+batch+ '/'+fname+ 'LFP.png')
