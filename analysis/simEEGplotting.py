@@ -12,7 +12,7 @@ matplotlib.use("MacOSX")
 from matplotlib import pyplot as plt
 from lfpykit.eegmegcalc import NYHeadModel
 
-batch = 'NoThalBkg'  # Name of batch for fig saving
+batch = 'CochInputTune0528'  # Name of batch for fig saving
 
 stim_on = 3000
 # calcEEG = {'start': 2800, 'stop': 4000}
@@ -51,7 +51,7 @@ for file in os.listdir(base_dir):
                 end=calcEEG['stop'])  # Generate EEG data from dipole sums
             # Time vector starting at t=0 instead of timeRange[0]
             offsetStart = calcEEG['start'] - stim_on
-            endWindow = calcEEG['end'] - stim_on
+            endWindow = calcEEG['stop'] - stim_on
             t = np.arange(offsetStart, endWindow, 0.05)
 
         # Filter EEG data

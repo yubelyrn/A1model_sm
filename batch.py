@@ -27,8 +27,8 @@ def assr_batch_grid(filename):
     cfgLoad2 = cfgLoad
 
     # #### SET weights####
-    params['cochlearThalInput','weightECore'] = [0.25, 0.2, 0.15]
-    params['cochlearThalInput', 'weightICore'] = [0.09]
+    params['cochlearThalInput','weightECore'] = [0.25]
+    params['cochlearThalInput', 'weightICore'] = [0.09, 0.1, 0.125]
     params['cochlearThalInput', 'probECore'] = [0.3]
     #### GROUPED PARAMS ####
     groupedParams = []
