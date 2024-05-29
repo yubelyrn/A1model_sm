@@ -28,10 +28,10 @@ def assr_batch_grid(filename):
 
     # #### SET weights####
     params['cochlearThalInput','weightECore'] = [0.25]
-    params['cochlearThalInput', 'weightICore'] = [0.125]
-    params['cochlearThalInput', 'probECore'] = [0.3]
-    params['EbkgThalamicGain'] = [1.0, 2.0, 3.0]
-    params['IbkgThalamicGain'] = [1.0, 2.0, 3.0]
+    params['cochlearThalInput', 'weightICore'] = [0.09]
+    # params['cochlearThalInput', 'probECore'] = [0.3]
+    # params['EbkgThalamicGain'] = [1.0, 2.0, 3.0]
+    # params['IbkgThalamicGain'] = [1.0, 2.0, 3.0]
     #### GROUPED PARAMS ####
     groupedParams = ['EbkgThalamicGain', 'IbkgThalamicGain']
 

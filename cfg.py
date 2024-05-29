@@ -71,7 +71,7 @@ cfg.recordDipole = True
 # Saving
 # ------------------------------------------------------------------------------
 
-cfg.simLabel = 'NoThalBkg'
+cfg.simLabel = 'SilentTest0529'
 cfg.saveFolder = 'data/' + cfg.simLabel  ## Set file output name
 cfg.savePickle = False ## Save pkl file
 cfg.saveJson = True  ## Save json file
