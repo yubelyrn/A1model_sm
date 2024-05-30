@@ -114,7 +114,7 @@ for file in os.listdir(base_dir):
             sim.analysis.plotRaster(
                 orderInverse=True,
                 timeRange=plotRaster['timeRange'],
-                markerSize=1000,
+                markerSize=1,
                 figSize=(27, 23),
                 saveFig='/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'
                         + batch + '/' + fname + 'Raster.png')

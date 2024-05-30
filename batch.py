@@ -27,11 +27,11 @@ def assr_batch_grid(filename):
     cfgLoad2 = cfgLoad
 
     # #### SET weights####
-    params['cochlearThalInput','weightECore'] = [0.25]
-    params['cochlearThalInput', 'weightICore'] = [0.09]
-    # params['cochlearThalInput', 'probECore'] = [0.3]
-    # params['EbkgThalamicGain'] = [1.0, 2.0, 3.0]
-    # params['IbkgThalamicGain'] = [1.0, 2.0, 3.0]
+    # params['cochlearThalInput','weightECore'] = [0.25]
+    # params['cochlearThalInput', 'weightICore'] = [0.09]
+    # # params['cochlearThalInput', 'probECore'] = [0.3]
+    params['EbkgThalamicGain'] = [0.0, 2.0, 3.92]
+    params['IbkgThalamicGain'] = [0.0, 2.0, 3.92]
     #### GROUPED PARAMS ####
     groupedParams = ['EbkgThalamicGain', 'IbkgThalamicGain']
 
@@ -135,7 +135,7 @@ if __name__ == '__main__':
     #b = assr_batch('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'CochBkgTune0529'
+    b.batchLabel = 'SilentTest0530'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_sge')
