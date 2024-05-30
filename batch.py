@@ -29,11 +29,10 @@ def assr_batch_grid(filename):
     # #### SET weights####
     # params['cochlearThalInput','weightECore'] = [0.25]
     # params['cochlearThalInput', 'weightICore'] = [0.09]
-    # # params['cochlearThalInput', 'probECore'] = [0.3]
-    params['EbkgThalamicGain'] = [0.0, 2.0, 3.92]
-    params['IbkgThalamicGain'] = [0.0, 2.0, 3.92]
+    # params['cochlearThalInput', 'probECore'] = [0.3]
+    params['thalL4E'] = [2.0, 2.5, 3.0]
     #### GROUPED PARAMS ####
-    groupedParams = ['EbkgThalamicGain', 'IbkgThalamicGain']
+    groupedParams = []
 
     # --------------------------------------------------------
     # initial config
@@ -135,7 +134,7 @@ if __name__ == '__main__':
     #b = assr_batch('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'SilentTest0530'
+    b.batchLabel = 'thalL4Etest0530'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_sge')

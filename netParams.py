@@ -280,7 +280,8 @@ SOMESynMech = ['GABAASlow','GABAB']
 SOMISynMech = ['GABAASlow']
 PVSynMech = ['GABAA']
 VIPSynMech = ['GABAA_VIP']
-NGFSynMech = ['GABAA', 'GABAB']
+NGFESynMech = ['GABAA', 'GABAB']
+NGFISynMech = ['GABAA']
 ThalIESynMech = ['GABAASlow','GABAB']
 ThalIISynMech = ['GABAASlow']
 
@@ -385,7 +386,7 @@ def wireCortex():
                                 elif 'VIP' in pre:
                                     synMech = VIPSynMech
                                 elif 'NGF' in pre:
-                                    synMech = NGFSynMech
+                                    synMech = NGFESynMech
                                 netParams.connParams['IE_' + pre + '_' + preType + '_' + post + '_' + l] = {
                                     'preConds': {'pop': pre},
                                     'postConds': {'pop': post, 'ynorm': layer[l]},
@@ -412,7 +413,7 @@ def wireCortex():
                         elif 'VIP' in pre:
                             synMech = VIPSynMech
                         elif 'NGF' in pre:
-                            synMech = NGFSynMech
+                            synMech = NGFISynMech
                         netParams.connParams['II_' + pre + '_' + post + '_' + l] = {
                             'preConds': {'pop': pre},
                             'postConds': {'pop': post, 'ynorm': layer[l]},
@@ -601,7 +602,7 @@ def addSubConn ():
       'preConds': {'pops': ['NGF1']},
       'postConds': {'cellType': ['IT', 'ITS4', 'PT', 'CT']},
       'sec': 'apic_tuft',
-      'groupSynMechs': NGFSynMech,
+      'groupSynMechs': NGFESynMech,
       'density': 'uniform'}
     #------------------------------------------------------------------------------
     # NGF2,3,4 -> E2,3,4: apic_trunk
@@ -609,7 +610,7 @@ def addSubConn ():
       'preConds': {'pops': ['NGF2', 'NGF3', 'NGF4']},
       'postConds': {'pops': ['IT2', 'IT3', 'ITP4', 'ITS4']},
       'sec': 'apic_trunk',
-      'groupSynMechs': NGFSynMech,
+      'groupSynMechs': NGFESynMech,
       'density': 'uniform'}
     #------------------------------------------------------------------------------
     # NGF2,3,4 -> E5,6: apic_uppertrunk
@@ -617,7 +618,7 @@ def addSubConn ():
       'preConds': {'pops': ['NGF2', 'NGF3', 'NGF4']},
       'postConds': {'pops': ['IT5A', 'CT5A', 'IT5B', 'PT5B', 'CT5B', 'IT6', 'CT6']},
       'sec': 'apic_uppertrunk',
-      'groupSynMechs': NGFSynMech,
+      'groupSynMechs': NGFESynMech,
       'density': 'uniform'}
     #------------------------------------------------------------------------------
     # NGF5,6 -> E5,6: apic_lowerrunk
@@ -625,7 +626,7 @@ def addSubConn ():
       'preConds': {'pops': ['NGF5A', 'NGF5B', 'NGF6']},
       'postConds': {'pops': ['IT5A', 'CT5A', 'IT5B', 'PT5B', 'CT5B', 'IT6', 'CT6']},
       'sec': 'apic_lowertrunk',
-      'groupSynMechs': NGFSynMech,
+      'groupSynMechs': NGFESynMech,
       'density': 'uniform'}
     #------------------------------------------------------------------------------
     #  SOM -> E: all_dend (not close to soma)
