@@ -868,7 +868,7 @@ if cfg.addBkgConn:
             prob = '%f * exp(-dist_x/%f)' % (cfg.cochlearThalInput['probECore'], ThalamicCoreLambda)
             netParams.connParams['cochlea->ThalECore' + ct] = {
                 'preConds': {'pop': 'cochlea'},
-                'postConds': {'pop': [ct]},
+                'postConds': {'ce': [ct]},
                 'sec': 'soma',
                 'loc': 0.5,
                 'synMech': ESynMech,
@@ -880,7 +880,7 @@ if cfg.addBkgConn:
             prob = '%f * exp(-dist_x/%f)' % (cfg.cochlearThalInput['probICore'], ThalamicCoreLambda)
             netParams.connParams['cochlea->ThalICore' + ct] = {
                 'preConds': {'pop': 'cochlea'},
-                'postConds': {'pop': [ct]},
+                'postConds': {'cellType': [ct]},
                 'sec': 'soma',
                 'loc': 0.5,
                 'synMech': ESynMech,
@@ -891,7 +891,7 @@ if cfg.addBkgConn:
         # cochlea -> Thal Matrix
         netParams.connParams['cochlea->ThalEMatrix'] = {
             'preConds': {'pop': 'cochlea'},
-            'postConds': {'pop': ['TCM']},
+            'postConds': {'cellType': ['TCM']},
             'sec': 'soma',
             'loc': 1,
             'synMech': ESynMech,
@@ -901,7 +901,7 @@ if cfg.addBkgConn:
             'delay': cfg.delayBkg}
         netParams.connParams['cochlea->ThalIMatrix'] = {
             'preConds': {'pop': 'cochlea'},
-            'postConds': {'pop': ['IREM', 'TIM']},
+            'postConds': {'cellType': ['IREM', 'TIM']},
             'sec': 'soma',
             'loc': 1,
             'synMech': ESynMech,
