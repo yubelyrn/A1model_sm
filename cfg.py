@@ -73,8 +73,8 @@ cfg.recordDipole = True
 
 cfg.simLabel = 'SilentTest0529'
 cfg.saveFolder = 'data/' + cfg.simLabel  ## Set file output name
-cfg.savePickle = False ## Save pkl file
-cfg.saveJson = True  ## Save json file
+cfg.savePickle = True ## Save pkl file
+cfg.saveJson = False  ## Save json file
 cfg.saveDataInclude = ['simData', 'simConfig', 'netParams', 'net',]
 cfg.backupCfgFile = None
 cfg.gatherOnlySimData = False
@@ -86,9 +86,9 @@ cfg.saveCellConns = False
 # ------------------------------------------------------------------------------
 
 # cfg.analysis['plotTraces'] = {'include': [('TC', i) for i in range(15)], 'timeRange': [0, cfg.duration], 'oneFigPer': 'trace', 'overlay': True, 'saveFig': True, 'showFig': False, 'figSize':(12,8)} #[(pop,0) for pop in alltypes]		## Seen in M1 cfg.py (line 68)
-cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': True, 'popRates': True,
-                              'orderInverse': True, 'timeRange': [0,cfg.duration], 'figSize': (40,40), 'lw': 0.3,
-                              'markerSize': 1, 'marker': '.', 'dpi': 1000}      	## Plot a raster
+cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': True,
+                              'orderInverse': True, 'timeRange': [0,cfg.duration], 'figSize': (25,25),
+                              'markerSize': 1}      	## Plot a raster
 # cfg.analysis['plotConn'] = {'includePre': ['cochlea', 'CT5A'], 'includePost': cfg.allThalPops, 'saveFig': True}
 # cfg.analysis['plotSpikeStats'] = {'stats': ['rate'], 'figSize': (6,12), 'timeRange': [0, 2500], 'dpi': 300, 'showFig': 0, 'saveFig': 1}
 
