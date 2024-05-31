@@ -234,6 +234,11 @@ cfg.L4L3SOM = 1.0
 cfg.L4L3VIP = 1.0
 cfg.L4L3NGF = 1.0
 
+#L3 -> L4 Inhib pops
+cfg.L3L4PV = 1.0
+cfg.L3L4SOM = 1.0
+
+# Artificial Feedback Params
 cfg.artFB = False
 cfg.artFBweight = 20.0
 cfg.artFBprob = 0.5
