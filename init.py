@@ -56,11 +56,11 @@ def setCochCellLocationsX (pop, sz, scale):
     if c.gid in sim.net.pops[pop].cellGids:
       cf = netParams.cf[c.gid-sim.simData['dminID'][pop]]
       if cf >= cfg.cochThalFreqRange[0] and cf <= cfg.cochThalFreqRange[1]:
-        c.tags['x'] = cellx = ((c.gid-offset)/ncellinrange) * scale
+        c.tags['x'] = cellx = scale * (cf - cfg.cochThalFreqRange[0])/(cfg.cochThalFreqRange[1]-cfg.cochThalFreqRange[0])
         c.tags['xnorm'] = cellx / netParams.sizeX # make sure these values consistent
         # print('gid,cellx,xnorm,cf=',c.gid,cellx,cellx/netParams.sizeX,cf)
       else:
-        c.tags['x'] = cellx = 100000  # put it outside range for core
+        c.tags['x'] = cellx = 100000000  # put it outside range for core
         c.tags['xnorm'] = cellx / netParams.sizeX # make sure these values consistent
       c.updateShape()
 

@@ -62,10 +62,11 @@ layer = {'1': [0.00, 0.05], '2': [0.05, 0.08], '3': [0.08, 0.475], '4': [0.475, 
          '5A': [0.625, 0.667], '5B': [0.667, 0.775], '6': [0.775, 1], 'thal': [1.2, 1.4],
          'cochlear': [1.6, 1.601]} # normalized layer boundaries
 
-layerGroups = { '1-3': [layer['1'][0], layer['3'][1]],  # L1-3
-                '4': layer['4'],                      # L4
-                '5': [layer['5A'][0], layer['5B'][1]],  # L5A-5B
-                '6': layer['6']}                        # L6
+layerGroups = {
+    '1-3': [layer['1'][0], layer['3'][1]],    # L1-3
+    '4': layer['4'],                                   # L4
+    '5': [layer['5A'][0], layer['5B'][1]],  # L5A-5B
+    '6': layer['6']}                                  # L6
 
 # add layer border correction ??
 #netParams.correctBorder = {'threshold': [cfg.correctBorderThreshold, cfg.correctBorderThreshold, cfg.correctBorderThreshold],
@@ -864,36 +865,34 @@ if cfg.addBkgConn:
         #  if cf >= cfg.cochThalFreqRange[0] and cf <= cfg.cochThalFreqRange[1]:
         #    coch2coreIDX.append(idx) # this cochlear cell can project to core
         # cochlea to thalamic core uses topographic wiring, cochlea to matrix uses random wiring
-        for ct in ['TC', 'HTC']:  # cochlea -> Thal Core E neurons
-            prob = '%f * exp(-dist_x/%f)' % (cfg.cochlearThalInput['probECore'], ThalamicCoreLambda)
-            netParams.connParams['cochlea->ThalECore' + ct] = {
-                'preConds': {'pop': 'cochlea'},
-                'postConds': {'ce': [ct]},
-                'sec': 'soma',
-                'loc': 0.5,
-                'synMech': ESynMech,
-                'probability': prob,
-                'weight': cfg.cochlearThalInput['weightECore'],
-                'synMechWeightFactor': cfg.synWeightFractionEE,
-                'delay': cfg.delayBkg}
-        for ct in ['IRE', 'TI']:
-            prob = '%f * exp(-dist_x/%f)' % (cfg.cochlearThalInput['probICore'], ThalamicCoreLambda)
-            netParams.connParams['cochlea->ThalICore' + ct] = {
-                'preConds': {'pop': 'cochlea'},
-                'postConds': {'cellType': [ct]},
-                'sec': 'soma',
-                'loc': 0.5,
-                'synMech': ESynMech,
-                'probability': prob,
-                'weight': cfg.cochlearThalInput['weightICore'],
-                'synMechWeightFactor': cfg.synWeightFractionEI,
-                'delay': cfg.delayBkg}
+        prob = '%f * exp(-dist_x/%f)' % (cfg.cochlearThalInput['probECore'], ThalamicCoreLambda)
+        netParams.connParams['cochlea->ThalECore'] = {
+            'preConds': {'pop': 'cochlea'},
+            'postConds': {'pop': ['TC','HTC']},
+            'sec': 'soma',
+            'loc': 0.5,
+            'synMech': ESynMech,
+            'probability': prob,
+            'weight': cfg.cochlearThalInput['weightECore'],
+            'synMechWeightFactor': cfg.synWeightFractionEE,
+            'delay': cfg.delayBkg}
+        prob = '%f * exp(-dist_x/%f)' % (cfg.cochlearThalInput['probICore'], ThalamicCoreLambda)
+        netParams.connParams['cochlea->ThalICore'] = {
+            'preConds': {'pop': 'cochlea'},
+            'postConds': {'pop': ['IRE', 'TI']},
+            'sec': 'soma',
+            'loc': 0.5,
+            'synMech': ESynMech,
+            'probability': prob,
+            'weight': cfg.cochlearThalInput['weightICore'],
+            'synMechWeightFactor': cfg.synWeightFractionEI,
+            'delay': cfg.delayBkg}
         # cochlea -> Thal Matrix
         netParams.connParams['cochlea->ThalEMatrix'] = {
             'preConds': {'pop': 'cochlea'},
-            'postConds': {'cellType': ['TCM']},
+            'postConds': {'pop': 'TCM'},
             'sec': 'soma',
-            'loc': 1,
+            'loc': 0.5,
             'synMech': ESynMech,
             'convergence': prob2conv(cfg.cochlearThalInput['probEMatrix'], numCochlearCells),
             'weight': cfg.cochlearThalInput['weightEMatrix'],
@@ -901,9 +900,9 @@ if cfg.addBkgConn:
             'delay': cfg.delayBkg}
         netParams.connParams['cochlea->ThalIMatrix'] = {
             'preConds': {'pop': 'cochlea'},
-            'postConds': {'cellType': ['IREM', 'TIM']},
+            'postConds': {'pop': ['IREM', 'TIM']},
             'sec': 'soma',
-            'loc': 1,
+            'loc': 0.5,
             'synMech': ESynMech,
             'convergence': prob2conv(cfg.cochlearThalInput['probIMatrix'], numCochlearCells),
             'weight': cfg.cochlearThalInput['weightIMatrix'],

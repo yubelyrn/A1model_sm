@@ -25,6 +25,7 @@ cfg = specs.SimConfig()
 cfg.duration = 6e3 ## Duration of the sim, in ms
 cfg.dt = 0.05  ## Internal Integration Time Step
 cfg.verbose = 0  ## Show detailed messages
+cfg.progressBar = 0
 cfg.hParams['celsius'] = 37
 cfg.createNEURONObj = 1
 cfg.createPyStruct = 1
@@ -37,7 +38,7 @@ cfg.cache_efficient = True
 # cfg.printRunTime = 0.1  			## specified above
 cfg.oneSynPerNetcon = False
 cfg.includeParamsLabel = False
-cfg.printPopAvgRates = [3000, cfg.duration]  # "printPopAvgRates": [[1500,1750],[1750,2000],[2000,2250],[2250,2500]]
+cfg.printPopAvgRates = [0, cfg.duration]  # "printPopAvgRates": [[1500,1750],[1750,2000],[2000,2250],[2250,2500]]
 cfg.validateNetParams = False
 
 # ------------------------------------------------------------------------------
@@ -137,7 +138,7 @@ cfg.synWeightFractionThalII = [1.0,0.0]
 # Network
 # ------------------------------------------------------------------------------
 ## These values taken from M1 cfg.py (https://github.com/Neurosim-lab/netpyne/blob/development/examples/M1detailed/cfg.py)
-cfg.singleCellPops =False
+cfg.singleCellPops = False
 cfg.singlePop = ''
 cfg.removeWeightNorm = False
 cfg.scale = 1.0  # Is this what should be used?
@@ -204,14 +205,14 @@ cfg.ICThalprobEMatrix = cfg.ICThalprobECore
 cfg.ICThalprobIMatrix = cfg.ICThalprobICore
 
 # these params control cochlea -> Thalamus
-cfg.cochThalweightECore = 0.15
+cfg.cochThalweightECore = 0.1125
 cfg.cochThalprobECore = 0.3
-cfg.cochThalweightICore = 0.09
+cfg.cochThalweightICore = 0.0675
 cfg.cochThalprobICore = 0.15
 cfg.cochThalMatrixCoreFactor = 0.1
 cfg.cochThalprobEMatrix = cfg.cochThalprobECore
 cfg.cochThalprobIMatrix = cfg.cochThalprobICore
-cfg.cochThalFreqRange = [1000, 2000]
+cfg.cochThalFreqRange = [750, 1250]
 
 
 # these params added from Christoph Metzner branch
