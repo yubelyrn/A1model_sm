@@ -152,8 +152,8 @@ cfg.scaleDensity = 1.0  # 0.25 #1.0 #0.075 # Should be 1.0 unless need lower cel
 # ------------------------------------------------------------------------------
 
 # Cortical
-cfg.addConn = 1
-cfg.wireCortex = 1
+cfg.addConn = 1.0
+cfg.wireCortex = 1.0
 
 cfg.EEGain = 0.75
 cfg.EIGain = 1.5
@@ -186,8 +186,8 @@ cfg.IECellTypeGain = {'PV': 1.0, 'SOM': 1.0, 'VIP': 1.0, 'NGF': 1.0}
 
 # Thalamic
 cfg.addIntraThalamicConn = 1.0
-cfg.addCorticoThalamicConn = 1
-cfg.addThalamoCorticalConn = 1
+cfg.addCorticoThalamicConn = 1.0
+cfg.addThalamoCorticalConn = 1.0
 
 cfg.thalamoCorticalGain = 1.0
 cfg.intraThalamicGain = 1.0
