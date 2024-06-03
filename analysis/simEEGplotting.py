@@ -7,7 +7,6 @@ import os
 import numpy as np
 from scipy import signal
 import matplotlib
-
 matplotlib.use("MacOSX")
 from matplotlib import pyplot as plt
 from lfpykit.eegmegcalc import NYHeadModel
