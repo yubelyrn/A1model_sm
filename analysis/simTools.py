@@ -229,7 +229,7 @@ class simTools:
     def bin_spikes(spike_times, stimuli_start_times, stimuli_duration):
         # Create bins based on stimuli start times and duration
         bins = [start for start in stimuli_start_times]
-        bins.append(stimuli_start_times[-1] + stimuli_duration)  # Add the end of the last stimulus to bins
+        # bins.append(stimuli_start_times[-1] + stimuli_duration)  # Add the end of the last stimulus to bins
 
         # Calculate the number of spikes in each bin
         spike_counts, _ = np.histogram(spike_times, bins)
@@ -275,7 +275,7 @@ class simTools:
 
         plt.xlabel('Bin Index')
         plt.ylabel('Firing Rate (Hz)')
-        plt.xticks(range(0, len(binStarts)))
+        # plt.xticks(range(0, len(binStarts)))
         plt.legend(title='Population')
         plt.savefig('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'
                     + batch + '/' + fname + '_MUA.png')
