@@ -22,7 +22,7 @@ cfg = specs.SimConfig()
 # ------------------------------------------------------------------------------
 # Run parameters
 # ------------------------------------------------------------------------------
-cfg.duration = 1e3 ## Duration of the sim, in ms
+cfg.duration = 8500 ## Duration of the sim, in ms
 cfg.dt = 0.05  ## Internal Integration Time Step
 cfg.verbose = 0  ## Show detailed messages
 cfg.progressBar = 0
@@ -72,7 +72,7 @@ cfg.recordDipole = True
 # Saving
 # ------------------------------------------------------------------------------
 
-cfg.simLabel = 'dataSizeTest'
+cfg.simLabel = '7StimBestFreq0604'
 cfg.saveFolder = 'data/' + cfg.simLabel  ## Set file output name
 cfg.savePickle = False ## Save pkl file
 cfg.saveJson = True ## Save json file
@@ -138,7 +138,7 @@ cfg.synWeightFractionThalII = [1.0,0.0]
 # Network
 # ------------------------------------------------------------------------------
 ## These values taken from M1 cfg.py (https://github.com/Neurosim-lab/netpyne/blob/development/examples/M1detailed/cfg.py)
-cfg.singleCellPops = True
+cfg.singleCellPops = False
 cfg.singlePop = ''
 cfg.removeWeightNorm = False
 cfg.scale = 1.0  # Is this what should be used?
