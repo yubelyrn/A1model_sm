@@ -11,7 +11,7 @@ matplotlib.use("MacOSX")
 from matplotlib import pyplot as plt
 from lfpykit.eegmegcalc import NYHeadModel
 
-batch = 'CortWeightTune0531'  # Name of batch for fig saving
+batch = 'CortTune0605'  # Name of batch for fig saving
 
 stim_on = 3000
 # calcEEG = {'start': 2800, 'stop': 4000}
@@ -138,7 +138,7 @@ for file in os.listdir(base_dir):
                 fname = fname)
 
 
-
+        sim.plotting.plotCSD(saveFig= '/Users/scottmcelroy/Desktop/CSD.png')
 # # Plot LFP PSD
 #         sim.analysis.plotLFP(plots = 'PSD', saveFig= '/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'+batch+ '/'+fname+ 'LFP.png')
 # # Plot CSD
