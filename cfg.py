@@ -22,7 +22,7 @@ cfg = specs.SimConfig()
 # ------------------------------------------------------------------------------
 # Run parameters
 # ------------------------------------------------------------------------------
-cfg.duration = 8e3## Duration of the sim, in ms
+cfg.duration = 6e3## Duration of the sim, in ms
 cfg.dt = 0.05  ## Internal Integration Time Step
 cfg.verbose = 0  ## Show detailed messages
 cfg.progressBar = 0
@@ -73,11 +73,11 @@ cfg.recordDipole = False
 # Saving
 # ------------------------------------------------------------------------------
 
-cfg.simLabel = '7StimBestFreq0604'
+cfg.simLabel = 'CortTune0605'
 cfg.saveFolder = 'data/' + cfg.simLabel  ## Set file output name
 cfg.savePickle = True ## Save pkl file
 cfg.saveJson = False ## Save json file
-cfg.saveDataInclude = ['simData', 'simConfig', 'netParams', 'net',]
+cfg.saveDataInclude = ['simData', 'simConfig', 'net']
 cfg.backupCfgFile = None
 cfg.gatherOnlySimData = False
 cfg.saveCellSecs = False
@@ -281,7 +281,7 @@ cfg.cochlearThalInput = True
 
 if cfg.cochlearThalInput:
     cfg.cochlearThalInput = {"lonset" : [0], "numCenterFreqs": 100, "freqRange":[125, 20000], "loudnessScale": 1,
-                             "lfnwave": ["100msClick624ISIBestFreq.wav"]}
+                             "lfnwave": ["silence6s.wav"]}
     cfg.cochlearThalInput['probECore'] = cfg.cochThalprobECore
     cfg.cochlearThalInput['weightECore'] = cfg.cochThalweightECore
     cfg.cochlearThalInput['probICore'] = cfg.cochThalprobICore

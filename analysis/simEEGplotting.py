@@ -11,7 +11,7 @@ matplotlib.use("MacOSX")
 from matplotlib import pyplot as plt
 from lfpykit.eegmegcalc import NYHeadModel
 
-batch = 'fullStimTrain0603'  # Name of batch for fig saving
+batch = 'CortWeightTune0531'  # Name of batch for fig saving
 
 stim_on = 3000
 # calcEEG = {'start': 2800, 'stop': 4000}
@@ -21,7 +21,7 @@ stim_on = 3000
 # plotPSD = {'useFilter': True}
 # plotRaster = {'timeRange': [0, 6000]}
 # PSDSpect = {'timeRange': [3000, 4000], 'useLFP': False, 'useCSD': True}
-plotMUA = {'populations': ['ITP4', 'ITS4', 'TC', 'HTC', 'IRE'], 'stimDur': 100}
+# plotMUA = {'populations': ['ITP4', 'ITS4', 'TC', 'HTC', 'IRE'], 'stimDur': 100}
 
 calcEEG = False
 filter = False
@@ -30,7 +30,7 @@ plotSpectrogram = False
 plotPSD = False
 plotRaster = False
 PSDSpect = False
-# plotMUA = False
+plotMUA = False
 
 # Load sim EEG data
 base_dir = '/Users/scottmcelroy/A1_scz/A1_sim_data/' + batch + '/'
@@ -144,7 +144,8 @@ for file in os.listdir(base_dir):
 # # Plot CSD
 #         sim.plotting.plotCSD(overlay= 'CSD', timeRange=[2500, 5000],saveFig='/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch+'/'+fname+'CSDpad.jpeg')
 #         spikes_legacy.plotRatePSD(include = ['IT2', 'IT3', 'ITP4', 'ITS4', 'IT5A', 'CT5A', 'IT5B', 'CT5B' , 'PT5B', 'IT6', 'CT6'],timeRange=[3000, 5000],  saveFig='/Users/scottmcelroy/Desktop/ASSRratePSDAll.png')
-        spikes_legacy.plotSpikeHist(include = ['cochlea', 'TC'], timeRange=[3000, 6000], saveFig='/Users/scottmcelroy/Desktop/CochHisto.png')
+        spikes_legacy.plotSpikeHist(include = ['cochlea', 'TC'], timeRange=[3000, 6000], saveFig='/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch + '/' + fname + 'RateHisto')
+        spikes_legacy.plotSpikeStats(saveFig= '/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch + '/' + fname + 'SpikeStats')
 # spikes_legacy.plotRatePSD(include = ['IT5A', 'CT5A'], timeRange=[3000, 5000], saveFig='/Users/scottmcelroy/Desktop/ASSRratePSDL5A.png')
 # spikes_legacy.plotRatePSD(include = ['IT5B', 'CT5B' , 'PT5B'], timeRange=[3000, 5000], saveFig='/Users/scottmcelroy/Desktop/ASSRratePSDL5B.png')
 # spikes_legacy.plotRatePSD(include = ['IT6', 'CT6'], timeRange=[3000, 5000], saveFig='/Users/scottmcelroy/Desktop/ASSRratePSDL6.png')
