@@ -22,10 +22,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from netpyne.analysis import spikes_legacy
 
-now = datetime.now()
-
-current_time = now.strftime("%H:%M:%S")
-print("Current Time =", current_time)
 
 cfg, netParams = sim.readCmdLineArgs(simConfigDefault='cfg.py', netParamsDefault='netParams.py')
 
@@ -100,13 +96,20 @@ sim.setupRecording()              			# setup variables to record for each cell (
 sim.runSim()                                    # run parallel Neuron simulation
 sim.gatherData()                  			# gather spiking data and cell info from each node
 
+# for pop in sim.net.pops:
+#     if pop == 'cochlea':
+#         for cell in sim.net.pops[pop].cellGids:
+#             if cell in sim.allSimData['spkTimes']:
+#                 del sim.allSimData['spkTimes'][cell]
+
 sim.saveDataInNodes()
 sim.gatherDataFromFiles()
+
 sim.saveData()
 sim.analysis.plotData()    # plot spike raster etc
 
-spikes_legacy.plotSpikeHist(include=['cochlea', 'TC'], timeRange=[0, 6000],
-                            saveFig=True)
+# spikes_legacy.plotSpikeHist(include=['cochlea', 'TC'], timeRange=[0, 6000],
+#                             saveFig=True)
 
 now = datetime.now()
 

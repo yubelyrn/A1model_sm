@@ -22,7 +22,7 @@ cfg = specs.SimConfig()
 # ------------------------------------------------------------------------------
 # Run parameters
 # ------------------------------------------------------------------------------
-cfg.duration = 8500 ## Duration of the sim, in ms
+cfg.duration = 8e3## Duration of the sim, in ms
 cfg.dt = 0.05  ## Internal Integration Time Step
 cfg.verbose = 0  ## Show detailed messages
 cfg.progressBar = 0
@@ -60,11 +60,12 @@ cfg.recordStim = False  ## Seen in M1 cfg.py
 cfg.recordTime = True  ## SEen in M1 cfg.py
 cfg.recordStep = 0.05  ## Step size (in ms) to save data -- value from M1 cfg.py
 
+
 cfg.recordLFP = [[100, y, 100] for y in range(0, 2000, 100)]  # +[[100, 2500, 200], [100,2700,200]]			# null,
 # cfg.recordLFP = [[x, 1000, 100] for x in range(100, 2200, 200)] #+[[100, 2500, 200], [100,2700,200]]
 # cfg.saveLFPPops =  cfg.allpops #, "IT3", "SOM3", "PV3", "VIP3", "NGF3", "ITP4", "ITS4", "IT5A", "CT5A", "IT5B", "PT5B", "CT5B", "IT6", "CT6"]
 
-cfg.recordDipole = True
+cfg.recordDipole = False
 # cfg.saveDipoleCells = ['all']
 # cfg.saveDipolePops = cfg.allpops
 
@@ -74,8 +75,8 @@ cfg.recordDipole = True
 
 cfg.simLabel = '7StimBestFreq0604'
 cfg.saveFolder = 'data/' + cfg.simLabel  ## Set file output name
-cfg.savePickle = False ## Save pkl file
-cfg.saveJson = True ## Save json file
+cfg.savePickle = True ## Save pkl file
+cfg.saveJson = False ## Save json file
 cfg.saveDataInclude = ['simData', 'simConfig', 'netParams', 'net',]
 cfg.backupCfgFile = None
 cfg.gatherOnlySimData = False
@@ -87,9 +88,9 @@ cfg.saveCellConns = False
 # ------------------------------------------------------------------------------
 
 # cfg.analysis['plotTraces'] = {'include': [('TC', i) for i in range(40)], 'timeRange': [0, cfg.duration], 'oneFigPer': 'trace', 'overlay': True, 'saveFig': True, 'showFig': False, 'figSize':(12,8)} #[(pop,0) for pop in alltypes]		## Seen in M1 cfg.py (line 68)
-cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False,
-                              'orderInverse': True, 'timeRange': [0,cfg.duration], 'figSize': (25,25),
-                              'markerSize': 1}      	## Plot a raster
+# cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False,
+#                               'orderInverse': True, 'timeRange': [0,cfg.duration], 'figSize': (25,25),
+#                               'markerSize': 1}      	## Plot a raster
 # cfg.analysis['plotConn'] = {'includePre': ['cochlea', 'CT5A'], 'includePost': cfg.allThalPops, 'saveFig': True}
 # cfg.analysis['plotSpikeStats'] = {'stats': ['rate'], 'figSize': (6,12), 'timeRange': [0, 2500], 'dpi': 300, 'showFig': 0, 'saveFig': 1}
 

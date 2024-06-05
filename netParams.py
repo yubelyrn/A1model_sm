@@ -705,8 +705,18 @@ else:
 #------------------------------------------------------------------------------
 if cfg.addBkgConn:
     # add bkg sources for E and I cells
-    netParams.stimSourceParams['excBkg'] = {'type': 'NetStim', 'start': cfg.startBkg, 'rate': cfg.rateBkg['exc'], 'noise': cfg.noiseBkg, 'number': 1e9}
-    netParams.stimSourceParams['inhBkg'] = {'type': 'NetStim', 'start': cfg.startBkg, 'rate': cfg.rateBkg['inh'], 'noise': cfg.noiseBkg, 'number': 1e9}
+    netParams.stimSourceParams['excBkg'] = {
+        'type': 'NetStim',
+        'start': cfg.startBkg,
+        'rate': cfg.rateBkg['exc'],
+        'noise': cfg.noiseBkg,
+        'number': 1e9}
+    netParams.stimSourceParams['inhBkg'] = {
+        'type': 'NetStim',
+        'start': cfg.startBkg,
+        'rate': cfg.rateBkg['inh'],
+        'noise': cfg.noiseBkg,
+        'number': 1e9}
 
 
     if cfg.cochlearThalInput:
@@ -720,7 +730,11 @@ if cfg.addBkgConn:
         cochlearCenterFreqs = dcoch['cf']
         netParams.cf = dcoch['cf']
         numCochlearCells = len(cochlearCenterFreqs)
-        netParams.popParams['cochlea'] = {'cellModel': 'VecStim', 'numCells': numCochlearCells, 'spkTimes': cochlearSpkTimes, 'ynormRange': layer['cochlear']}
+        netParams.popParams['cochlea'] = {
+            'cellModel': 'VecStim',
+            'numCells': numCochlearCells,
+            'spkTimes': cochlearSpkTimes,
+            'ynormRange': layer['cochlear']}
         # netParams.popParams['cochlea']['gridSpacing'] = 1
         # netParams.popParams['cochlea']['sizeX'] = numCochlearCells + 1
         # netParams.popParams['cochlea']['sizeY'] = netParams.popParams['cochlea']['sizeZ'] = 1
