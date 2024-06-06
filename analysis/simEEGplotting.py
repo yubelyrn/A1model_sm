@@ -11,7 +11,7 @@ matplotlib.use("MacOSX")
 from matplotlib import pyplot as plt
 from lfpykit.eegmegcalc import NYHeadModel
 
-batch = 'SilenceCochTune0605'  # Name of batch for fig saving
+batch = 'CortTune0605'  # Name of batch for fig saving
 
 stim_on = 3000
 # calcEEG = {'start': 2800, 'stop': 4000}
@@ -19,7 +19,7 @@ stim_on = 3000
 # plotERP = {'useFilter': True}
 # plotSpectrogram = {'useFilter': True}
 # plotPSD = {'useFilter': True}
-plotRaster = {'timeRange': [3200, 3400]}
+plotRaster = {'timeRange': [5600, 5800]}
 # PSDSpect = {'timeRange': [3000, 4000], 'useLFP': False, 'useCSD': True}
 # plotMUA = {'populations': ['ITP4', 'ITS4', 'TC', 'HTC', 'IRE'], 'stimDur': 100}
 
@@ -38,7 +38,7 @@ for file in os.listdir(base_dir):
     if file.endswith('.pkl'):
         sim.initialize()
         all = sim.loadAll(os.path.join(base_dir, file))
-        fname = file[0:-9] + '_11_' # Create filename (can change to whatever)
+        fname = file[0:-9] #+ '_11_' # Create filename (can change to whatever)
         if not os.path.exists('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch):
             os.mkdir( '/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch)  # Create Figure directory if one doesn't already exist
 

@@ -60,7 +60,7 @@ def cochlearInputSpikes (freqRange=[125, 20000],
     anf = cochlea.run_zilany2014(
         sound,
         sampr,
-        anf_num=(numCells/numCenterFreqs, 0, 0),  # the desired number of auditory nerve fibers per frequency channel (CF)
+        anf_num=(0,0, numCells/numCenterFreqs),  # the desired number of auditory nerve fibers per frequency channel (CF)
         cf=(freqRange[0], freqRange[1], numCenterFreqs), # the center frequency(s) of the simulated auditory nerve fibers
         seed=0,
         powerlaw='approximate',
