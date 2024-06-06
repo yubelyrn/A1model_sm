@@ -102,11 +102,11 @@ sim.runSim()                                    # run parallel Neuron simulation
 #             if cell in sim.allSimData['spkTimes']:
 #                 del sim.allSimData['spkTimes'][cell]
 
-# sim.saveDataInNodes()
-# sim.gatherDataFromFiles()
-#
-# sim.saveData()
-# sim.analysis.plotData()    # plot spike raster etc
+sim.saveDataInNodes()
+sim.gatherDataFromFiles()
+
+sim.saveData()
+sim.analysis.plotData()    # plot spike raster etc
 
 # spikes_legacy.plotSpikeHist(include=['cochlea', 'TC'], timeRange=[0, 6000],
 #                             saveFig=True)
