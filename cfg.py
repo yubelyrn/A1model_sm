@@ -73,7 +73,7 @@ cfg.recordDipole = False
 # Saving
 # ------------------------------------------------------------------------------
 
-cfg.simLabel = 'LSR_test0606'
+cfg.simLabel = 'LSR_Stimtest0607'
 cfg.saveFolder = 'data/' + cfg.simLabel  ## Set file output name
 cfg.savePickle = True ## Save pkl file
 cfg.saveJson = False ## Save json file
@@ -281,7 +281,7 @@ cfg.cochlearThalInput = True
 
 if cfg.cochlearThalInput:
     cfg.cochlearThalInput = {"lonset" : [0], "numCenterFreqs": 100, "freqRange":[125, 20000], "loudnessScale": 1,
-                             "lfnwave": ["silence6s.wav"]}
+                             "lfnwave": ["100msClick624ISIBestFreq.wav"]}
     cfg.cochlearThalInput['probECore'] = cfg.cochThalprobECore
     cfg.cochlearThalInput['weightECore'] = cfg.cochThalweightECore
     cfg.cochlearThalInput['probICore'] = cfg.cochThalprobICore
