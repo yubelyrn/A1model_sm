@@ -14,23 +14,23 @@ from lfpykit.eegmegcalc import NYHeadModel
 batch = 'LSR_CochWeight0610'  # Name of batch for fig saving
 
 stim_on = 3000
-# calcEEG = {'start': 2800, 'stop': 4000}
-# filter = {'lowCut':2, 'hiCut': 12}
-# plotERP = {'useFilter': True}
+calcEEG = {'start': 3624, 'stop': 4224}
+filter = {'lowCut':2, 'hiCut': 12}
+plotERP = {'useFilter': True}
 # plotSpectrogram = {'useFilter': True}
 # plotPSD = {'useFilter': True}
 # plotRaster = {'timeRange': [0, 100]}
 # PSDSpect = {'timeRange': [3000, 4000], 'useLFP': False, 'useCSD': True}
-plotMUA = {'populations': ['ITP4', 'ITS4', 'TC', 'HTC', 'IRE'], 'stimDur': 100}
+# plotMUA = {'populations': ['ITP4', 'ITS4', 'TC', 'HTC', 'IRE'], 'stimDur': 100}
 
-calcEEG = False
-filter = False
-plotERP = False
+# calcEEG = False
+# filter = False
+# plotERP = False
 plotSpectrogram = False
 plotPSD = False
 plotRaster = False
 PSDSpect = False
-# plotMUA = False
+plotMUA = False
 
 # Load sim EEG data
 base_dir = '/Users/scottmcelroy/A1_scz/A1_sim_data/' + batch + '/'
@@ -38,7 +38,7 @@ for file in os.listdir(base_dir):
     if file.endswith('.pkl'):
         sim.initialize()
         all = sim.loadAll(os.path.join(base_dir, file))
-        fname = file[0:-9] #+ '_11_' # Create filename (can change to whatever)
+        fname = file[0:-9] + '2nd' #+ '_11_' # Create filename (can change to whatever)
         if not os.path.exists('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch):
             os.mkdir( '/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch)  # Create Figure directory if one doesn't already exist
 
@@ -51,7 +51,7 @@ for file in os.listdir(base_dir):
             # Time vector starting at t=0 instead of timeRange[0]
             offsetStart = calcEEG['start'] - stim_on
             endWindow = calcEEG['stop'] - stim_on
-            t = np.arange(offsetStart, endWindow, 0.05)
+            # t = np.arange(offsetStart, endWindow, 0.05)
 
         # Filter EEG data
         if filter:
@@ -67,7 +67,7 @@ for file in os.listdir(base_dir):
             if plotERP['useFilter'] == True:
                 simTools.plotERP(
                     data = filtered_data,
-                    time = t,
+                    time = stim_window,
                     fname = fname,
                     batch = batch)  # Create ERP plot of time window specified
 
@@ -140,8 +140,8 @@ for file in os.listdir(base_dir):
                 fname = fname)
 
 
-            sim.plotting.plotCSD(overlay = 'LFP', timeRange =[3000, 3600], saveFig='/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'
-                            + batch + '/' + fname + '_CSD.png')
+            # sim.plotting.plotCSD(overlay = 'LFP', timeRange =[3000, 3600], saveFig='/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'
+            #                 + batch + '/' + fname + '_CSD.png')
 # # Plot LFP PSD
 #         sim.analysis.plotLFP(plots = 'PSD', saveFig= '/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'+batch+ '/'+fname+ 'LFP.png')
 # # Plot CSD
