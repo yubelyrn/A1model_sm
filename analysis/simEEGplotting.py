@@ -11,7 +11,7 @@ matplotlib.use("MacOSX")
 from matplotlib import pyplot as plt
 from lfpykit.eegmegcalc import NYHeadModel
 
-batch = 'SilenceCochTune0605'  # Name of batch for fig saving
+batch = 'LSR_CochWeight0610'  # Name of batch for fig saving
 
 stim_on = 3000
 # calcEEG = {'start': 2800, 'stop': 4000}
@@ -19,18 +19,18 @@ stim_on = 3000
 # plotERP = {'useFilter': True}
 # plotSpectrogram = {'useFilter': True}
 # plotPSD = {'useFilter': True}
-plotRaster = {'timeRange': [0, 100]}
+# plotRaster = {'timeRange': [0, 100]}
 # PSDSpect = {'timeRange': [3000, 4000], 'useLFP': False, 'useCSD': True}
-# plotMUA = {'populations': ['ITP4', 'ITS4', 'TC', 'HTC', 'IRE'], 'stimDur': 100}
+plotMUA = {'populations': ['ITP4', 'ITS4', 'TC', 'HTC', 'IRE'], 'stimDur': 100}
 
 calcEEG = False
 filter = False
 plotERP = False
 plotSpectrogram = False
 plotPSD = False
-# plotRaster = False
+plotRaster = False
 PSDSpect = False
-plotMUA = False
+# plotMUA = False
 
 # Load sim EEG data
 base_dir = '/Users/scottmcelroy/A1_scz/A1_sim_data/' + batch + '/'
@@ -110,8 +110,6 @@ for file in os.listdir(base_dir):
 
         # Plot Raster
         if plotRaster:
-            x = 0
-            while x < sim.cfg.duration:
                 sim.analysis.plotRaster(
                     include=[sim.cfg.allCorticalPops + sim.cfg.allThalPops],
                     orderInverse=True,
@@ -119,10 +117,8 @@ for file in os.listdir(base_dir):
                     markerSize=50,
                     figSize=(8, 16),
                     saveFig='/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'
-                            + batch + '/' + fname + '_' + str(x) + '_Raster.png')
-                sim.plotting.plotCSD(overlay='LFP', timeRange=[x, x+100], saveFig='/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'
-                                                                          + batch + '/' + fname + '_' + str(x) + '_CSD.png')
-                x+= 100
+                            + batch + '/' + fname + '_Raster.png')
+
 
         if PSDSpect:
             simTools.plotPSDSpectrogram(
@@ -144,8 +140,8 @@ for file in os.listdir(base_dir):
                 fname = fname)
 
 
-            # sim.plotting.plotCSD(overlay = 'LFP', timeRange =[], saveFig='/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'
-            #                 + batch + '/' + fname + '_CSD.png')
+            sim.plotting.plotCSD(overlay = 'LFP', timeRange =[3000, 3600], saveFig='/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'
+                            + batch + '/' + fname + '_CSD.png')
 # # Plot LFP PSD
 #         sim.analysis.plotLFP(plots = 'PSD', saveFig= '/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'+batch+ '/'+fname+ 'LFP.png')
 # # Plot CSD
