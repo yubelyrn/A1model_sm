@@ -195,8 +195,8 @@ cfg.intraThalamicGain = 1.0
 cfg.corticoThalamicGain = 1.0
 
 # these params control IC -> Thalamic Core
-cfg.ICThalweightECore = 5  #0.8350476447841453
-cfg.ICThalweightICore =  1.5 #0.2114492149101151
+cfg.ICThalweightECore = 0.8350476447841453
+cfg.ICThalweightICore =  0.2114492149101151
 cfg.ICThalprobECore = 0.163484173596043
 cfg.ICThalprobICore = 0.0936669688856933
 
