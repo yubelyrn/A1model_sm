@@ -89,21 +89,41 @@ def checkCochConns():
           print(len(cochConns))
   print ('Number of Cochlea Conns is ' + str(len(cochConns)))
 
+def checkTCconnRatio():
+  TCConns = []
+  L6TCConns = []
+  IRETCConns = []
+  CochTCConns = []
+  for cell in sim.net.cells:
+    if cell.tags['pop'] == 'TC':
+      for conn in cell.conns:
+        TCConns.append(conn['preGid'])
+  for conn in TCConns:
+      if conn in sim.net.pops['CT6'].cellGids:
+          L6TCConns.append(conn)
+      elif conn in sim.net.pops['IRE'].cellGids:
+          IRETCConns.append(conn)
+      elif conn in sim.net.pops['cochlea'].cellGids:
+          CochTCConns.append(conn)
+  pctCoch = (len(CochTCConns)/len(TCConns)) * 100
+  pctIRE = (len(IRETCConns)/len(TCConns)) * 100
+  pctL6 = (len(L6TCConns)/len(TCConns)) * 100
+
+  print(str(pctCoch) + '% of TC Conns are from Cochlea')
+  print(str(pctIRE) + '% of TC Conns are from IRE')
+  print(str(pctL6) + '% of TC Conns are from CT6')
+
+
+
 # checkCochConns()
 
 sim.net.addStims() 							# add network stimulation
 sim.setupRecording()              			# setup variables to record for each cell (spikes, V traces, etc)
 sim.runSim()                                    # run parallel Neuron simulation
 # sim.gatherData()                  			# gather spiking data and cell info from each node
-
-# for pop in sim.net.pops:
-#     if pop == 'cochlea':
-#         for cell in sim.net.pops[pop].cellGids:
-#             if cell in sim.allSimData['spkTimes']:
-#                 del sim.allSimData['spkTimes'][cell]
-
 sim.saveDataInNodes()
 sim.gatherDataFromFiles()
+checkTCconnRatio()
 
 sim.saveData()
 sim.analysis.plotData()    # plot spike raster etc

@@ -452,6 +452,7 @@ def wireThal ():
   # set intrathalamic connections
   for pre in TEpops+TIpops:
       for post in TEpops+TIpops:
+          scaleFactor = 1.0
           if post in pmat[pre]:
               # for syns use ESynMech, ThalIESynMech and ThalIISynMech
               if pre in TEpops:     # E->E/I
@@ -460,6 +461,7 @@ def wireThal ():
               elif post in TEpops:  # I->E
                   syn = ThalIESynMech
                   synWeightFactor = cfg.synWeightFractionThalIE
+                  scaleFactor = cfg.ThalIEscaleFactor
               else:                  # I->I
                   syn = ThalIISynMech
                   synWeightFactor = cfg.synWeightFractionThalII
@@ -473,7 +475,7 @@ def wireThal ():
                   'postConds': {'pop': post},
                   'synMech': syn,
                   'probability': prob,
-                  'weight': wmat[pre][post] * cfg.intraThalamicGain,
+                  'weight': wmat[pre][post] * cfg.intraThalamicGain * scaleFactor,
                   'synMechWeightFactor': synWeightFactor,
                   'delay': 'defaultDelay+dist_3D/propVelocity',
                   'synsPerConn': 1,
