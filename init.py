@@ -123,7 +123,7 @@ sim.runSim()                                    # run parallel Neuron simulation
 # sim.gatherData()                  			# gather spiking data and cell info from each node
 sim.saveDataInNodes()
 sim.gatherDataFromFiles()
-checkTCconnRatio()
+# checkTCconnRatio()
 
 sim.saveData()
 sim.analysis.plotData()    # plot spike raster etc
