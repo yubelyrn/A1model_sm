@@ -29,7 +29,7 @@ def assr_batch_grid(filename):
     # #### SET weights####
     params['cochlearThalInput','weightECore'] = [1.75]
     # params['cochlearThalInput', 'weightICore'] = [0.09]
-    params['ThalIEscaleFactor'] = [0.475, 0.45, 0.425]
+    params['ThalIEscaleFactor'] = [0.45]
 
 
     #### GROUPED PARAMS ####
@@ -98,7 +98,7 @@ def setRunCfg(b, type='hpc_sge'):
     if type == 'hpc_sge':
         b.runCfg = {'type': 'hpc_sge', # for downstate HPC
                     'jobName': 'smc_ASSR_batch', # label for job
-                    'cores': 50, # give 60 cores here
+                    'cores': 64, # give 60 cores here
                     'script': 'init.py', # what you normally run
                     'vmem': '256G', # or however much memory you need
                     'walltime': '1:40:00', # make 2 hours or something
@@ -135,7 +135,7 @@ if __name__ == '__main__':
     #b = assr_batch('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'ThalIEweight0612'
+    b.batchLabel = 'StimThalIEweight0612'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_sge')
