@@ -29,7 +29,7 @@ def assr_batch_grid(filename):
     # #### SET weights####
     params['cochlearThalInput','weightECore'] = [1.75]
     # params['cochlearThalInput', 'weightICore'] = [0.09]
-    params['ThalIEscaleFactor'] = [0.5, 0.5125, 0.525]
+    params['ThalIEscaleFactor'] = [0.525]
 
 
     #### GROUPED PARAMS ####
@@ -135,7 +135,7 @@ if __name__ == '__main__':
     #b = assr_batch('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'ThalIEweight0613'
+    b.batchLabel = 'StimThalIEweight0613'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_sge')
