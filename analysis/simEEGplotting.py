@@ -11,7 +11,7 @@ matplotlib.use("MacOSX")
 from matplotlib import pyplot as plt
 from lfpykit.eegmegcalc import NYHeadModel
 
-batch = 'StimThalIEweight0612'  # Name of batch for fig saving
+batch = 'CochThalEweight0613'  # Name of batch for fig saving
 
 stim_on = 3000
 # calcEEG = {'start': 3624, 'stop': 4224}
@@ -19,18 +19,18 @@ stim_on = 3000
 # plotERP = {'useFilter': True}
 # plotSpectrogram = {'useFilter': True}
 # plotPSD = {'useFilter': True}
-plotRaster = {'timeRange': [0, 6000]}
+# plotRaster = {'timeRange': [0, 6000]}
 # PSDSpect = {'timeRange': [3000, 4000], 'useLFP': False, 'useCSD': True}
-# plotMUA = {'populations': ['ITP4', 'ITS4', 'TC', 'HTC', 'IRE'], 'stimDur': 100}
+plotMUA = {'populations': ['ITP4', 'ITS4', 'TC', 'IRE'], 'stimDur': 100}
 
 calcEEG = False
 filter = False
 plotERP = False
 plotSpectrogram = False
 plotPSD = False
-# plotRaster = False
+plotRaster = False
 PSDSpect = False
-plotMUA = False
+# plotMUA = False
 
 # Load sim EEG data
 base_dir = '/Users/scottmcelroy/A1_scz/A1_sim_data/' + batch + '/'
@@ -134,10 +134,11 @@ for file in os.listdir(base_dir):
             simTools.plotMUApops(
                 sim = sim,
                 populations = plotMUA['populations'],
-                binStarts = [3000, 3724, 4448, 5172],
-                stimDur = plotMUA['stimDur'],
+                bin_start_times = [3000, 3724, 4448, 5172],
+                bin_duration = plotMUA['stimDur'],
                 batch = batch,
                 fname = fname)
+
 
 
             # sim.plotting.plotCSD(overlay = 'LFP', timeRange =[3000, 3600], saveFig='/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'

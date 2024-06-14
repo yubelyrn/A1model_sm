@@ -213,70 +213,42 @@ class simTools:
             plt.savefig('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'
                         + batch + '/' + fname + 'CSDPSDspect.png')
 
-    def calculate_firing_rate(spike_counts, bin_width):
-            firing_rate = spike_counts / bin_width
-            return firing_rate
+    def plotMUApops(sim, bin_start_times, bin_duration, populations, batch, fname):
+        # Initialize an empty dictionary to store the firing rates for each population
+        firing_rates = {}
 
-        # Get the spike times for each population
-    def get_spike_times_for_populations(sim, populations):
-        spike_times = []
+        # Calculate the bin end times
+        bin_end_times = [start + bin_duration for start in bin_start_times]
+
+        # Loop over each population
         for pop in populations:
-            pop_spike_times = [t for i, t in zip(sim.allSimData['spkid'], sim.allSimData['spkt']) if i in sim.net.allPops[pop]['cellGids']]
-            spike_times.append(pop_spike_times)
-        return spike_times
+            # Get the spike times for the current population
+            pop_spike_times = np.array([t for i, t in zip(sim.allSimData['spkid'], sim.allSimData['spkt']) if
+                                        i in sim.net.allPops[pop]['cellGids']])
 
+            # Initialize an empty list to store the firing rates for the current population
+            pop_firing_rates = []
 
-    def bin_spikes(spike_times, stimuli_start_times, stimuli_duration):
-        # Create bins based on stimuli start times and duration
-        bins = [start for start in stimuli_start_times]
-        # bins.append(stimuli_start_times[-1] + stimuli_duration)  # Add the end of the last stimulus to bins
+            # Loop over each bin
+            for start, end in zip(bin_start_times, bin_end_times):
+                # Count the number of spikes in the current bin
+                count = np.sum((pop_spike_times >= start) & (pop_spike_times < end))
 
-        # Calculate the number of spikes in each bin
-        spike_counts, _ = np.histogram(spike_times, bins)
+                # Calculate the firing rate and append it to the list
+                rate = count / bin_duration  # * 1000  # Convert to Hz
+                pop_firing_rates.append(rate)
 
-        return spike_counts
+            # Store the firing rates for the current population
+            firing_rates[pop] = pop_firing_rates
 
-
-    def bin_spikes_for_populations(spike_times, stimuli_start_times, stimuli_duration, populations):
-        spike_counts = []
-        for times in spike_times:
-            counts = simTools.bin_spikes(times, stimuli_start_times, stimuli_duration)
-            spike_counts.append(counts)
-        return spike_counts
-
-
-    def calculate_firing_rate_for_populations(spike_counts, stimuli_duration, populations):
-        firing_rate = []
-        for count in spike_counts:
-            rate = simTools.calculate_firing_rate(count, stimuli_duration)
-            firing_rate.append(rate)
-        popRates = {pop: firing_rate[i] for i, pop in enumerate(populations)}
-        return popRates
-
-    def plotMUApops(sim, populations, binStarts, stimDur, batch, fname):
-        spike_times = simTools.get_spike_times_for_populations(
-            sim,
-            populations)
-
-        spike_counts = simTools.bin_spikes_for_populations(
-            spike_times,
-            binStarts,
-            stimDur,
-            populations)
-
-        popRates = simTools.calculate_firing_rate_for_populations(
-            spike_counts,
-            stimDur,
-            populations)
-
+        # Plot the firing rates
         plt.figure()
-        for pop, rates in popRates.items():
+        for pop, rates in firing_rates.items():
             plt.plot(rates, label=pop)
-
         plt.xlabel('Bin Index')
-        plt.ylabel('Firing Rate (Hz)')
-        # plt.xticks(range(0, len(binStarts)))
-        plt.legend(title='Population')
+        plt.ylabel('Firing rate')
+        plt.xticks(range(0, (len(bin_start_times))))
+        plt.legend()
         plt.savefig('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'
                     + batch + '/' + fname + '_MUA.png')
 
