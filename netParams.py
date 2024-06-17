@@ -493,12 +493,16 @@ def connectCortexToThal ():
                 prob = '%f * exp(-dist_x/%f)' % (pmat[pre][post], ThalamicCoreLambda)
               else:
                 prob = pmat[pre][post]
+              if post in cfg.thalInhib:
+                  CTGain = cfg.CTGainThalI
+              else:
+                  CTGain = cfg.corticoThalamicGain
               netParams.connParams['CxTh_'+pre+'_'+post] = {
                   'preConds': {'pop': pre},
                   'postConds': {'pop': post},
                   'synMech': ESynMech,
                   'probability': prob,
-                  'weight': wmat[pre][post] * cfg.corticoThalamicGain,
+                  'weight': wmat[pre][post] * CTGain,
                   'synMechWeightFactor': cfg.synWeightFractionEE,
                   'delay': 'defaultDelay+dist_3D/propVelocity',
                   'synsPerConn': 1,

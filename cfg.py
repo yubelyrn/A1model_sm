@@ -53,6 +53,8 @@ cfg.allCorticalPops = ['NGF1', 'IT2', 'SOM2', 'PV2', 'VIP2', 'NGF2', 'IT3', 'SOM
                        'PT5B', 'CT5B', 'SOM5B', 'PV5B', 'VIP5B', 'NGF5B', 'IT6', 'CT6', 'SOM6', 'PV6', 'VIP6', 'NGF6']
 cfg.allThalPops = ['TC', 'TCM', 'HTC', 'IRE', 'IREM', 'TI', 'TIM', 'IC']
 
+cfg.thalInhib = ['IRE', 'IREM', 'TI', 'TIM']
+
 alltypes = ['NGF1', 'IT2', 'PV2', 'SOM2', 'VIP2', 'ITS4', 'PT5B', 'TC', 'HTC', 'IRE', 'TI']
 
 cfg.recordTraces = {'V_soma': {'sec': 'soma', 'loc': 0.5, 'var': 'v'}}  ## Dict with traces to record -- taken from M1 cfg.py
@@ -154,7 +156,7 @@ cfg.scaleDensity = 1.0  # 0.25 #1.0 #0.075 # Should be 1.0 unless need lower cel
 
 # Cortical
 cfg.addConn = 1.0
-cfg.wireCortex = 0
+cfg.wireCortex = 1.0
 
 cfg.EEGain = 0.75
 cfg.EIGain = 1.5
@@ -187,12 +189,13 @@ cfg.IECellTypeGain = {'PV': 1.0, 'SOM': 1.0, 'VIP': 1.0, 'NGF': 1.0}
 
 # Thalamic
 cfg.addIntraThalamicConn = 1.0
-cfg.addCorticoThalamicConn = 0 # 1.0
-cfg.addThalamoCorticalConn = 0 #1.0
+cfg.addCorticoThalamicConn = 1.0 # 1.0
+cfg.addThalamoCorticalConn = 1.0 #1.0
 
 cfg.thalamoCorticalGain = 1.0
 cfg.intraThalamicGain = 1.0
 cfg.corticoThalamicGain = 1.0
+cfg.CTGainThalI = 1.0
 
 cfg.ThalIEscaleFactor = 1.0
 
