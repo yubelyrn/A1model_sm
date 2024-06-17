@@ -110,7 +110,7 @@ def setRunCfg(b, type='hpc_sge'):
         b.runCfg = {'type': 'hpc_slurm',
                     'allocation': 'TG-IBN140002',
                     'partition': 'large-shared',
-                    'walltime': '4:00:00',
+                    'walltime': '2:30:00',
                     'nodes': 1,
                     'coresPerNode': 64,
                     'email': 'scott.mcelroy@downstate.edu',
