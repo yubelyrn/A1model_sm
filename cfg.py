@@ -154,7 +154,7 @@ cfg.scaleDensity = 1.0  # 0.25 #1.0 #0.075 # Should be 1.0 unless need lower cel
 
 # Cortical
 cfg.addConn = 1.0
-cfg.wireCortex = 1.0
+cfg.wireCortex = 0
 
 cfg.EEGain = 0.75
 cfg.EIGain = 1.5
@@ -187,8 +187,8 @@ cfg.IECellTypeGain = {'PV': 1.0, 'SOM': 1.0, 'VIP': 1.0, 'NGF': 1.0}
 
 # Thalamic
 cfg.addIntraThalamicConn = 1.0
-cfg.addCorticoThalamicConn = 1.0
-cfg.addThalamoCorticalConn = 1.0
+cfg.addCorticoThalamicConn = 0 # 1.0
+cfg.addThalamoCorticalConn = 0 #1.0
 
 cfg.thalamoCorticalGain = 1.0
 cfg.intraThalamicGain = 1.0
@@ -208,10 +208,10 @@ cfg.ICThalprobEMatrix = cfg.ICThalprobECore
 cfg.ICThalprobIMatrix = cfg.ICThalprobICore
 
 # these params control cochlea -> Thalamus
-cfg.cochThalweightECore = 0.1125
+cfg.cochThalweightECore = 1.0 #0.1125
 cfg.cochThalprobECore = 0.3
 cfg.cochThalweightICore = 0.0675
-cfg.cochThalprobICore = 0.15
+cfg.cochThalprobICore = 0.5
 cfg.cochThalMatrixCoreFactor = 0.1
 cfg.cochThalprobEMatrix = cfg.cochThalprobECore
 cfg.cochThalprobIMatrix = cfg.cochThalprobICore

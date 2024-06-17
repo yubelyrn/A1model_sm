@@ -11,7 +11,7 @@ matplotlib.use("MacOSX")
 from matplotlib import pyplot as plt
 from lfpykit.eegmegcalc import NYHeadModel
 
-batch = 'CochThalEweight0613'  # Name of batch for fig saving
+batch = 'CochTune0613'  # Name of batch for fig saving
 
 stim_on = 3000
 # calcEEG = {'start': 3624, 'stop': 4224}
@@ -19,7 +19,7 @@ stim_on = 3000
 # plotERP = {'useFilter': True}
 # plotSpectrogram = {'useFilter': True}
 # plotPSD = {'useFilter': True}
-# plotRaster = {'timeRange': [0, 6000]}
+plotRaster = {'timeRange': [0, 6000]}
 # PSDSpect = {'timeRange': [3000, 4000], 'useLFP': False, 'useCSD': True}
 plotMUA = {'populations': ['ITP4', 'ITS4', 'TC', 'IRE'], 'stimDur': 100}
 
@@ -28,7 +28,7 @@ filter = False
 plotERP = False
 plotSpectrogram = False
 plotPSD = False
-plotRaster = False
+# plotRaster = False
 PSDSpect = False
 # plotMUA = False
 

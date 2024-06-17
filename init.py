@@ -14,7 +14,6 @@ MPI usage:
 
 Contributors: ericaygriffith@gmail.com, salvadordura@gmail.com
 """
-from datetime import datetime
 import matplotlib; matplotlib.use('Agg')  # to avoid graphics error in servers
 from input import cochlearInputSpikes
 from netpyne import sim
@@ -131,7 +130,7 @@ sim.analysis.plotData()    # plot spike raster etc
 # spikes_legacy.plotSpikeHist(include=['cochlea', 'TC'], timeRange=[0, 6000],
 #                             saveFig=True)
 
-now = datetime.now()
+
 
 current_time = now.strftime("%H:%M:%S")
 print("Current Time =", current_time)

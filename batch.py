@@ -29,9 +29,9 @@ def assr_batch_grid(filename):
     # #### SET weights####
     params['cochlearThalInput','weightECore'] = [1.0]
     # params['cochlearThalInput', 'weightICore'] = [0.09]
-    params['ThalIEscaleFactor'] = [0.6]
+    params['ThalIEscaleFactor'] = [0.55]
     # params['L3L4SOM'] = [0.8, 0.7, 0.6]
-    params['thalL4PV '] = [0.2, 0.15, 0.1]
+    # params['thalL4PV '] = [0.2, 0.15, 0.1]
 
 
     #### GROUPED PARAMS ####
@@ -105,19 +105,20 @@ def setRunCfg(b, type='hpc_sge'):
                     'vmem': '256G', # or however much memory you need
                     'walltime': '1:40:00', # make 2 hours or something
                     'skip': True}
-    elif type == 'hpc_slurm_expanse':
+    elif type == 'hpc_slurm_Expanse':
         b.runCfg = {'type': 'hpc_slurm',
                     'allocation': 'TG-IBN140002',
                     'partition': 'large-shared',
-                    'walltime': '1:30:00',
+                    'walltime': '1:40:00',
                     'nodes': 1,
-                    'coresPerNode': 128,
+                    'coresPerNode': 64,
                     'email': 'scott.mcelroy@downstate.edu',
-                    'folder': '/home/smcelroy/sim/',
+                    'folder': '/home/smcelroy/A1model_sm/',
                     'script': 'init.py',
                     'mpiCommand': 'mpirun',
                     'custom': '#SBATCH --mem=512G\n#SBATCH --export=ALL\n#SBATCH --partition=large-shared',
                     'skip': True}
+
     elif type=='mpi_direct':
         b.runCfg = {'type': 'mpi_direct',
                     'cores': 1,
