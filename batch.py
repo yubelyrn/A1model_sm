@@ -141,7 +141,7 @@ if __name__ == '__main__':
     b.batchLabel = 'ThalL4Tune0614'
     b.saveFolder = 'data/'+b.batchLabel
 
-    setRunCfg(b, 'hpc_sge')
+    setRunCfg(b, 'hpc_slurm_Expanse')
     b.run() # run batch
 
 
