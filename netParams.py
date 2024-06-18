@@ -844,29 +844,6 @@ if cfg.addBkgConn:
             'weight': weightBkg[pop],
             'delay': cfg.delayBkg}
 
-    # cochlea -> thal
-    # if cfg.cochlearThalInput:
-    #     netParams.connParams['cochlea->ThalE'] = {
-    #         'preConds': {'pop': 'cochlea'},
-    #         'postConds': {'cellType': ['TC', 'HTC']},
-    #         'sec': 'soma',
-    #         'loc': 0.5,
-    #         'synMech': ESynMech,
-    #         'probability': cfg.probInput['ThalE'],
-    #         'weight': cfg.weightInput['ThalE'],
-    #         'synMechWeightFactor': cfg.synWeightFractionEE,
-    #         'delay': cfg.delayBkg}
-    #
-    #     netParams.connParams['cochlea->ThalI'] = {
-    #         'preConds': {'pop': 'cochlea'},
-    #         'postConds': {'cellType': ['RE']},
-    #         'sec': 'soma',
-    #         'loc': 0.5,
-    #         'synMech': ESynMech,
-    #         'probability': cfg.probInput['ThalI'],
-    #         'weight': cfg.weightInput['ThalI'],
-    #         'synMechWeightFactor': cfg.synWeightFractionEI,
-    #         'delay': cfg.delayBkg}
     def prob2conv(prob, npre):
         # probability to convergence; prob is connection probability, npre is number of presynaptic neurons
         return int(0.5 + prob * npre)

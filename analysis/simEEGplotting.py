@@ -11,26 +11,26 @@ matplotlib.use("MacOSX")
 from matplotlib import pyplot as plt
 from lfpykit.eegmegcalc import NYHeadModel
 
-batch = 'CochThalEweight0613'  # Name of batch for fig saving
+batch = 'PureToneTest0618'  # Name of batch for fig saving
 
 stim_on = 3000
-calcEEG = {'start': 3624, 'stop': 4124}
-filter = {'lowCut':2, 'hiCut': 12}
-plotERP = {'useFilter': True}
+# calcEEG = {'start': 3624, 'stop': 4124}
+# filter = {'lowCut':2, 'hiCut': 12}
+# plotERP = {'useFilter': True}
 # plotSpectrogram = {'useFilter': False}
 # plotPSD = {'useFilter': True}
-# plotRaster = {'timeRange': [0, 6000]}
+plotRaster = {'timeRange': [0, 6000]}
 # PSDSpect = {'timeRange': [3000, 4000], 'useLFP': False, 'useCSD': True}
-# plotMUA = {'populations': ['TC', 'IRE'], 'stimDur': 100}
+plotMUA = {'populations': ['TC', 'IRE', 'ITP4', 'ITS4'], 'stimDur': 100}
 
-# calcEEG = False
-# filter = False
-# plotERP = False
+calcEEG = False
+filter = False
+plotERP = False
 plotSpectrogram = False
 plotPSD = False
-plotRaster = False
+# plotRaster = False
 PSDSpect = False
-plotMUA = False
+# plotMUA = False
 
 # Load sim EEG data
 base_dir = '/Users/scottmcelroy/A1_scz/A1_sim_data/' + batch + '/'
@@ -111,7 +111,7 @@ for file in os.listdir(base_dir):
         # Plot Raster
         if plotRaster:
                 sim.analysis.plotRaster(
-                    include=[sim.cfg.allThalPops],
+                    include=[sim.cfg.allThalPops + sim.cfg.allCorticalPops],
                     orderInverse=True,
                     timeRange=plotRaster['timeRange'],
                     markerSize=50,
