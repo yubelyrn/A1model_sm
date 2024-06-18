@@ -22,7 +22,7 @@ cfg = specs.SimConfig()
 # ------------------------------------------------------------------------------
 # Run parameters
 # ------------------------------------------------------------------------------
-cfg.duration = 6e3## Duration of the sim, in ms
+cfg.duration = 8e3## Duration of the sim, in ms
 cfg.dt = 0.05  ## Internal Integration Time Step
 cfg.verbose = 0  ## Show detailed messages
 cfg.progressBar = 0
@@ -90,11 +90,10 @@ cfg.saveCellConns = False
 # ------------------------------------------------------------------------------
 
 # cfg.analysis['plotTraces'] = {'include': [('TC', i) for i in range(40)], 'timeRange': [0, cfg.duration], 'oneFigPer': 'trace', 'overlay': True, 'saveFig': True, 'showFig': False, 'figSize':(12,8)} #[(pop,0) for pop in alltypes]		## Seen in M1 cfg.py (line 68)
-cfg.analysis['plotTraces'] = {'include': ['TC', 'IRE'],  'timeRange': [0, cfg.duration], 'oneFigPer': 'trace', 'overlay': True, 'saveFig': True, 'showFig': False, 'figSize':(12,8)} #[(pop,0) for pop in alltypes]		## Seen in M1 cfg.py (line 68)
-# cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False,
-#                               'orderInverse': True, 'timeRange': [0,cfg.duration], 'figSize': (25,25), 'plotRates': False,
-#                               'markerSize': 1}      	## Plot a raster
-cfg.analysis['plotRaster'] = {'include': cfg.allThalPops, 'saveFig': True, 'orderInverse': True, 'figSize': (25,25), 'markerSize': 1}
+cfg.analysis['plotTraces'] = {'include': ['TC', 'IRE'],  'timeRange': [0, cfg.duration], 'oneFigPer': 'trace', 'overlay': True, 'saveFig': False, 'showFig': False, 'figSize':(12,8)} #[(pop,0) for pop in alltypes]		## Seen in M1 cfg.py (line 68)
+cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False,
+                              'orderInverse': True, 'timeRange': [0,cfg.duration], 'figSize': (25,25), 'plotRates': False,
+                              'markerSize': 1}      	## Plot a raster
 # cfg.analysis['plotConn'] = {'includePost': ['IRE', 'IREM'], 'saveFig': True}
 # cfg.analysis['plotSpikeStats'] = {'stats': ['rate'], 'figSize': (6,12), 'timeRange': [0, 2500], 'dpi': 300, 'showFig': 0, 'saveFig': 1}
 

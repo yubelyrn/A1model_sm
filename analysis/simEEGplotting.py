@@ -11,24 +11,24 @@ matplotlib.use("MacOSX")
 from matplotlib import pyplot as plt
 from lfpykit.eegmegcalc import NYHeadModel
 
-batch = 'ThalL4Tune0614'  # Name of batch for fig saving
+batch = 'CochThalEweight0613'  # Name of batch for fig saving
 
 stim_on = 3000
-# calcEEG = {'start': 3624, 'stop': 4224}
-# filter = {'lowCut':2, 'hiCut': 12}
-# plotERP = {'useFilter': True}
-# plotSpectrogram = {'useFilter': True}
+calcEEG = {'start': 3624, 'stop': 4124}
+filter = {'lowCut':2, 'hiCut': 12}
+plotERP = {'useFilter': True}
+# plotSpectrogram = {'useFilter': False}
 # plotPSD = {'useFilter': True}
-plotRaster = {'timeRange': [0, 6000]}
+# plotRaster = {'timeRange': [0, 6000]}
 # PSDSpect = {'timeRange': [3000, 4000], 'useLFP': False, 'useCSD': True}
 # plotMUA = {'populations': ['TC', 'IRE'], 'stimDur': 100}
 
-calcEEG = False
-filter = False
-plotERP = False
+# calcEEG = False
+# filter = False
+# plotERP = False
 plotSpectrogram = False
 plotPSD = False
-# plotRaster = False
+plotRaster = False
 PSDSpect = False
 plotMUA = False
 
@@ -38,7 +38,7 @@ for file in os.listdir(base_dir):
     if file.endswith('.pkl'):
         sim.initialize()
         all = sim.loadAll(os.path.join(base_dir, file))
-        fname = file[0:-9] #+ '_11_' # Create filename (can change to whatever)
+        fname = file[0:-9] + '_1_'#+ '_11_' # Create filename (can change to whatever)
         if not os.path.exists('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch):
             os.mkdir( '/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch)  # Create Figure directory if one doesn't already exist
 
@@ -51,7 +51,7 @@ for file in os.listdir(base_dir):
             # Time vector starting at t=0 instead of timeRange[0]
             offsetStart = calcEEG['start'] - stim_on
             endWindow = calcEEG['stop'] - stim_on
-            # t = np.arange(offsetStart, endWindow, 0.05)
+            t = np.arange(offsetStart, endWindow, 0.05)
 
         # Filter EEG data
         if filter:
