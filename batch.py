@@ -28,6 +28,8 @@ def assr_batch_grid(filename):
 
     # #### SET weights####
     params['cochlearThalInput','weightICore'] = [0.0675]
+    params['EbkgThalamicGain '] = 0
+    params['IbkgThalamicGain '] = 0
     params['cochlearThalInput', 'lfnwave'] = [['silence6s.wav'], ['100msClick624ISIBestFreq.wav']]
 
     #### GROUPED PARAMS ####
