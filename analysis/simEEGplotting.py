@@ -11,7 +11,7 @@ matplotlib.use("MacOSX")
 from matplotlib import pyplot as plt
 from lfpykit.eegmegcalc import NYHeadModel
 
-batch = 'PureToneTest0618'  # Name of batch for fig saving
+batch = 'NoConn0618'  # Name of batch for fig saving
 
 stim_on = 3000
 # calcEEG = {'start': 3624, 'stop': 4124}
@@ -21,7 +21,7 @@ stim_on = 3000
 # plotPSD = {'useFilter': True}
 plotRaster = {'timeRange': [0, 6000]}
 # PSDSpect = {'timeRange': [3000, 4000], 'useLFP': False, 'useCSD': True}
-plotMUA = {'populations': ['TC', 'IRE', 'ITP4', 'ITS4'], 'stimDur': 100}
+# plotMUA = {'populations': ['TC', 'IRE', 'ITP4', 'ITS4'], 'stimDur': 100}
 
 calcEEG = False
 filter = False
@@ -30,7 +30,7 @@ plotSpectrogram = False
 plotPSD = False
 # plotRaster = False
 PSDSpect = False
-# plotMUA = False
+plotMUA = False
 
 # Load sim EEG data
 base_dir = '/Users/scottmcelroy/A1_scz/A1_sim_data/' + batch + '/'
@@ -115,7 +115,7 @@ for file in os.listdir(base_dir):
                     orderInverse=True,
                     timeRange=plotRaster['timeRange'],
                     markerSize=50,
-                    figSize=(10, 10),
+                    figSize=(25, 25),
                     saveFig='/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'
                             + batch + '/' + fname + '_Raster.png')
 

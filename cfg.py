@@ -91,8 +91,7 @@ cfg.saveCellConns = False
 
 # cfg.analysis['plotTraces'] = {'include': [('TC', i) for i in range(40)], 'timeRange': [0, cfg.duration], 'oneFigPer': 'trace', 'overlay': True, 'saveFig': True, 'showFig': False, 'figSize':(12,8)} #[(pop,0) for pop in alltypes]		## Seen in M1 cfg.py (line 68)
 cfg.analysis['plotTraces'] = {'include': ['TC', 'IRE'],  'timeRange': [0, cfg.duration], 'oneFigPer': 'trace', 'overlay': True, 'saveFig': True, 'showFig': False, 'figSize':(12,8)} #[(pop,0) for pop in alltypes]		## Seen in M1 cfg.py (line 68)
-cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False,
-                              'orderInverse': True, 'timeRange': [0,cfg.duration], 'figSize': (25,25), 'plotRates': False,
+cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'orderInverse': True, 'timeRange': [0,cfg.duration], 'figSize': (25,25), 'plotRates': False,
                               'markerSize': 1}      	## Plot a raster
 # cfg.analysis['plotConn'] = {'includePost': ['IRE', 'IREM'], 'saveFig': True}
 # cfg.analysis['plotSpikeStats'] = {'stats': ['rate'], 'figSize': (6,12), 'timeRange': [0, 2500], 'dpi': 300, 'showFig': 0, 'saveFig': 1}
@@ -278,8 +277,8 @@ cfg.rateBkg = {'exc': 40, 'inh': 40}
 ## options to provide external sensory input
 # cfg.randomThalInput = True  # provide random bkg inputs spikes (NetStim) to thalamic populations
 
-cfg.EbkgThalamicGain = 3.92
-cfg.IbkgThalamicGain = 3.92
+cfg.EbkgThalamicGain = 0 #3.92
+cfg.IbkgThalamicGain = 0 #3.92
 
 cfg.cochlearThalInput = True
 # parameters to generate realistic  auditory thalamic inputs using Brian Hears
