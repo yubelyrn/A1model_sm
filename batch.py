@@ -28,12 +28,12 @@ def assr_batch_grid(filename):
 
     # #### SET weights####
     params['cochlearThalInput','weightICore'] = [0.0675]
-    params['EbkgThalamicGain '] = [0]
-    params['IbkgThalamicGain '] = [0]
+    params['EbkgThalamicGain'] = [1.0, 2.0, 3.0]
+    params['IbkgThalamicGain'] = [1.0, 2.0, 3.0]
     params['cochlearThalInput', 'lfnwave'] = [['silence6s.wav'], ['100msClick624ISIBestFreq.wav']]
 
     #### GROUPED PARAMS ####
-    groupedParams = []
+    groupedParams = ['EbkgThalamicGain', 'IbkgThalamicGain']
 
     # --------------------------------------------------------
     # initial config
@@ -136,7 +136,7 @@ if __name__ == '__main__':
     #b = assr_batch('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'NoBkg0619'
+    b.batchLabel = 'BkgTune0619'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_slurm_Expanse')
