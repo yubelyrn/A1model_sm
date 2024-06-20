@@ -11,7 +11,7 @@ matplotlib.use("MacOSX")
 from matplotlib import pyplot as plt
 from lfpykit.eegmegcalc import NYHeadModel
 
-batch = 'ThalTune0620'  # Name of batch for fig saving
+batch = 'ThalIITune0620'  # Name of batch for fig saving
 
 stim_on = 3000
 # calcEEG = {'start': 3624, 'stop': 4124}
@@ -19,18 +19,18 @@ stim_on = 3000
 # plotERP = {'useFilter': True}
 # plotSpectrogram = {'useFilter': False}
 # plotPSD = {'useFilter': True}
-plotRaster = {'timeRange': [0, 6000]}
+# plotRaster = {'timeRange': [0, 6000]}
 # PSDSpect = {'timeRange': [3000, 4000], 'useLFP': False, 'useCSD': True}
-# plotMUA = {'populations': ['TC', 'IRE', 'ITP4', 'ITS4'], 'stimDur': 100}
+plotMUA = {'populations': ['TC', 'IRE', 'ITP4', 'ITS4'], 'stimDur': 100}
 
 calcEEG = False
 filter = False
 plotERP = False
 plotSpectrogram = False
 plotPSD = False
-# plotRaster = False
+plotRaster = False
 PSDSpect = False
-plotMUA = False
+# plotMUA = False
 
 # Load sim EEG data
 base_dir = '/Users/scottmcelroy/A1_scz/A1_sim_data/' + batch + '/'

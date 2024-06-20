@@ -29,11 +29,12 @@ def assr_batch_grid(filename):
     # #### SET weights####
     # params['ThalIEscaleFactor'] = [0.595, 0.59, 0.585]
     params['thalIIScale'] = [1.50]
-    params['ThalIEscaleFactor'] = [0.65, 0.7, 0.75]
+    params['ThalIEscaleFactor'] = [0.7]
+    params['cochlearThalInput', 'weightECore'] = [0.9, 0.8, 0.7]
     params['cochlearThalInput', 'lfnwave'] = [['silence6s.wav'], ['100msClick624ISIBestFreq.wav']]
 
     #### GROUPED PARAMS ####
-    groupedParams = ['EbkgThalamicGain', 'IbkgThalamicGain']
+    groupedParams = []
 
     # --------------------------------------------------------
     # initial config
@@ -106,7 +107,7 @@ def setRunCfg(b, type='hpc_sge'):
     elif type == 'hpc_slurm_Expanse':
         b.runCfg = {'type': 'hpc_slurm',
                     'allocation': 'TG-IBN140002',
-                    'partition': 'large-shared',
+                    'partition': 'compute',
                     'walltime': '1:40:00',
                     'nodes': 1,
                     'coresPerNode': 64,
@@ -114,7 +115,7 @@ def setRunCfg(b, type='hpc_sge'):
                     'folder': '/home/smcelroy/A1model_sm/',
                     'script': 'init.py',
                     'mpiCommand': 'mpirun',
-                    'custom': '#SBATCH --mem=512G\n#SBATCH --export=ALL\n#SBATCH --partition=large-shared',
+                    'custom': '\n#SBATCH --export=ALL\n#SBATCH --partition=compute',
                     'skip': True}
 
     elif type=='mpi_direct':
@@ -136,8 +137,8 @@ if __name__ == '__main__':
     #b = assr_batch('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'ThalIETune0620'
+    b.batchLabel = 'CochThalEcore0620'
     b.saveFolder = 'data/'+b.batchLabel
 
-    setRunCfg(b, 'hpc_sge')
+    setRunCfg(b, 'hpc_slurm_Expanse')
     b.run() # run batch
