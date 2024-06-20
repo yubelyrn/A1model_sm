@@ -27,9 +27,12 @@ def assr_batch_grid(filename):
     cfgLoad2 = cfgLoad
 
     # #### SET weights####
-    params['cochlearThalInput','weightECore'] = [0.15]
-    params['cochlearThalInput', 'weightICore'] = [0.09]
-    params['cochlearThalInput', 'probECore'] = [0.3, 0.2]
+    # params['ThalIEscaleFactor'] = [0.595, 0.59, 0.585]
+    params['thalIIScale'] = [1.50]
+    params['ThalIEscaleFactor'] = [0.7]
+    params['cochlearThalInput', 'weightECore'] = [0.9, 0.8, 0.7]
+    params['cochlearThalInput', 'lfnwave'] = [['silence6s.wav'], ['100msClick624ISIBestFreq.wav']]
+
     #### GROUPED PARAMS ####
     
     # Add the parameter for grid search
@@ -100,24 +103,25 @@ def setRunCfg(b, type='hpc_sge'):
     if type == 'hpc_sge':
         b.runCfg = {'type': 'hpc_sge', # for downstate HPC
                     'jobName': 'smc_ASSR_batch', # label for job
-                    'cores': 50, # give 60 cores here
+                    'cores': 64, # give 60 cores here
                     'script': 'init.py', # what you normally run
                     'vmem': '256G', # or however much memory you need
-                    'walltime': '2:00:00', # make 2 hours or something
+                    'walltime': '1:40:00', # make 2 hours or something
                     'skip': True}
-    elif type == 'hpc_slurm_expanse':
+    elif type == 'hpc_slurm_Expanse':
         b.runCfg = {'type': 'hpc_slurm',
                     'allocation': 'TG-IBN140002',
-                    'partition': 'large-shared',
-                    'walltime': '1:30:00',
+                    'partition': 'compute',
+                    'walltime': '1:40:00',
                     'nodes': 1,
-                    'coresPerNode': 128,
+                    'coresPerNode': 64,
                     'email': 'scott.mcelroy@downstate.edu',
-                    'folder': '/home/smcelroy/sim/',
+                    'folder': '/home/smcelroy/A1model_sm/',
                     'script': 'init.py',
                     'mpiCommand': 'mpirun',
-                    'custom': '#SBATCH --mem=512G\n#SBATCH --export=ALL\n#SBATCH --partition=large-shared',
+                    'custom': '\n#SBATCH --export=ALL\n#SBATCH --partition=compute',
                     'skip': True}
+
     elif type=='mpi_direct':
         b.runCfg = {'type': 'mpi_direct',
                     'cores': 1,
@@ -137,16 +141,8 @@ if __name__ == '__main__':
     #b = assr_batch('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'CochInputTune0522'
+    b.batchLabel = 'CochThalEcore0620'
     b.saveFolder = 'data/'+b.batchLabel
 
-    setRunCfg(b, 'hpc_sge')
+    setRunCfg(b, 'hpc_slurm_Expanse')
     b.run() # run batch
-
-
-
-
-
-
-
-    

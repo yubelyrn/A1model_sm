@@ -22,9 +22,10 @@ cfg = specs.SimConfig()
 # ------------------------------------------------------------------------------
 # Run parameters
 # ------------------------------------------------------------------------------
-cfg.duration = 6e3 ## Duration of the sim, in ms
+cfg.duration = 8e3## Duration of the sim, in ms
 cfg.dt = 0.05  ## Internal Integration Time Step
 cfg.verbose = 0  ## Show detailed messages
+cfg.progressBar = 0
 cfg.hParams['celsius'] = 37
 cfg.createNEURONObj = 1
 cfg.createPyStruct = 1
@@ -52,6 +53,8 @@ cfg.allCorticalPops = ['NGF1', 'IT2', 'SOM2', 'PV2', 'VIP2', 'NGF2', 'IT3', 'SOM
                        'PT5B', 'CT5B', 'SOM5B', 'PV5B', 'VIP5B', 'NGF5B', 'IT6', 'CT6', 'SOM6', 'PV6', 'VIP6', 'NGF6']
 cfg.allThalPops = ['TC', 'TCM', 'HTC', 'IRE', 'IREM', 'TI', 'TIM', 'IC']
 
+cfg.thalInhib = ['IRE', 'IREM', 'TI', 'TIM']
+
 alltypes = ['NGF1', 'IT2', 'PV2', 'SOM2', 'VIP2', 'ITS4', 'PT5B', 'TC', 'HTC', 'IRE', 'TI']
 
 cfg.recordTraces = {'V_soma': {'sec': 'soma', 'loc': 0.5, 'var': 'v'}}  ## Dict with traces to record -- taken from M1 cfg.py
@@ -59,11 +62,12 @@ cfg.recordStim = False  ## Seen in M1 cfg.py
 cfg.recordTime = True  ## SEen in M1 cfg.py
 cfg.recordStep = 0.05  ## Step size (in ms) to save data -- value from M1 cfg.py
 
-cfg.recordLFP = [[100, y, 100] for y in range(0, 2000, 100)]  # +[[100, 2500, 200], [100,2700,200]]			# null,
+
+cfg.recordLFP = [[100, y, 100] for y in range(0, 2000, 100)]
 # cfg.recordLFP = [[x, 1000, 100] for x in range(100, 2200, 200)] #+[[100, 2500, 200], [100,2700,200]]
 # cfg.saveLFPPops =  cfg.allpops #, "IT3", "SOM3", "PV3", "VIP3", "NGF3", "ITP4", "ITS4", "IT5A", "CT5A", "IT5B", "PT5B", "CT5B", "IT6", "CT6"]
 
-cfg.recordDipole = True
+cfg.recordDipole = False
 # cfg.saveDipoleCells = ['all']
 # cfg.saveDipolePops = cfg.allpops
 
@@ -71,11 +75,11 @@ cfg.recordDipole = True
 # Saving
 # ------------------------------------------------------------------------------
 
-cfg.simLabel = 'NoThalBkg'
+cfg.simLabel = 'ThalIRE_tune0611'
 cfg.saveFolder = 'data/' + cfg.simLabel  ## Set file output name
 cfg.savePickle = True ## Save pkl file
-cfg.saveJson = False  ## Save json file
-cfg.saveDataInclude = ['simData', 'simConfig', 'netParams', 'net',]
+cfg.saveJson = False ## Save json file
+cfg.saveDataInclude = ['simData', 'simConfig', 'net']
 cfg.backupCfgFile = None
 cfg.gatherOnlySimData = False
 cfg.saveCellSecs = False
@@ -85,11 +89,17 @@ cfg.saveCellConns = False
 # Analysis and plotting
 # ------------------------------------------------------------------------------
 
+
 cfg.analysis['plotTraces'] = {'include': [('TC', i) for i in range(40)], 'oneFigPer': 'pop', 'overlay': True, 'saveFig': True, 'showFig': False, 'figSize':(12,8)} #[(pop,0) for pop in alltypes]		## Seen in M1 cfg.py (line 68)
 cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': True, 'popRates': True,
                               'orderInverse': True, 'timeRange': [0,cfg.duration], 'figSize': (14,12), 'lw': 0.3,
                               'markerSize': 3, 'marker': '.', 'dpi': 300}      	## Plot a raster
 # cfg.analysis['plotConn'] = {'includePre': ['cochlea', 'CT5A'], 'includePost': cfg.allThalPops, 'saveFig': True}
+# cfg.analysis['plotTraces'] = {'include': [('TC', i) for i in range(40)], 'timeRange': [0, cfg.duration], 'oneFigPer': 'trace', 'overlay': True, 'saveFig': True, 'showFig': False, 'figSize':(12,8)} #[(pop,0) for pop in alltypes]		## Seen in M1 cfg.py (line 68)
+cfg.analysis['plotTraces'] = {'include': ['TC', 'IRE'],  'timeRange': [0, cfg.duration], 'oneFigPer': 'trace', 'overlay': True, 'saveFig': True, 'showFig': False, 'figSize':(12,8)} #[(pop,0) for pop in alltypes]		## Seen in M1 cfg.py (line 68)
+cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'orderInverse': True, 'timeRange': [0,cfg.duration], 'figSize': (25,25), 'plotRates': False,
+                              'markerSize': 1}      	## Plot a raster
+# cfg.analysis['plotConn'] = {'includePost': ['IRE', 'IREM'], 'saveFig': True}
 # cfg.analysis['plotSpikeStats'] = {'stats': ['rate'], 'figSize': (6,12), 'timeRange': [0, 2500], 'dpi': 300, 'showFig': 0, 'saveFig': 1}
 
 # cfg.analysis['plotLFP'] = {'plots': ['timeSeries'], 'electrodes': [10], 'maxFreq': 80, 'figSize': (8,4), 'saveData': False, 'saveFig': True, 'showFig': False} # 'PSD', 'spectrogram'
@@ -137,7 +147,7 @@ cfg.synWeightFractionThalII = [1.0,0.0]
 # Network
 # ------------------------------------------------------------------------------
 ## These values taken from M1 cfg.py (https://github.com/Neurosim-lab/netpyne/blob/development/examples/M1detailed/cfg.py)
-cfg.singleCellPops =False
+cfg.singleCellPops = False
 cfg.singlePop = ''
 cfg.removeWeightNorm = False
 cfg.scale = 1.0  # Is this what should be used?
@@ -151,8 +161,8 @@ cfg.scaleDensity = 1.0  # 0.25 #1.0 #0.075 # Should be 1.0 unless need lower cel
 # ------------------------------------------------------------------------------
 
 # Cortical
-cfg.addConn = 1
-cfg.wireCortex = 1
+cfg.addConn = 1.0
+cfg.wireCortex = 1.0
 
 cfg.EEGain = 0.75
 cfg.EIGain = 1.5
@@ -185,16 +195,19 @@ cfg.IECellTypeGain = {'PV': 1.0, 'SOM': 1.0, 'VIP': 1.0, 'NGF': 1.0}
 
 # Thalamic
 cfg.addIntraThalamicConn = 1.0
-cfg.addCorticoThalamicConn = 1.0
+cfg.addCorticoThalamicConn =  1.0
 cfg.addThalamoCorticalConn = 1.0
 
 cfg.thalamoCorticalGain = 1.0
 cfg.intraThalamicGain = 1.0
 cfg.corticoThalamicGain = 1.0
+cfg.CTGainThalI = 1.0
+
+cfg.ThalIEscaleFactor = 0.6
 
 # these params control IC -> Thalamic Core
-cfg.ICThalweightECore = 5  #0.8350476447841453
-cfg.ICThalweightICore =  1.5 #0.2114492149101151
+cfg.ICThalweightECore = 0.8350476447841453
+cfg.ICThalweightICore =  0.2114492149101151
 cfg.ICThalprobECore = 0.163484173596043
 cfg.ICThalprobICore = 0.0936669688856933
 
@@ -204,14 +217,14 @@ cfg.ICThalprobEMatrix = cfg.ICThalprobECore
 cfg.ICThalprobIMatrix = cfg.ICThalprobICore
 
 # these params control cochlea -> Thalamus
-cfg.cochThalweightECore = 0.3
-cfg.cochThalweightICore = 0.1
-cfg.cochThalprobECore = 0.5
-cfg.cochThalprobICore = 0.15
+cfg.cochThalweightECore = 1.0 #0.1125
+cfg.cochThalprobECore = 0.3
+cfg.cochThalweightICore = 0.0675
+cfg.cochThalprobICore = 0.5
 cfg.cochThalMatrixCoreFactor = 0.1
 cfg.cochThalprobEMatrix = cfg.cochThalprobECore
 cfg.cochThalprobIMatrix = cfg.cochThalprobICore
-cfg.cochThalFreqRange = [1000, 2000]
+cfg.cochThalFreqRange = [750, 1250]
 
 
 # these params added from Christoph Metzner branch
@@ -222,6 +235,8 @@ cfg.thalL4E = 1.9540886147587417
 
 cfg.thalL4VIP = 1.0
 cfg.thalL4NGF = 1.0
+
+cfg.thalIIScale = 1.0
 
 cfg.thalL1NGF = 1.0
 cfg.ENGF1 = 1.0
@@ -234,7 +249,12 @@ cfg.L4L3SOM = 1.0
 cfg.L4L3VIP = 1.0
 cfg.L4L3NGF = 1.0
 
-cfg.artFB = True
+#L3 -> L4 Inhib pops
+cfg.L3L4PV = 1.0
+cfg.L3L4SOM = 1.0
+
+# Artificial Feedback Params
+cfg.artFB = False
 cfg.artFBweight = 20.0
 cfg.artFBprob = 0.5
 
@@ -265,16 +285,16 @@ cfg.rateBkg = {'exc': 40, 'inh': 40}
 ## options to provide external sensory input
 # cfg.randomThalInput = True  # provide random bkg inputs spikes (NetStim) to thalamic populations
 
-cfg.EbkgThalamicGain =0 # 3.92
-cfg.IbkgThalamicGain =0 # 3.92
+cfg.EbkgThalamicGain = 0 #3.92
+cfg.IbkgThalamicGain = 0 #3.92
 
 cfg.cochlearThalInput = True
 # parameters to generate realistic  auditory thalamic inputs using Brian Hears
 
 
 if cfg.cochlearThalInput:
-    cfg.cochlearThalInput = {"lonset" : [3000, 3724, 4448, 5172], "numCenterFreqs": 100, "freqRange":[125, 20000], "loudnessScale": 1,
-                             "lfnwave": ["40Hz_100ms.wav", "40Hz_100ms.wav", "40Hz_100ms.wav", "40Hz_100ms.wav"]}
+    cfg.cochlearThalInput = {"lonset" : [0], "numCenterFreqs": 100, "freqRange":[125, 20000], "loudnessScale": 1,
+                             "lfnwave": ["100msClick624ISIBestFreq.wav"]}
     cfg.cochlearThalInput['probECore'] = cfg.cochThalprobECore
     cfg.cochlearThalInput['weightECore'] = cfg.cochThalweightECore
     cfg.cochlearThalInput['probICore'] = cfg.cochThalprobICore
@@ -298,71 +318,71 @@ cfg.addIClamp = 0
 cfg.addNetStim = 0
 
 cfg.tune = {}
-## ------------------------ ADD PARAM VALUES FROM .JSON FILES:
-## COMMENT THIS OUT IF USING GCP !!! ONLY USE IF USING NEUROSIM!!!
-import json
-
-with open('data/v34_batch25/trial_2142/trial_2142_cfg.json',
-          'rb') as f:  # 'data/salva_runs/v29_batch3_trial_13425_cfg.json'
-    cfgLoad = json.load(f)['simConfig']
-
-## UPDATE CORTICAL GAIN PARAMS
-cfg.EEGain = cfgLoad['EEGain']
-cfg.EIGain = cfgLoad['EIGain']
-cfg.IEGain = cfgLoad['IEGain']
-cfg.IIGain = cfgLoad['IIGain']
-
-cfg.EICellTypeGain['PV'] = cfgLoad['EICellTypeGain']['PV']
-cfg.EICellTypeGain['SOM'] = cfgLoad['EICellTypeGain']['SOM']
-cfg.EICellTypeGain['VIP'] = cfgLoad['EICellTypeGain']['VIP']
-cfg.EICellTypeGain['NGF'] = cfgLoad['EICellTypeGain']['NGF']
-
-cfg.IECellTypeGain['PV'] = cfgLoad['IECellTypeGain']['PV']
-cfg.IECellTypeGain['SOM'] = cfgLoad['IECellTypeGain']['SOM']
-cfg.IECellTypeGain['VIP'] = cfgLoad['IECellTypeGain']['VIP']
-cfg.IECellTypeGain['NGF'] = cfgLoad['IECellTypeGain']['NGF']
-
-cfg.EILayerGain['1'] = cfgLoad['EILayerGain']['1']
-cfg.IILayerGain['1'] = cfgLoad['IILayerGain']['1']
-
-cfg.EELayerGain['2'] = cfgLoad['EELayerGain']['2']
-cfg.EILayerGain['2'] = cfgLoad['EILayerGain']['2']
-cfg.IELayerGain['2'] = cfgLoad['IELayerGain']['2']
-cfg.IILayerGain['2'] = cfgLoad['IILayerGain']['2']
-
-cfg.EELayerGain['3'] = cfgLoad['EELayerGain']['3']
-cfg.EILayerGain['3'] = cfgLoad['EILayerGain']['3']
-cfg.IELayerGain['3'] = cfgLoad['IELayerGain']['3']
-cfg.IILayerGain['3'] = cfgLoad['IILayerGain']['3']
-
-cfg.EELayerGain['4'] = cfgLoad['EELayerGain']['4']
-cfg.EILayerGain['4'] = cfgLoad['EILayerGain']['4']
-cfg.IELayerGain['4'] = cfgLoad['IELayerGain']['4']
-cfg.IILayerGain['4'] = cfgLoad['IILayerGain']['4']
-
-cfg.EELayerGain['5A'] = cfgLoad['EELayerGain']['5A']
-cfg.EILayerGain['5A'] = cfgLoad['EILayerGain']['5A']
-cfg.IELayerGain['5A'] = cfgLoad['IELayerGain']['5A']
-cfg.IILayerGain['5A'] = cfgLoad['IILayerGain']['5A']
-
-cfg.EELayerGain['5B'] = cfgLoad['EELayerGain']['5B']
-cfg.EILayerGain['5B'] = cfgLoad['EILayerGain']['5B']
-cfg.IELayerGain['5B'] = cfgLoad['IELayerGain']['5B']
-cfg.IILayerGain['5B'] = cfgLoad['IILayerGain']['5B']
-
-cfg.EELayerGain['6'] = cfgLoad['EELayerGain']['6']
-cfg.EILayerGain['6'] = cfgLoad['EILayerGain']['6']
-cfg.IELayerGain['6'] = cfgLoad['IELayerGain']['6']
-cfg.IILayerGain['6'] = cfgLoad['IILayerGain']['6']
-
-# UPDATE THALAMIC GAIN PARAMS
-cfg.thalamoCorticalGain = cfgLoad['thalamoCorticalGain']
-cfg.intraThalamicGain = cfgLoad['intraThalamicGain']
-cfg.EbkgThalamicGain = cfgLoad['EbkgThalamicGain']
-cfg.IbkgThalamicGain = cfgLoad['IbkgThalamicGain']
-
-# UPDATE WMAT VALUES
-cfg.wmat = cfgLoad['wmat']
+# # ------------------------ ADD PARAM VALUES FROM .JSON FILES:
+# # COMMENT THIS OUT IF USING GCP !!! ONLY USE IF USING NEUROSIM!!!
+# import json
+#
+# with open('data/v34_batch25/trial_2142/trial_2142_cfg.json',
+#           'rb') as f:  # 'data/salva_runs/v29_batch3_trial_13425_cfg.json'
+#     cfgLoad = json.load(f)['simConfig']
+#
+# ## UPDATE CORTICAL GAIN PARAMS
+# cfg.EEGain = cfgLoad['EEGain']
+# cfg.EIGain = cfgLoad['EIGain']
+# cfg.IEGain = cfgLoad['IEGain']
+# cfg.IIGain = cfgLoad['IIGain']
+#
+# cfg.EICellTypeGain['PV'] = cfgLoad['EICellTypeGain']['PV']
+# cfg.EICellTypeGain['SOM'] = cfgLoad['EICellTypeGain']['SOM']
+# cfg.EICellTypeGain['VIP'] = cfgLoad['EICellTypeGain']['VIP']
+# cfg.EICellTypeGain['NGF'] = cfgLoad['EICellTypeGain']['NGF']
+#
+# cfg.IECellTypeGain['PV'] = cfgLoad['IECellTypeGain']['PV']
+# cfg.IECellTypeGain['SOM'] = cfgLoad['IECellTypeGain']['SOM']
+# cfg.IECellTypeGain['VIP'] = cfgLoad['IECellTypeGain']['VIP']
+# cfg.IECellTypeGain['NGF'] = cfgLoad['IECellTypeGain']['NGF']
+#
+# cfg.EILayerGain['1'] = cfgLoad['EILayerGain']['1']
+# cfg.IILayerGain['1'] = cfgLoad['IILayerGain']['1']
+#
+# cfg.EELayerGain['2'] = cfgLoad['EELayerGain']['2']
+# cfg.EILayerGain['2'] = cfgLoad['EILayerGain']['2']
+# cfg.IELayerGain['2'] = cfgLoad['IELayerGain']['2']
+# cfg.IILayerGain['2'] = cfgLoad['IILayerGain']['2']
+#
+# cfg.EELayerGain['3'] = cfgLoad['EELayerGain']['3']
+# cfg.EILayerGain['3'] = cfgLoad['EILayerGain']['3']
+# cfg.IELayerGain['3'] = cfgLoad['IELayerGain']['3']
+# cfg.IILayerGain['3'] = cfgLoad['IILayerGain']['3']
+#
+# cfg.EELayerGain['4'] = cfgLoad['EELayerGain']['4']
+# cfg.EILayerGain['4'] = cfgLoad['EILayerGain']['4']
+# cfg.IELayerGain['4'] = cfgLoad['IELayerGain']['4']
+# cfg.IILayerGain['4'] = cfgLoad['IILayerGain']['4']
+#
+# cfg.EELayerGain['5A'] = cfgLoad['EELayerGain']['5A']
+# cfg.EILayerGain['5A'] = cfgLoad['EILayerGain']['5A']
+# cfg.IELayerGain['5A'] = cfgLoad['IELayerGain']['5A']
+# cfg.IILayerGain['5A'] = cfgLoad['IILayerGain']['5A']
+#
+# cfg.EELayerGain['5B'] = cfgLoad['EELayerGain']['5B']
+# cfg.EILayerGain['5B'] = cfgLoad['EILayerGain']['5B']
+# cfg.IELayerGain['5B'] = cfgLoad['IELayerGain']['5B']
+# cfg.IILayerGain['5B'] = cfgLoad['IILayerGain']['5B']
+#
+# cfg.EELayerGain['6'] = cfgLoad['EELayerGain']['6']
+# cfg.EILayerGain['6'] = cfgLoad['EILayerGain']['6']
+# cfg.IELayerGain['6'] = cfgLoad['IELayerGain']['6']
+# cfg.IILayerGain['6'] = cfgLoad['IILayerGain']['6']
+#
+# # UPDATE THALAMIC GAIN PARAMS
+# cfg.thalamoCorticalGain = cfgLoad['thalamoCorticalGain']
+# cfg.intraThalamicGain = cfgLoad['intraThalamicGain']
+# cfg.EbkgThalamicGain = cfgLoad['EbkgThalamicGain']
+# cfg.IbkgThalamicGain = cfgLoad['IbkgThalamicGain']
+#
+# # UPDATE WMAT VALUES
+# cfg.wmat = cfgLoad['wmat']
 
 cfg.ICThalInput = False
 # cfg.ICThalInput = {'file': 'data/ICoutput/40Hz_10kHz_4s_AM_click_train_1kBMF_100CF.mat',
@@ -376,8 +396,8 @@ cfg.ICThalInput = False
 #                    'MatrixCoreFactor': cfg.ICThalMatrixCoreFactor,
 #                    'seed': 1}  # SHOULD THIS BE ZERO?
 #
-cfg.artFB = {'file': 'data/FBinput/FBinput_test_numCell200.pkl',
-             'weight': cfg.artFBweight,
-             'prob': cfg.artFBprob,
-             }
+# cfg.artFB = {'file': 'data/FBinput/FBinput_test_numCell200.pkl',
+#              'weight': cfg.artFBweight,
+#              'prob': cfg.artFBprob,
+#              }
 

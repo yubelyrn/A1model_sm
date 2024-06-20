@@ -14,11 +14,13 @@ MPI usage:
 
 Contributors: ericaygriffith@gmail.com, salvadordura@gmail.com
 """
-from datetime import datetime
 import matplotlib; matplotlib.use('Agg')  # to avoid graphics error in servers
 from input import cochlearInputSpikes
 from netpyne import sim
 import numpy as np
+import matplotlib.pyplot as plt
+from netpyne.analysis import spikes_legacy
+
 
 cfg, netParams = sim.readCmdLineArgs(simConfigDefault='cfg.py', netParamsDefault='netParams.py')
 
@@ -56,11 +58,11 @@ def setCochCellLocationsX (pop, sz, scale):
     if c.gid in sim.net.pops[pop].cellGids:
       cf = netParams.cf[c.gid-sim.simData['dminID'][pop]]
       if cf >= cfg.cochThalFreqRange[0] and cf <= cfg.cochThalFreqRange[1]:
-        c.tags['x'] = cellx = ((c.gid-offset)/ncellinrange) * scale
+        c.tags['x'] = cellx = scale * (cf - cfg.cochThalFreqRange[0])/(cfg.cochThalFreqRange[1]-cfg.cochThalFreqRange[0])
         c.tags['xnorm'] = cellx / netParams.sizeX # make sure these values consistent
         # print('gid,cellx,xnorm,cf=',c.gid,cellx,cellx/netParams.sizeX,cf)
       else:
-        c.tags['x'] = cellx = 100000  # put it outside range for core
+        c.tags['x'] = cellx = 100000000  # put it outside range for core
         c.tags['xnorm'] = cellx / netParams.sizeX # make sure these values consistent
       c.updateShape()
 
@@ -86,20 +88,96 @@ def checkCochConns():
           print(len(cochConns))
   print ('Number of Cochlea Conns is ' + str(len(cochConns)))
 
+def checkTCconnRatio():
+  TCConns = []
+  L6TCConns = []
+  IRETCConns = []
+  CochTCConns = []
+  for cell in sim.net.cells:
+    if cell.tags['pop'] == 'TC':
+      for conn in cell.conns:
+        TCConns.append(conn['preGid'])
+  for conn in TCConns:
+      if conn in sim.net.pops['CT6'].cellGids:
+          L6TCConns.append(conn)
+      elif conn in sim.net.pops['IRE'].cellGids:
+          IRETCConns.append(conn)
+      elif conn in sim.net.pops['cochlea'].cellGids:
+          CochTCConns.append(conn)
+  pctCoch = (len(CochTCConns)/len(TCConns)) * 100
+  pctIRE = (len(IRETCConns)/len(TCConns)) * 100
+  pctL6 = (len(L6TCConns)/len(TCConns)) * 100
+
+  print(str(pctCoch) + '% of TC Conns are from Cochlea')
+  print(str(pctIRE) + '% of TC Conns are from IRE')
+  print(str(pctL6) + '% of TC Conns are from CT6')
+
+
+
 # checkCochConns()
 
 sim.net.addStims() 							# add network stimulation
 sim.setupRecording()              			# setup variables to record for each cell (spikes, V traces, etc)
-sim.runSim()                      			# run parallel Neuron simulation
-sim.gatherData()                  			# gather spiking data and cell info from each node
-
-# distributed saving (to avoid errors with large output data)
+sim.runSim()                                    # run parallel Neuron simulation
+# sim.gatherData()                  			# gather spiking data and cell info from each node
 sim.saveDataInNodes()
 sim.gatherDataFromFiles()
+# checkTCconnRatio()
+plotPops = ['TC', 'IRE']
+try:
+  record_pops = [(pop, list(np.arange(0, netParams.popParams[pop]['numCells']))) for pop in plotPops]
+except:
+  record_pops = [(pop, list(np.arange(0, 40))) for pop in plotPops]
+
+for pop_ind, pop in enumerate(plotPops):
+  print('\n\n', pop)
+  # sim.analysis.plotTraces(
+  figs, traces_dict = sim.analysis.plotTraces(
+    include=[pop],
+    # include=[record_pops[pop_ind]],
+    # timeRange=[490,550],
+    overlay=True, oneFigPer='trace',
+    ylim=[-110, 50],
+    axis=True,
+    figSize=(70, 15),
+    # figSize=(40, 15),
+    # figSize=(60, 18),
+    fontSize=15,
+    # saveFig=True,
+    # saveFig=sim.cfg.saveFigPath+'/'+sim.cfg.filename+'_traces_'+pop+ '.png',
+    saveFig=sim.cfg.saveFolder + '/' + sim.cfg.simLabel + '_traces__' + pop + '.png',
+  )
+
+  tracesData = traces_dict['tracesData']
+  # store_v={}
+  store_v = []
+  store_voltages = {}
+  for rec_ind in range(len(tracesData)):
+    for trace in tracesData[rec_ind].keys():
+      if '_V_soma' in trace:
+        cell_gid_str = trace.split('_V_soma')[0].split('cell_')[1]
+        # store_v.update({cell_gid_str:list(tracesData[rec_ind][trace])})
+        store_v.append(list(tracesData[rec_ind][trace]))
+        store_voltages.update({cell_gid_str: list(tracesData[rec_ind][trace])})
+
+  t_vector = list(tracesData[0]['t'])
+  mean_v = np.mean(store_v, axis=0)
+  t_vector_ = [t_vector[i] for i in range(len(mean_v))]
+  plt.figure(figsize=(70, 15))
+  for trace in store_v: plt.plot(t_vector_, trace, 'gray', alpha=0.2)
+  plt.plot(t_vector_, mean_v, 'r')
+  plt.ylim([-110, 50])
+  plt.xlim([min(t_vector_), max(t_vector_)])
+  # plt.plot(mean_v,'k')
+  plt.savefig(sim.cfg.saveFolder + '/' + sim.cfg.simLabel + '_mean_traces__' + pop + '.png')
+
 sim.saveData()
 sim.analysis.plotData()    # plot spike raster etc
 
-now = datetime.now()
+# spikes_legacy.plotSpikeHist(include=['cochlea', 'TC'], timeRange=[0, 6000],
+#                             saveFig=True)
+
+
 
 current_time = now.strftime("%H:%M:%S")
 print("Current Time =", current_time)
