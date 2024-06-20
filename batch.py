@@ -28,7 +28,7 @@ def assr_batch_grid(filename):
 
     # #### SET weights####
     # params['ThalIEscaleFactor'] = [0.595, 0.59, 0.585]
-    cfg.thalIIScale = [1.25, 1.50, 1.75]
+    params['thalIIScale'] = [1.25, 1.50, 1.75]
     params['cochlearThalInput', 'lfnwave'] = [['silence6s.wav'], ['100msClick624ISIBestFreq.wav']]
 
     #### GROUPED PARAMS ####
