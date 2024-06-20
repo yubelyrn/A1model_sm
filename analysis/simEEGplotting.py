@@ -7,29 +7,28 @@ import os
 import numpy as np
 from scipy import signal
 import matplotlib
-
 matplotlib.use("MacOSX")
 from matplotlib import pyplot as plt
 from lfpykit.eegmegcalc import NYHeadModel
 
-batch = 'CochInputTune0515_2'  # Name of batch for fig saving
+batch = 'ThalTune0620'  # Name of batch for fig saving
 
 stim_on = 3000
-# calcEEG = {'start': 2800, 'stop': 4000}
+# calcEEG = {'start': 3624, 'stop': 4124}
 # filter = {'lowCut':2, 'hiCut': 12}
 # plotERP = {'useFilter': True}
-# plotSpectrogram = {'useFilter': True}
+# plotSpectrogram = {'useFilter': False}
 # plotPSD = {'useFilter': True}
-# plotRaster = {'timeRange': [2800, 4000]}
+plotRaster = {'timeRange': [0, 6000]}
 # PSDSpect = {'timeRange': [3000, 4000], 'useLFP': False, 'useCSD': True}
-# plotMUA = {'populations': ['ITP4', 'ITS4', 'TC', 'HTC', 'IRE'], 'stimDur': 100}
+# plotMUA = {'populations': ['TC', 'IRE', 'ITP4', 'ITS4'], 'stimDur': 100}
 
 calcEEG = False
 filter = False
 plotERP = False
 plotSpectrogram = False
 plotPSD = False
-plotRaster = False
+# plotRaster = False
 PSDSpect = False
 plotMUA = False
 
@@ -39,7 +38,7 @@ for file in os.listdir(base_dir):
     if file.endswith('.pkl'):
         sim.initialize()
         all = sim.loadAll(os.path.join(base_dir, file))
-        fname = file[0:-9]  # Create filename (can change to whatever)
+        fname = file[0:-9] #+ '_11_' # Create filename (can change to whatever)
         if not os.path.exists('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch):
             os.mkdir( '/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch)  # Create Figure directory if one doesn't already exist
 
@@ -68,7 +67,7 @@ for file in os.listdir(base_dir):
             if plotERP['useFilter'] == True:
                 simTools.plotERP(
                     data = filtered_data,
-                    time = t,
+                    time = stim_window,
                     fname = fname,
                     batch = batch)  # Create ERP plot of time window specified
 
@@ -111,13 +110,15 @@ for file in os.listdir(base_dir):
 
         # Plot Raster
         if plotRaster:
-            sim.analysis.plotRaster(
-                orderInverse=True,
-                timeRange=plotRaster['timeRange'],
-                markerSize=1,
-                figSize=(27, 23),
-                saveFig='/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'
-                        + batch + '/' + fname + 'Raster.png')
+                sim.analysis.plotRaster(
+                    include=[sim.cfg.allThalPops + sim.cfg.allCorticalPops],
+                    orderInverse=True,
+                    timeRange=plotRaster['timeRange'],
+                    markerSize=50,
+                    figSize=(25, 25),
+                    saveFig='/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'
+                            + batch + '/' + fname + '_Raster.png')
+
 
         if PSDSpect:
             simTools.plotPSDSpectrogram(
@@ -133,19 +134,22 @@ for file in os.listdir(base_dir):
             simTools.plotMUApops(
                 sim = sim,
                 populations = plotMUA['populations'],
-                binStarts = sim.cfg.cochlearThalInput['lonset'],
-                stimDur = plotMUA['stimDur'],
+                bin_start_times = [3000, 3724, 4448, 5172],
+                bin_duration = plotMUA['stimDur'],
                 batch = batch,
                 fname = fname)
 
 
 
+            # sim.plotting.plotCSD(overlay = 'LFP', timeRange =[3000, 3600], saveFig='/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'
+            #                 + batch + '/' + fname + '_CSD.png')
 # # Plot LFP PSD
 #         sim.analysis.plotLFP(plots = 'PSD', saveFig= '/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'+batch+ '/'+fname+ 'LFP.png')
 # # Plot CSD
 #         sim.plotting.plotCSD(overlay= 'CSD', timeRange=[2500, 5000],saveFig='/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch+'/'+fname+'CSDpad.jpeg')
 #         spikes_legacy.plotRatePSD(include = ['IT2', 'IT3', 'ITP4', 'ITS4', 'IT5A', 'CT5A', 'IT5B', 'CT5B' , 'PT5B', 'IT6', 'CT6'],timeRange=[3000, 5000],  saveFig='/Users/scottmcelroy/Desktop/ASSRratePSDAll.png')
-        spikes_legacy.plotSpikeHist(include = ['cochlea'], timeRange=[3000, 6000], saveFig='/Users/scottmcelroy/Desktop/CochHisto.png')
+#         spikes_legacy.plotSpikeHist(include = ['cochlea', 'TC'], timeRange=[3000, 6000], saveFig='/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch + '/' + fname + 'RateHisto')
+        # spikes_legacy.plotSpikeStats(saveFig= '/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch + '/' + fname + 'SpikeStats')
 # spikes_legacy.plotRatePSD(include = ['IT5A', 'CT5A'], timeRange=[3000, 5000], saveFig='/Users/scottmcelroy/Desktop/ASSRratePSDL5A.png')
 # spikes_legacy.plotRatePSD(include = ['IT5B', 'CT5B' , 'PT5B'], timeRange=[3000, 5000], saveFig='/Users/scottmcelroy/Desktop/ASSRratePSDL5B.png')
 # spikes_legacy.plotRatePSD(include = ['IT6', 'CT6'], timeRange=[3000, 5000], saveFig='/Users/scottmcelroy/Desktop/ASSRratePSDL6.png')
