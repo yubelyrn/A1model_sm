@@ -11,7 +11,7 @@ matplotlib.use("MacOSX")
 from matplotlib import pyplot as plt
 from lfpykit.eegmegcalc import NYHeadModel
 
-batch = 'PureToneTest0618'  # Name of batch for fig saving
+batch = 'ThalTune0620'  # Name of batch for fig saving
 
 stim_on = 3000
 # calcEEG = {'start': 3624, 'stop': 4124}
@@ -38,7 +38,7 @@ for file in os.listdir(base_dir):
     if file.endswith('.pkl'):
         sim.initialize()
         all = sim.loadAll(os.path.join(base_dir, file))
-        fname = file[0:-9] + '_1_'#+ '_11_' # Create filename (can change to whatever)
+        fname = file[0:-9] #+ '_11_' # Create filename (can change to whatever)
         if not os.path.exists('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch):
             os.mkdir( '/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch)  # Create Figure directory if one doesn't already exist
 
