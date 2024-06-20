@@ -465,6 +465,7 @@ def wireThal ():
               else:                  # I->I
                   syn = ThalIISynMech
                   synWeightFactor = cfg.synWeightFractionThalII
+                  scaleFactor = cfg.thalIIScale
               # use spatially dependent wiring between thalamic core excitatory neurons
               if (pre == 'TC' and (post == 'TC' or post == 'HTC')) or (pre == 'HTC' and (post == 'TC' or post == 'HTC')):
                 prob = '%f * exp(-dist_x/%f)' % (pmat[pre][post], ThalamicCoreLambda)
