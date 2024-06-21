@@ -28,15 +28,15 @@ def assr_batch_grid(filename):
 
     # #### SET weights####
     # params['ThalIEscaleFactor'] = [0.595, 0.59, 0.585]
-    params['thalIIScale'] = [1.50]
-    params['ThalIEscaleFactor'] = [0.7]
-    params['cochlearThalInput', 'weightECore'] = [0.9, 0.8, 0.7]
+    #params['thalIIScale'] = [1.50]
+    #params['ThalIEscaleFactor'] = [0.7]
+    #params['cochlearThalInput', 'weightECore'] = [0.9, 0.8, 0.7]
     params['cochlearThalInput', 'lfnwave'] = [['silence6s.wav'], ['100msClick624ISIBestFreq.wav']]
 
     #### GROUPED PARAMS ####
     
     # Add the parameter for grid search
-    params['cochThalweightICore'] = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]  # Values between 0.1 and 1.0
+    params['cochlearThalInput','weightICore'] = [0.1, 0.2]  # Values between 0.1 and 1.0
 
     groupedParams = []
 
@@ -102,7 +102,7 @@ def assr_batch_grid(filename):
 def setRunCfg(b, type='hpc_sge'):
     if type == 'hpc_sge':
         b.runCfg = {'type': 'hpc_sge', # for downstate HPC
-                    'jobName': 'smc_ASSR_batch', # label for job
+                    'jobName': 'yrm_ASSR_batch', # label for job
                     'cores': 64, # give 60 cores here
                     'script': 'init.py', # what you normally run
                     'vmem': '256G', # or however much memory you need
@@ -144,5 +144,5 @@ if __name__ == '__main__':
     b.batchLabel = 'CochThalEcore0620'
     b.saveFolder = 'data/'+b.batchLabel
 
-    setRunCfg(b, 'hpc_slurm_Expanse')
+    setRunCfg(b, 'hpc_sge')
     b.run() # run batch
