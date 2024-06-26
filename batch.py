@@ -37,7 +37,7 @@ def assr_batch_grid(filename):
     
     # Add the parameter for grid search
     #params['cochlearThalInput','weightICore'] = [0.1, 0.2]  # Values between 0.1 and 1.0
-    params['thalL4E'] = [20.0]
+    params['thalL4E'] = [15.0]
     
     groupedParams = []
 
