@@ -38,8 +38,8 @@ def assr_batch_grid(filename):
     # Add the parameter for grid search
     #params['cochlearThalInput','weightICore'] = [0.1, 0.2]  # Values between 0.1 and 1.0
     params['thalL4E'] = [2.5]
-    params['thalIIScale'] = [1.25,1.75,1.5]
-    params['EEGain'] = [0.2]
+    params['thalIIScale'] = [1.75]
+    params['EEGain'] = [0.1,0.2,0.3]
     
     groupedParams = []
 
