@@ -40,6 +40,10 @@ def assr_batch_grid(filename):
     params['thalL4E'] = [2.5]
     params['thalIIScale'] = [1.75]
     params['EEGain'] = [0.15]
+    params['EELayerGain', '5A'] = [0.2, 0.3, 0.4]
+    params['EILayerGain', '5A'] = [0.2, 0.3, 0.4]
+    params['IELayerGain', '5A'] = [0.2, 0.3, 0.4]
+    params['IILayerGain', '5A'] = [0.2, 0.3, 0.4]
     
     groupedParams = []
 
@@ -144,7 +148,7 @@ if __name__ == '__main__':
     #b = assr_batch('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'ThalL4E_IIScale_EEGain_0710_2'
+    b.batchLabel = 'ThalL4E_IIScale_EEGain_LayerGain_5A_0717'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_sge')
