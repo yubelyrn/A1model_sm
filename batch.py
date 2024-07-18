@@ -40,9 +40,9 @@ def assr_batch_grid(filename):
     params['thalL4E'] = [2.5]
     params['thalIIScale'] = [1.75]
     params['EEGain'] = [0.3]
-    params['EElLayerGain', '5A'] = [1.1, 1.25, 1.5]
-    params['EElLayerGain', '5B'] = [0.1, 0.25, 0.5]
-    params['EElLayerGain', '6'] = [1.2, 1.35, 1.5]
+    params['EELayerGain', '5A'] = [1.1, 1.25, 1.5]
+    params['EELayerGain', '5B'] = [0.1, 0.25, 0.5]
+    params['EELayerGain', '6'] = [1.2, 1.35, 1.5]
     
     groupedParams = []
 
