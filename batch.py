@@ -31,7 +31,7 @@ def assr_batch_grid(filename):
     #params['thalIIScale'] = [1.50]
     #params['ThalIEscaleFactor'] = [0.7]
     #params['cochlearThalInput', 'weightECore'] = [0.9, 0.8, 0.7]
-    #params['cochlearThalInput', 'lfnwave'] = [['silence6s.wav'], ['100msClick624ISIBestFreq.wav']]
+    params['cochlearThalInput', 'lfnwave'] = [['silence6s.wav'], ['100msClick624ISIBestFreq.wav']]
 
     #### GROUPED PARAMS ####
     
@@ -147,7 +147,7 @@ if __name__ == '__main__':
     #b = assr_batch('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'ThalL4E_IIScale_EEGain_LayerGain_5A_5B_6_0805'
+    b.batchLabel = 'ThalL4E_IIScale_EEGain_LayerGain_5A_5B_6_08_06'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_sge')
