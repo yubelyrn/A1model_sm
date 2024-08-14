@@ -149,7 +149,7 @@ if __name__ == '__main__':
     #b = assr_batch('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'ThalL4E_IIScale_EEGain_LayerGain__4_5A_5B_6_08_13_2'
+    b.batchLabel = 'ThalL4E_IIScale_EEGain_LayerGain__4_5A_5B_6_08_14'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_sge')
