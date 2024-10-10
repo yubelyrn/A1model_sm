@@ -12,9 +12,9 @@ from matplotlib import pyplot as plt
 from lfpykit.eegmegcalc import NYHeadModel
 
 stim_on = 2000  # Define onset of stimulus if necessary
- calcEEG = {'start': 1000, 'stop': 6000}
- filter = {'lowCut':2, 'hiCut': 12}
- plotERP = {'useFilter': True}
+calcEEG = {'start': 1000, 'stop': 6000}
+filter = {'lowCut':2, 'hiCut': 12}
+plotERP = {'useFilter': True}
 # plotSpectrogram = {'useFilter': False}
 # plotPSD = {'useFilter': True}
 plotRaster = {'timeRange': [0, 6000]}
