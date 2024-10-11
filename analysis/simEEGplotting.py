@@ -31,7 +31,7 @@ PSDSpect = False
 # plotMUA = False
 
 
-batch = 'Test_1004'  # Name of batch for fig saving
+batch = 'Test_1010'  # Name of batch for fig saving
 
 # Load sim EEG data
 base_dir = r'C:\Users\User\yubely\A1Scz\A1_sim_data\\' + batch + '\\'  # Define dir from saved data dir
